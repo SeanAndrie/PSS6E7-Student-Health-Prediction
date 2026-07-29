@@ -8,13 +8,27 @@
     {
       "id": "Hbol",
       "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "MJUe",
       "code_hash": "3c638e7b61dd90cd8f455525d5a9f72b",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
@@ -33,13 +47,27 @@
     {
       "id": "bkHC",
       "code_hash": "6b4e309fe0d8e972aaa7d3d047a61dae",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "lEQa",
       "code_hash": "73c4cc4110577be56d5117cb24bbe5f7",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
@@ -58,25 +86,60 @@
     {
       "id": "Xref",
       "code_hash": "90173e6a4407c0223145a3e7abb5cbe4",
-      "outputs": [],
-      "console": []
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "<class 'pandas.DataFrame'>\nRangeIndex: 690088 entries, 0 to 690087\nData columns (total 15 columns):\n #   Column                   Non-Null Count   Dtype  \n---  ------                   --------------   -----  \n 0   id                       690088 non-null  int64  \n 1   health_condition         690088 non-null  str    \n 2   sleep_duration           614089 non-null  float64\n 3   heart_rate               682255 non-null  float64\n 4   bmi                      676190 non-null  float64\n 5   calorie_expenditure      637235 non-null  float64\n 6   step_count               676172 non-null  float64\n 7   exercise_duration        683187 non-null  float64\n 8   water_intake             646611 non-null  float64\n 9   diet_type                683187 non-null  str    \n 10  stress_level             607277 non-null  str    \n 11  sleep_quality            631757 non-null  str    \n 12  physical_activity_level  653467 non-null  str    \n 13  smoking_alcohol          661506 non-null  str    \n 14  gender                   668715 non-null  str    \ndtypes: float64(7), int64(1), str(7)\nmemory usage: 79.0 MB\n",
+          "mimetype": "text/plain"
+        }
+      ]
     },
     {
       "id": "SFPL",
       "code_hash": "56dbad05f90d4e2f7adbdd2ff0ff4b05",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='SFPL-0' random-id='164edab0-1f70-ee68-e10a-096241fbaa85'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;id&#92;&quot;:0,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;unhealthy&#92;&quot;,&#92;&quot;sleep_duration&#92;&quot;:5.22,&#92;&quot;heart_rate&#92;&quot;:70.6,&#92;&quot;bmi&#92;&quot;:25.66,&#92;&quot;calorie_expenditure&#92;&quot;:2174.0,&#92;&quot;step_count&#92;&quot;:1326.0,&#92;&quot;exercise_duration&#92;&quot;:19.8,&#92;&quot;water_intake&#92;&quot;:1.86,&#92;&quot;diet_type&#92;&quot;:&#92;&quot;veg&#92;&quot;,&#92;&quot;stress_level&#92;&quot;:&#92;&quot;high&#92;&quot;,&#92;&quot;sleep_quality&#92;&quot;:&#92;&quot;average&#92;&quot;,&#92;&quot;physical_activity_level&#92;&quot;:&#92;&quot;sedentary&#92;&quot;,&#92;&quot;smoking_alcohol&#92;&quot;:&#92;&quot;yes&#92;&quot;,&#92;&quot;gender&#92;&quot;:&#92;&quot;female&#92;&quot;},{&#92;&quot;id&#92;&quot;:1,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;at-risk&#92;&quot;,&#92;&quot;sleep_duration&#92;&quot;:5.53,&#92;&quot;heart_rate&#92;&quot;:71.3,&#92;&quot;bmi&#92;&quot;:25.84,&#92;&quot;calorie_expenditure&#92;&quot;:1966.0,&#92;&quot;step_count&#92;&quot;:9891.0,&#92;&quot;exercise_duration&#92;&quot;:49.9,&#92;&quot;water_intake&#92;&quot;:1.26,&#92;&quot;diet_type&#92;&quot;:&#92;&quot;non-veg&#92;&quot;,&#92;&quot;stress_level&#92;&quot;:&#92;&quot;low&#92;&quot;,&#92;&quot;sleep_quality&#92;&quot;:&#92;&quot;average&#92;&quot;,&#92;&quot;physical_activity_level&#92;&quot;:&#92;&quot;moderate&#92;&quot;,&#92;&quot;smoking_alcohol&#92;&quot;:&#92;&quot;yes&#92;&quot;,&#92;&quot;gender&#92;&quot;:&#92;&quot;other&#92;&quot;},{&#92;&quot;id&#92;&quot;:2,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;unhealthy&#92;&quot;,&#92;&quot;sleep_duration&#92;&quot;:5.29,&#92;&quot;heart_rate&#92;&quot;:75.4,&#92;&quot;bmi&#92;&quot;:24.54,&#92;&quot;calorie_expenditure&#92;&quot;:2688.0,&#92;&quot;step_count&#92;&quot;:14216.0,&#92;&quot;exercise_duration&#92;&quot;:38.1,&#92;&quot;water_intake&#92;&quot;:1.6,&#92;&quot;diet_type&#92;&quot;:&#92;&quot;veg&#92;&quot;,&#92;&quot;stress_level&#92;&quot;:&#92;&quot;high&#92;&quot;,&#92;&quot;sleep_quality&#92;&quot;:&#92;&quot;poor&#92;&quot;,&#92;&quot;physical_activity_level&#92;&quot;:&#92;&quot;active&#92;&quot;,&#92;&quot;smoking_alcohol&#92;&quot;:&#92;&quot;yes&#92;&quot;,&#92;&quot;gender&#92;&quot;:&#92;&quot;male&#92;&quot;},{&#92;&quot;id&#92;&quot;:3,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;unhealthy&#92;&quot;,&#92;&quot;sleep_duration&#92;&quot;:4.7,&#92;&quot;heart_rate&#92;&quot;:77.2,&#92;&quot;bmi&#92;&quot;:23.13,&#92;&quot;calorie_expenditure&#92;&quot;:2630.0,&#92;&quot;step_count&#92;&quot;:7174.0,&#92;&quot;exercise_duration&#92;&quot;:59.9,&#92;&quot;water_intake&#92;&quot;:2.02,&#92;&quot;diet_type&#92;&quot;:&#92;&quot;veg&#92;&quot;,&#92;&quot;stress_level&#92;&quot;:&#92;&quot;high&#92;&quot;,&#92;&quot;sleep_quality&#92;&quot;:&#92;&quot;average&#92;&quot;,&#92;&quot;physical_activity_level&#92;&quot;:&#92;&quot;active&#92;&quot;,&#92;&quot;smoking_alcohol&#92;&quot;:&#92;&quot;occasional&#92;&quot;,&#92;&quot;gender&#92;&quot;:&#92;&quot;female&#92;&quot;},{&#92;&quot;id&#92;&quot;:4,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;at-risk&#92;&quot;,&#92;&quot;sleep_duration&#92;&quot;:7.23,&#92;&quot;heart_rate&#92;&quot;:73.4,&#92;&quot;bmi&#92;&quot;:28.44,&#92;&quot;calorie_expenditure&#92;&quot;:2560.0,&#92;&quot;step_count&#92;&quot;:6584.0,&#92;&quot;exercise_duration&#92;&quot;:46.0,&#92;&quot;water_intake&#92;&quot;:2.25,&#92;&quot;diet_type&#92;&quot;:&#92;&quot;veg&#92;&quot;,&#92;&quot;stress_level&#92;&quot;:NaN,&#92;&quot;sleep_quality&#92;&quot;:&#92;&quot;average&#92;&quot;,&#92;&quot;physical_activity_level&#92;&quot;:&#92;&quot;sedentary&#92;&quot;,&#92;&quot;smoking_alcohol&#92;&quot;:NaN,&#92;&quot;gender&#92;&quot;:&#92;&quot;male&#92;&quot;}]&quot;' data-total-rows='5' data-total-columns='15' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;id&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;health_condition&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;diet_type&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;stress_level&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;sleep_quality&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;physical_activity_level&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;smoking_alcohol&quot;,[&quot;string&quot;,&quot;str&quot;]],[&quot;gender&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "BYtC",
       "code_hash": "e502298e337f602d23276daa0c003791",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='BYtC-0' random-id='a2f52610-ffe3-0941-43c5-db7bc30b8396'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Index0&#92;&quot;:&#92;&quot;count&#92;&quot;,&#92;&quot;id&#92;&quot;:690088.0,&#92;&quot;sleep_duration&#92;&quot;:614089.0,&#92;&quot;heart_rate&#92;&quot;:682255.0,&#92;&quot;bmi&#92;&quot;:676190.0,&#92;&quot;calorie_expenditure&#92;&quot;:637235.0,&#92;&quot;step_count&#92;&quot;:676172.0,&#92;&quot;exercise_duration&#92;&quot;:683187.0,&#92;&quot;water_intake&#92;&quot;:646611.0},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;mean&#92;&quot;,&#92;&quot;id&#92;&quot;:345043.5,&#92;&quot;sleep_duration&#92;&quot;:6.992597310813253,&#92;&quot;heart_rate&#92;&quot;:75.09650428358898,&#92;&quot;bmi&#92;&quot;:22.98492504917257,&#92;&quot;calorie_expenditure&#92;&quot;:2226.0849309909217,&#92;&quot;step_count&#92;&quot;:8615.953050407294,&#92;&quot;exercise_duration&#92;&quot;:38.75145557512072,&#92;&quot;water_intake&#92;&quot;:2.18854223018167},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;std&#92;&quot;,&#92;&quot;id&#92;&quot;:199211.39061978023,&#92;&quot;sleep_duration&#92;&quot;:1.2154067205430614,&#92;&quot;heart_rate&#92;&quot;:8.175106424643563,&#92;&quot;bmi&#92;&quot;:2.481786645204862,&#92;&quot;calorie_expenditure&#92;&quot;:347.5320976009461,&#92;&quot;step_count&#92;&quot;:3929.399830758335,&#92;&quot;exercise_duration&#92;&quot;:14.742189352252645,&#92;&quot;water_intake&#92;&quot;:0.5184894887561875},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;min&#92;&quot;,&#92;&quot;id&#92;&quot;:0.0,&#92;&quot;sleep_duration&#92;&quot;:3.0,&#92;&quot;heart_rate&#92;&quot;:50.0,&#92;&quot;bmi&#92;&quot;:16.0,&#92;&quot;calorie_expenditure&#92;&quot;:1200.0,&#92;&quot;step_count&#92;&quot;:1002.0,&#92;&quot;exercise_duration&#92;&quot;:0.0,&#92;&quot;water_intake&#92;&quot;:0.5},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;25%&#92;&quot;,&#92;&quot;id&#92;&quot;:172521.75,&#92;&quot;sleep_duration&#92;&quot;:6.16,&#92;&quot;heart_rate&#92;&quot;:69.4,&#92;&quot;bmi&#92;&quot;:21.32,&#92;&quot;calorie_expenditure&#92;&quot;:2053.0,&#92;&quot;step_count&#92;&quot;:5389.0,&#92;&quot;exercise_duration&#92;&quot;:29.2,&#92;&quot;water_intake&#92;&quot;:1.84},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;50%&#92;&quot;,&#92;&quot;id&#92;&quot;:345043.5,&#92;&quot;sleep_duration&#92;&quot;:6.99,&#92;&quot;heart_rate&#92;&quot;:75.1,&#92;&quot;bmi&#92;&quot;:22.99,&#92;&quot;calorie_expenditure&#92;&quot;:2241.0,&#92;&quot;step_count&#92;&quot;:8856.0,&#92;&quot;exercise_duration&#92;&quot;:39.4,&#92;&quot;water_intake&#92;&quot;:2.17},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;75%&#92;&quot;,&#92;&quot;id&#92;&quot;:517565.25,&#92;&quot;sleep_duration&#92;&quot;:7.81,&#92;&quot;heart_rate&#92;&quot;:80.7,&#92;&quot;bmi&#92;&quot;:24.66,&#92;&quot;calorie_expenditure&#92;&quot;:2456.0,&#92;&quot;step_count&#92;&quot;:12114.0,&#92;&quot;exercise_duration&#92;&quot;:49.4,&#92;&quot;water_intake&#92;&quot;:2.5},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;max&#92;&quot;,&#92;&quot;id&#92;&quot;:690087.0,&#92;&quot;sleep_duration&#92;&quot;:10.0,&#92;&quot;heart_rate&#92;&quot;:107.7,&#92;&quot;bmi&#92;&quot;:34.82,&#92;&quot;calorie_expenditure&#92;&quot;:3580.0,&#92;&quot;step_count&#92;&quot;:14999.0,&#92;&quot;exercise_duration&#92;&quot;:99.8,&#92;&quot;water_intake&#92;&quot;:4.72}]&quot;' data-total-rows='8' data-total-columns='8' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;id&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;Index0&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "RGSE",
       "code_hash": "a8d59f3c71607bac275b76586bca3df3",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='RGSE-0' random-id='97b32ea1-53d3-fea5-e98a-01a80f62d7b6'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;health_condition&#92;&quot;:&#92;&quot;at-risk&#92;&quot;,&#92;&quot;proportion&#92;&quot;:0.8586745458550213},{&#92;&quot;health_condition&#92;&quot;:&#92;&quot;unhealthy&#92;&quot;,&#92;&quot;proportion&#92;&quot;:0.08364730295266691},{&#92;&quot;health_condition&#92;&quot;:&#92;&quot;fit&#92;&quot;,&#92;&quot;proportion&#92;&quot;:0.057678151192311705}]&quot;' data-total-rows='3' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;proportion&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;health_condition&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
@@ -95,7 +158,14 @@
     {
       "id": "emfo",
       "code_hash": "86ad22f9138c6abafaef2f4716e9d04b",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
@@ -114,7 +184,14 @@
     {
       "id": "nWHF",
       "code_hash": "f1b6f38353146f29dda5b9e1dc6ba42e",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
@@ -133,8 +210,22 @@
     {
       "id": "ZHCJ",
       "code_hash": "a39f76b69509951300e6a7b419af1811",
-      "outputs": [],
-      "console": []
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "X original shape:  {(690088, 13)}\nX_train shape:  {(552070, 13)}\nX_val shape:  {(138018, 13)}\ny original shape:  {(690088,)}\ny_train shape:  {(552070,)}\ny_val shape:  {(138018,)}\n",
+          "mimetype": "text/plain"
+        }
+      ]
     },
     {
       "id": "ROlb",
@@ -152,8 +243,28 @@
     {
       "id": "qnkX",
       "code_hash": "6eff8c3aa34e24a6c6693d52b3165fd9",
-      "outputs": [],
-      "console": []
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "/tmp/marimo_833284/__marimo__cell_qnkX_.py:15: Pandas4Warning: For backward compatibility, 'str' dtypes are included by select_dtypes when 'object' dtype is specified. This behavior is deprecated and will be removed in a future version. Explicitly pass 'str' to `include` to select them, or to `exclude` to remove them and silence this warning.\nSee https://pandas.pydata.org/docs/user_guide/migration-3-strings.html#string-migration-select-dtypes for details on how to write code that works with pandas 2 and 3.\n  categorical_cols = X.select_dtypes(include=[\"object\"]).columns.tolist()\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "numerical_cols ['sleep_duration', 'heart_rate', 'bmi', 'calorie_expenditure', 'step_count', 'exercise_duration', 'water_intake']\nordinal_cols ['sleep_quality', 'physical_activity_level', 'stress_level']\ncategorical cols ['diet_type', 'smoking_alcohol', 'gender']\nOrdinal categories [['poor', 'average', 'good'], ['sedentary', 'moderate', 'active'], ['low', 'medium', 'high']]\n",
+          "mimetype": "text/plain"
+        }
+      ]
     },
     {
       "id": "TqIu",
@@ -171,8 +282,22 @@
     {
       "id": "Vxnm",
       "code_hash": "438a231c33be64d9152a3813610d8b19",
-      "outputs": [],
-      "console": []
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "ColumnTransformer(transformers=[('num',\n                                 Pipeline(steps=[('imputer',\n                                                  SimpleImputer(add_indicator=True,\n                                                                strategy='median')),\n                                                 ('scaler', RobustScaler())]),\n                                 ['sleep_duration', 'heart_rate', 'bmi',\n                                  'calorie_expenditure', 'step_count',\n                                  'exercise_duration', 'water_intake']),\n                                ('ord',\n                                 Pipeline(steps=[('imputer',\n                                                  SimpleImputer(strategy='most_frequent')),\n                                                 ('encoder',\n                                                  OrdinalE...\n                                                                              'moderate',\n                                                                              'active'],\n                                                                             ['low',\n                                                                              'medium',\n                                                                              'high']],\n                                                                 handle_unknown='use_encoded_value',\n                                                                 unknown_value=-1))]),\n                                 ['sleep_quality', 'physical_activity_level',\n                                  'stress_level']),\n                                ('cat',\n                                 Pipeline(steps=[('imputer',\n                                                  SimpleImputer(strategy='most_frequent')),\n                                                 ('encoder',\n                                                  OneHotEncoder(handle_unknown='ignore',\n                                                                sparse_output=False))]),\n                                 ['diet_type', 'smoking_alcohol', 'gender'])])\n",
+          "mimetype": "text/plain"
+        }
+      ]
     },
     {
       "id": "DnEU",
@@ -190,20 +315,55 @@
     {
       "id": "ulZA",
       "code_hash": "163edcb31edf7f76b1574adbc7a04ffa",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "ecfG",
       "code_hash": "5b3fad0b5cf74b4f5fac9a3071af093d",
-      "outputs": [],
-      "console": []
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "['sleep_quality' 'physical_activity_level' 'stress_level']\nFeature count 26\nFeature names ['sleep_duration', 'heart_rate', 'bmi', 'calorie_expenditure', 'step_count', 'exercise_duration', 'water_intake', 'sleep_duration_missing', 'heart_rate_missing', 'bmi_missing', 'calorie_expenditure_missing', 'step_count_missing', 'exercise_duration_missing', 'water_intake_missing', 'sleep_quality', 'physical_activity_level', 'stress_level', 'diet_type_balanced', 'diet_type_non-veg', 'diet_type_veg', 'smoking_alcohol_no', 'smoking_alcohol_occasional', 'smoking_alcohol_yes', 'gender_female', 'gender_male', 'gender_other']\n",
+          "mimetype": "text/plain"
+        }
+      ]
     },
     {
       "id": "Pvdt",
       "code_hash": "768a433bf4d7aa9952a102c5455c165f",
-      "outputs": [],
-      "console": []
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "X_train_processed dataframe (552070, 26)\nX_val_processed dataframe (138018, 26)\nX_test_processed dataframe (552070, 26)\n",
+          "mimetype": "text/plain"
+        }
+      ]
     },
     {
       "id": "ZBYS",
@@ -221,26 +381,68 @@
     {
       "id": "aLJB",
       "code_hash": "2668ac62210b185b069165e8f8571d87",
-      "outputs": [],
-      "console": []
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "nan count in X_train_processed is 0\nnan count in X_val_processed is 0\nnan count in X_test is 0\n",
+          "mimetype": "text/plain"
+        }
+      ]
     },
     {
       "id": "nHfw",
       "code_hash": "df8e4b87039dd401546cf16b6d4095ac",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='nHfw-0' random-id='3bdbacec-5d8a-065b-2743-c4aceef91cf3'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;sleep_duration&#92;&quot;:0.13043478260869545,&#92;&quot;heart_rate&#92;&quot;:1.4594594594594605,&#92;&quot;bmi&#92;&quot;:1.190769230769231,&#92;&quot;calorie_expenditure&#92;&quot;:1.0675675675675675,&#92;&quot;step_count&#92;&quot;:-1.1248868778280543,&#92;&quot;exercise_duration&#92;&quot;:0.4850000000000002,&#92;&quot;water_intake&#92;&quot;:-0.2333333333333335,&#92;&quot;sleep_duration_missing&#92;&quot;:0.0,&#92;&quot;heart_rate_missing&#92;&quot;:0.0,&#92;&quot;bmi_missing&#92;&quot;:0.0,&#92;&quot;calorie_expenditure_missing&#92;&quot;:0.0,&#92;&quot;step_count_missing&#92;&quot;:0.0,&#92;&quot;exercise_duration_missing&#92;&quot;:0.0,&#92;&quot;water_intake_missing&#92;&quot;:0.0,&#92;&quot;sleep_quality&#92;&quot;:1.0,&#92;&quot;physical_activity_level&#92;&quot;:0.0,&#92;&quot;stress_level&#92;&quot;:1.0,&#92;&quot;diet_type_balanced&#92;&quot;:0.0,&#92;&quot;diet_type_non-veg&#92;&quot;:1.0,&#92;&quot;diet_type_veg&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;gender_female&#92;&quot;:0.0,&#92;&quot;gender_male&#92;&quot;:1.0,&#92;&quot;gender_other&#92;&quot;:0.0},{&#92;&quot;sleep_duration&#92;&quot;:0.0,&#92;&quot;heart_rate&#92;&quot;:0.0,&#92;&quot;bmi&#92;&quot;:0.38153846153846216,&#92;&quot;calorie_expenditure&#92;&quot;:0.3837837837837838,&#92;&quot;step_count&#92;&quot;:0.6953242835595776,&#92;&quot;exercise_duration&#92;&quot;:0.5700000000000001,&#92;&quot;water_intake&#92;&quot;:-0.5666666666666663,&#92;&quot;sleep_duration_missing&#92;&quot;:1.0,&#92;&quot;heart_rate_missing&#92;&quot;:0.0,&#92;&quot;bmi_missing&#92;&quot;:0.0,&#92;&quot;calorie_expenditure_missing&#92;&quot;:0.0,&#92;&quot;step_count_missing&#92;&quot;:0.0,&#92;&quot;exercise_duration_missing&#92;&quot;:0.0,&#92;&quot;water_intake_missing&#92;&quot;:0.0,&#92;&quot;sleep_quality&#92;&quot;:1.0,&#92;&quot;physical_activity_level&#92;&quot;:2.0,&#92;&quot;stress_level&#92;&quot;:0.0,&#92;&quot;diet_type_balanced&#92;&quot;:1.0,&#92;&quot;diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;diet_type_veg&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;gender_female&#92;&quot;:0.0,&#92;&quot;gender_male&#92;&quot;:1.0,&#92;&quot;gender_other&#92;&quot;:0.0},{&#92;&quot;sleep_duration&#92;&quot;:1.210144927536232,&#92;&quot;heart_rate&#92;&quot;:0.657657657657659,&#92;&quot;bmi&#92;&quot;:-0.4861538461538456,&#92;&quot;calorie_expenditure&#92;&quot;:0.2,&#92;&quot;step_count&#92;&quot;:0.09306184012066365,&#92;&quot;exercise_duration&#92;&quot;:-0.805,&#92;&quot;water_intake&#92;&quot;:1.533333333333333,&#92;&quot;sleep_duration_missing&#92;&quot;:0.0,&#92;&quot;heart_rate_missing&#92;&quot;:0.0,&#92;&quot;bmi_missing&#92;&quot;:0.0,&#92;&quot;calorie_expenditure_missing&#92;&quot;:0.0,&#92;&quot;step_count_missing&#92;&quot;:0.0,&#92;&quot;exercise_duration_missing&#92;&quot;:0.0,&#92;&quot;water_intake_missing&#92;&quot;:0.0,&#92;&quot;sleep_quality&#92;&quot;:0.0,&#92;&quot;physical_activity_level&#92;&quot;:0.0,&#92;&quot;stress_level&#92;&quot;:0.0,&#92;&quot;diet_type_balanced&#92;&quot;:1.0,&#92;&quot;diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;diet_type_veg&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;gender_female&#92;&quot;:1.0,&#92;&quot;gender_male&#92;&quot;:0.0,&#92;&quot;gender_other&#92;&quot;:0.0},{&#92;&quot;sleep_duration&#92;&quot;:0.0,&#92;&quot;heart_rate&#92;&quot;:-0.05405405405405357,&#92;&quot;bmi&#92;&quot;:-0.12307692307692264,&#92;&quot;calorie_expenditure&#92;&quot;:-0.20270270270270271,&#92;&quot;step_count&#92;&quot;:-0.2720965309200603,&#92;&quot;exercise_duration&#92;&quot;:-0.89,&#92;&quot;water_intake&#92;&quot;:-0.41666666666666663,&#92;&quot;sleep_duration_missing&#92;&quot;:1.0,&#92;&quot;heart_rate_missing&#92;&quot;:0.0,&#92;&quot;bmi_missing&#92;&quot;:0.0,&#92;&quot;calorie_expenditure_missing&#92;&quot;:0.0,&#92;&quot;step_count_missing&#92;&quot;:0.0,&#92;&quot;exercise_duration_missing&#92;&quot;:0.0,&#92;&quot;water_intake_missing&#92;&quot;:0.0,&#92;&quot;sleep_quality&#92;&quot;:1.0,&#92;&quot;physical_activity_level&#92;&quot;:0.0,&#92;&quot;stress_level&#92;&quot;:1.0,&#92;&quot;diet_type_balanced&#92;&quot;:0.0,&#92;&quot;diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;diet_type_veg&#92;&quot;:1.0,&#92;&quot;smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;gender_female&#92;&quot;:0.0,&#92;&quot;gender_male&#92;&quot;:1.0,&#92;&quot;gender_other&#92;&quot;:0.0},{&#92;&quot;sleep_duration&#92;&quot;:1.3333333333333333,&#92;&quot;heart_rate&#92;&quot;:-0.6216216216216212,&#92;&quot;bmi&#92;&quot;:-0.3015384615384606,&#92;&quot;calorie_expenditure&#92;&quot;:-0.3567567567567568,&#92;&quot;step_count&#92;&quot;:0.7036199095022625,&#92;&quot;exercise_duration&#92;&quot;:0.6750000000000002,&#92;&quot;water_intake&#92;&quot;:0.3000000000000002,&#92;&quot;sleep_duration_missing&#92;&quot;:0.0,&#92;&quot;heart_rate_missing&#92;&quot;:0.0,&#92;&quot;bmi_missing&#92;&quot;:0.0,&#92;&quot;calorie_expenditure_missing&#92;&quot;:0.0,&#92;&quot;step_count_missing&#92;&quot;:0.0,&#92;&quot;exercise_duration_missing&#92;&quot;:0.0,&#92;&quot;water_intake_missing&#92;&quot;:0.0,&#92;&quot;sleep_quality&#92;&quot;:1.0,&#92;&quot;physical_activity_level&#92;&quot;:2.0,&#92;&quot;stress_level&#92;&quot;:1.0,&#92;&quot;diet_type_balanced&#92;&quot;:0.0,&#92;&quot;diet_type_non-veg&#92;&quot;:1.0,&#92;&quot;diet_type_veg&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;gender_female&#92;&quot;:0.0,&#92;&quot;gender_male&#92;&quot;:1.0,&#92;&quot;gender_other&#92;&quot;:0.0}]&quot;' data-total-rows='5' data-total-columns='26' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;sleep_duration_missing&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;heart_rate_missing&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;bmi_missing&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;calorie_expenditure_missing&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;step_count_missing&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;exercise_duration_missing&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;water_intake_missing&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;sleep_quality&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;physical_activity_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;stress_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;diet_type_balanced&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;diet_type_non-veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;diet_type_veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;smoking_alcohol_no&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;smoking_alcohol_occasional&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;smoking_alcohol_yes&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;gender_female&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;gender_male&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;gender_other&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "xXTn",
       "code_hash": "96dde4789104be00eaac3ff317c37cff",
-      "outputs": [],
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='xXTn-0' random-id='74c7dc8d-bf2c-22f2-1179-24ad6ecc87a4'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Index0&#92;&quot;:&#92;&quot;mean&#92;&quot;,&#92;&quot;sleep_duration&#92;&quot;:0.0020186607295912306,&#92;&quot;heart_rate&#92;&quot;:0.00027701311542179425,&#92;&quot;bmi&#92;&quot;:-0.0019411869453562374,&#92;&quot;calorie_expenditure&#92;&quot;:-0.03462882448808147,&#92;&quot;step_count&#92;&quot;:-0.035756236073086346,&#92;&quot;exercise_duration&#92;&quot;:-0.03172886771605043,&#92;&quot;water_intake&#92;&quot;:0.029001153235398994},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;std&#92;&quot;,&#92;&quot;sleep_duration&#92;&quot;:0.8307690984964325,&#92;&quot;heart_rate&#92;&quot;:0.732751927555106,&#92;&quot;bmi&#92;&quot;:0.7557917801956703,&#92;&quot;calorie_expenditure&#92;&quot;:0.9030328600628269,&#92;&quot;step_count&#92;&quot;:0.5868709568978095,&#92;&quot;exercise_duration&#92;&quot;:0.7333678928948906,&#92;&quot;water_intake&#92;&quot;:0.8369058392236668},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;50%&#92;&quot;,&#92;&quot;sleep_duration&#92;&quot;:0.0,&#92;&quot;heart_rate&#92;&quot;:0.0,&#92;&quot;bmi&#92;&quot;:0.0,&#92;&quot;calorie_expenditure&#92;&quot;:0.0,&#92;&quot;step_count&#92;&quot;:0.0,&#92;&quot;exercise_duration&#92;&quot;:0.0,&#92;&quot;water_intake&#92;&quot;:0.0}]&quot;' data-total-rows='3' data-total-columns='7' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;Index0&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
       "console": []
     },
     {
       "id": "AjVT",
       "code_hash": "b7145bc102979b1f6fe290e5fa2f06e6",
-      "outputs": [],
-      "console": []
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "health_condition\nat-risk      0.858676\nunhealthy    0.083647\nfit          0.057677\nName: proportion, dtype: float64\nhealth_condition\nat-risk      0.858675\nunhealthy    0.083647\nfit          0.057678\nName: proportion, dtype: float64\n",
+          "mimetype": "text/plain"
+        }
+      ]
     },
     {
       "id": "pHFh",
@@ -258,8 +460,22 @@
     {
       "id": "NCOB",
       "code_hash": "83deb1b200ac0683b0f8eef28778899e",
-      "outputs": [],
-      "console": []
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "['at-risk' 'fit' 'unhealthy']\n",
+          "mimetype": "text/plain"
+        }
+      ]
     }
   ]
 }

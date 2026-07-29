@@ -6,20 +6,7 @@
   },
   "cells": [
     {
-      "id": "Hbol",
-      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
-      "outputs": [
-        {
-          "type": "data",
-          "data": {
-            "text/plain": ""
-          }
-        }
-      ],
-      "console": []
-    },
-    {
-      "id": "MJUe",
+      "id": "waUC",
       "code_hash": "d31cb0bb20c6b176485fe1df75b1b31a",
       "outputs": [
         {
@@ -32,8 +19,8 @@
       "console": []
     },
     {
-      "id": "vblA",
-      "code_hash": "58f31f64ac80e07c77035c34f3e5c33a",
+      "id": "Hbol",
+      "code_hash": "c93d9f5dfb3b4c7ad36d84c0542da39e",
       "outputs": [
         {
           "type": "data",
@@ -45,7 +32,7 @@
       "console": []
     },
     {
-      "id": "bkHC",
+      "id": "UtEC",
       "code_hash": "37213500c6be20187b0002437aeee71c",
       "outputs": [
         {
@@ -58,8 +45,8 @@
       "console": []
     },
     {
-      "id": "lEQa",
-      "code_hash": "5e886ff55fce5d3231952e5c975dcec4",
+      "id": "MJUe",
+      "code_hash": "d73edd7c082beafc8d5244400ce424e4",
       "outputs": [
         {
           "type": "data",
@@ -71,8 +58,34 @@
       "console": []
     },
     {
+      "id": "ZYGn",
+      "code_hash": "833f600074f93827633984b6654344ad",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"preprocess-data\">Preprocess Data</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "29135f80b62a79f82e7d4863f7de4f16",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
       "id": "PKri",
-      "code_hash": "c4953da9ce9108a72145c0a5de6aa083",
+      "code_hash": "0fa09bac34148a9d1cbe122f26aca835",
       "outputs": [
         {
           "type": "data",
@@ -84,8 +97,8 @@
       "console": []
     },
     {
-      "id": "vJSz",
-      "code_hash": "43d715eb4404d5d3dbe560493c9afb04",
+      "id": "uNeJ",
+      "code_hash": "ff2f9045338e72f1de5cdf7da38bc994",
       "outputs": [
         {
           "type": "data",
@@ -97,27 +110,420 @@
       "console": []
     },
     {
-      "id": "mMkD",
-      "code_hash": "cfb07885d4560ce3512f99146b1713c0",
+      "id": "vIPG",
+      "code_hash": "cb0dfe824b510d2da25c2dcaa4e377c6",
       "outputs": [
         {
-          "type": "error",
-          "ename": "exception",
-          "evalue": "name 'numerical_cols' is not defined",
-          "traceback": null
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PRQB",
+      "code_hash": "95bdf84ffc4c78dd00db06e0e35a0782",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"linear-models\">Linear Models</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "c38ecc595e677df11a0091defb500301",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYvj",
+      "code_hash": "e289ac4ea8912099a719553f229f94f2",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='BYvj-0' random-id='95977de9-0a54-6f49-a1ab-723071403651'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;num__sleep_duration&#92;&quot;:0.13043478260869545,&#92;&quot;num__heart_rate&#92;&quot;:1.4594594594594605,&#92;&quot;num__bmi&#92;&quot;:1.190769230769231,&#92;&quot;num__calorie_expenditure&#92;&quot;:1.0675675675675675,&#92;&quot;num__step_count&#92;&quot;:-1.1248868778280543,&#92;&quot;num__exercise_duration&#92;&quot;:0.4850000000000002,&#92;&quot;num__water_intake&#92;&quot;:-0.2333333333333335,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0},{&#92;&quot;num__sleep_duration&#92;&quot;:0.0,&#92;&quot;num__heart_rate&#92;&quot;:0.0,&#92;&quot;num__bmi&#92;&quot;:0.38153846153846216,&#92;&quot;num__calorie_expenditure&#92;&quot;:0.3837837837837838,&#92;&quot;num__step_count&#92;&quot;:0.6953242835595776,&#92;&quot;num__exercise_duration&#92;&quot;:0.5700000000000001,&#92;&quot;num__water_intake&#92;&quot;:-0.5666666666666663,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:1.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:0.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0},{&#92;&quot;num__sleep_duration&#92;&quot;:1.210144927536232,&#92;&quot;num__heart_rate&#92;&quot;:0.657657657657659,&#92;&quot;num__bmi&#92;&quot;:-0.4861538461538456,&#92;&quot;num__calorie_expenditure&#92;&quot;:0.2,&#92;&quot;num__step_count&#92;&quot;:0.09306184012066365,&#92;&quot;num__exercise_duration&#92;&quot;:-0.805,&#92;&quot;num__water_intake&#92;&quot;:1.533333333333333,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:0.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:0.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__gender_female&#92;&quot;:1.0,&#92;&quot;cat__gender_male&#92;&quot;:0.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0},{&#92;&quot;num__sleep_duration&#92;&quot;:0.0,&#92;&quot;num__heart_rate&#92;&quot;:-0.05405405405405357,&#92;&quot;num__bmi&#92;&quot;:-0.12307692307692264,&#92;&quot;num__calorie_expenditure&#92;&quot;:-0.20270270270270271,&#92;&quot;num__step_count&#92;&quot;:-0.2720965309200603,&#92;&quot;num__exercise_duration&#92;&quot;:-0.89,&#92;&quot;num__water_intake&#92;&quot;:-0.41666666666666663,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:1.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0},{&#92;&quot;num__sleep_duration&#92;&quot;:1.3333333333333333,&#92;&quot;num__heart_rate&#92;&quot;:-0.6216216216216212,&#92;&quot;num__bmi&#92;&quot;:-0.3015384615384606,&#92;&quot;num__calorie_expenditure&#92;&quot;:-0.3567567567567568,&#92;&quot;num__step_count&#92;&quot;:0.7036199095022625,&#92;&quot;num__exercise_duration&#92;&quot;:0.6750000000000002,&#92;&quot;num__water_intake&#92;&quot;:0.3000000000000002,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0}]&quot;' data-total-rows='5' data-total-columns='26' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;num__sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__sleep_quality&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__physical_activity_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__stress_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_balanced&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_non-veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_no&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_occasional&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_yes&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_female&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_male&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_other&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "gnhc",
+      "code_hash": "d8e1a2c5029639f858237ea690b1e88e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='gnhc-0' random-id='a97fe861-16d0-8bf2-8cc6-e33866d4a196'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0}]&quot;' data-total-rows='5' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;health_condition&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "HYqz",
+      "code_hash": "6a06a0376b2c7c01e157cd4b71c5535d",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='HYqz-0' random-id='525e055c-406b-e0f5-36b9-ac8c7e7f1e00'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;models&#92;&quot;:&#92;&quot;Logistic Regression&#92;&quot;,&#92;&quot;Balanced Accuracy&#92;&quot;:0.810296710281104,&#92;&quot;Macro F1 &#92;&quot;:0.8524750899262991},{&#92;&quot;models&#92;&quot;:&#92;&quot;SGD Classifier&#92;&quot;,&#92;&quot;Balanced Accuracy&#92;&quot;:0.5672442467829277,&#92;&quot;Macro F1 &#92;&quot;:0.6569422836867375}]&quot;' data-total-rows='2' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;Balanced Accuracy&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Macro F1 &quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;models&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
         }
       ],
       "console": [
         {
           "type": "stream",
-          "name": "stderr",
-          "text": "<span class=\"codehilite\"><div class=\"highlight\"><pre><span></span><span class=\"gt\">Traceback (most recent call last):</span>\n  File <span class=\"nb\">&quot;/tmp/marimo_4140/__marimo__cell_mMkD_.py&quot;</span>, line <span class=\"m\">7</span>, in <span class=\"n\">&lt;module&gt;</span>\n<span class=\"w\">    </span><span class=\"p\">]),</span> <span class=\"n\">numerical_cols</span><span class=\"p\">),</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^</span>\n<span class=\"gr\">NameError</span>: <span class=\"n\">name &#39;numerical_cols&#39; is not defined</span>\n</pre></div>\n</span>",
-          "mimetype": "application/vnd.marimo+traceback"
+          "name": "stdout",
+          "text": "Name: Linear Model CV | 5-Fold\n\nFold 0:\n----------------------------------------\n\nCross-validating: [Logistic Regression]\n\n - Balanced Accuracy : 0.80700\n\n - Macro F1  : 0.85072\n\nCross-validating: [SGD Classifier]\n\n - Balanced Accuracy : 0.53927\n\n - Macro F1  : 0.62157\n\nFold 1:\n----------------------------------------\n\nCross-validating: [Logistic Regression]\n\n - Balanced Accuracy : 0.81047\n\n - Macro F1  : 0.85296\n\nCross-validating: [SGD Classifier]\n\n - Balanced Accuracy : 0.57960\n\n - Macro F1  : 0.67202\n\nFold 2:\n----------------------------------------\n\nCross-validating: [Logistic Regression]\n\n - Balanced Accuracy : 0.80953\n\n - Macro F1  : 0.85229\n\nCross-validating: [SGD Classifier]\n\n - Balanced Accuracy : 0.54130\n\n - Macro F1  : 0.62906\n\nFold 3:\n----------------------------------------\n\nCross-validating: [Logistic Regression]\n\n - Balanced Accuracy : 0.81418\n\n - Macro F1  : 0.85420\n\nCross-validating: [SGD Classifier]\n\n - Balanced Accuracy : 0.60507\n\n - Macro F1  : 0.69879\n\nFold 4:\n----------------------------------------\n\nCross-validating: [Logistic Regression]\n\n - Balanced Accuracy : 0.81030\n\n - Macro F1  : 0.85220\n\nCross-validating: [SGD Classifier]\n\n - Balanced Accuracy : 0.57098\n\n - Macro F1  : 0.66326\n\n",
+          "mimetype": "text/plain"
         }
       ]
     },
     {
-      "id": "eiSX",
+      "id": "qOCA",
+      "code_hash": "01e1005313a4efec63137d16c1b0f979",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='qOCA-0' random-id='223482b0-64b2-a3b6-1843-9d2695afbd56'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Index0&#92;&quot;:&#92;&quot;Balanced Accuracy&#92;&quot;,&#92;&quot;Logistic Regression&#92;&quot;:0.8098246900369421,&#92;&quot;SGD Classifier&#92;&quot;:0.5819758155593618},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;Macro F1 &#92;&quot;,&#92;&quot;Logistic Regression&#92;&quot;:0.851217065723477,&#92;&quot;SGD Classifier&#92;&quot;:0.6750494750315944}]&quot;' data-total-rows='2' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;Logistic Regression&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;SGD Classifier&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;Index0&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "jmid",
+      "code_hash": "7d002ff27d038505960fea6f426799a2",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"tree-based-models\">Tree-based Models</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "hRuf",
+      "code_hash": "ffe8cf42d567c415ed04a9df5ca5477a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "oXzT",
+      "code_hash": "b494c2ae4069b6e09ec05b6748f33ca4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='oXzT-0' random-id='05ba91ae-eb38-57c2-7001-3fbf396144b3'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;num__sleep_duration&#92;&quot;:7.17,&#92;&quot;num__heart_rate&#92;&quot;:91.3,&#92;&quot;num__bmi&#92;&quot;:26.86,&#92;&quot;num__calorie_expenditure&#92;&quot;:2635.0,&#92;&quot;num__step_count&#92;&quot;:1398.0,&#92;&quot;num__exercise_duration&#92;&quot;:49.1,&#92;&quot;num__water_intake&#92;&quot;:2.03,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0},{&#92;&quot;num__sleep_duration&#92;&quot;:6.99,&#92;&quot;num__heart_rate&#92;&quot;:75.1,&#92;&quot;num__bmi&#92;&quot;:24.23,&#92;&quot;num__calorie_expenditure&#92;&quot;:2382.0,&#92;&quot;num__step_count&#92;&quot;:13466.0,&#92;&quot;num__exercise_duration&#92;&quot;:50.8,&#92;&quot;num__water_intake&#92;&quot;:1.83,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:1.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:0.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0},{&#92;&quot;num__sleep_duration&#92;&quot;:8.66,&#92;&quot;num__heart_rate&#92;&quot;:82.4,&#92;&quot;num__bmi&#92;&quot;:21.41,&#92;&quot;num__calorie_expenditure&#92;&quot;:2314.0,&#92;&quot;num__step_count&#92;&quot;:9473.0,&#92;&quot;num__exercise_duration&#92;&quot;:23.3,&#92;&quot;num__water_intake&#92;&quot;:3.09,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:0.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:0.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__gender_female&#92;&quot;:1.0,&#92;&quot;cat__gender_male&#92;&quot;:0.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0},{&#92;&quot;num__sleep_duration&#92;&quot;:6.99,&#92;&quot;num__heart_rate&#92;&quot;:74.5,&#92;&quot;num__bmi&#92;&quot;:22.59,&#92;&quot;num__calorie_expenditure&#92;&quot;:2165.0,&#92;&quot;num__step_count&#92;&quot;:7052.0,&#92;&quot;num__exercise_duration&#92;&quot;:21.6,&#92;&quot;num__water_intake&#92;&quot;:1.92,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:1.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0},{&#92;&quot;num__sleep_duration&#92;&quot;:8.83,&#92;&quot;num__heart_rate&#92;&quot;:68.2,&#92;&quot;num__bmi&#92;&quot;:22.01,&#92;&quot;num__calorie_expenditure&#92;&quot;:2108.0,&#92;&quot;num__step_count&#92;&quot;:13521.0,&#92;&quot;num__exercise_duration&#92;&quot;:52.9,&#92;&quot;num__water_intake&#92;&quot;:2.35,&#92;&quot;num__missingindicator_sleep_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_heart_rate&#92;&quot;:0.0,&#92;&quot;num__missingindicator_bmi&#92;&quot;:0.0,&#92;&quot;num__missingindicator_calorie_expenditure&#92;&quot;:0.0,&#92;&quot;num__missingindicator_step_count&#92;&quot;:0.0,&#92;&quot;num__missingindicator_exercise_duration&#92;&quot;:0.0,&#92;&quot;num__missingindicator_water_intake&#92;&quot;:0.0,&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0}]&quot;' data-total-rows='5' data-total-columns='26' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;num__sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;num__missingindicator_water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__sleep_quality&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__physical_activity_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__stress_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_balanced&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_non-veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_no&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_occasional&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_yes&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_female&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_male&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_other&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "okHW",
+      "code_hash": "fd7e431fd70024d89fa88f2f45c972bf",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='okHW-0' random-id='53bb3538-dcda-be63-2d80-12d262408806'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0}]&quot;' data-total-rows='5' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;health_condition&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "cXEo",
+      "code_hash": "0535fa9997bd4ab9be95a95cc670fdfb",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='cXEo-0' random-id='a44e6fd0-a44c-8651-e9b6-fa1c02f0db38'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;models&#92;&quot;:&#92;&quot;Decision Tree&#92;&quot;,&#92;&quot;Balanced Accuracy&#92;&quot;:0.8523880052019124,&#92;&quot;Macro F1 &#92;&quot;:0.8438420701811911}]&quot;' data-total-rows='1' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;Balanced Accuracy&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Macro F1 &quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;models&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Name: Tree-based Model CV | 5-Fold\n\nFold 0:\n----------------------------------------\n\nCross-validating: [Decision Tree]\n\n - Balanced Accuracy : 0.85266\n\n - Macro F1  : 0.84668\n\nFold 1:\n----------------------------------------\n\nCross-validating: [Decision Tree]\n\n - Balanced Accuracy : 0.85064\n\n - Macro F1  : 0.84056\n\nFold 2:\n----------------------------------------\n\nCross-validating: [Decision Tree]\n\n - Balanced Accuracy : 0.85317\n\n - Macro F1  : 0.84481\n\nFold 3:\n----------------------------------------\n\nCross-validating: [Decision Tree]\n\n - Balanced Accuracy : 0.85631\n\n - Macro F1  : 0.84545\n\nFold 4:\n----------------------------------------\n\nCross-validating: [Decision Tree]\n\n - Balanced Accuracy : 0.84916\n\n - Macro F1  : 0.84171\n\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "OITW",
+      "code_hash": "db796ed69e58234a898e0c5cbc3bbb3a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='OITW-0' random-id='4bb22791-efa5-e7aa-ee9f-3a340dc890a8'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Index0&#92;&quot;:&#92;&quot;Balanced Accuracy&#92;&quot;,&#92;&quot;Decision Tree&#92;&quot;:0.8528937979434629},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;Macro F1 &#92;&quot;,&#92;&quot;Decision Tree&#92;&quot;:0.8424933956061608}]&quot;' data-total-rows='2' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;Decision Tree&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;Index0&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Ofns",
+      "code_hash": "66a9020dadca504ae73683f2361f07b7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"gradient-boosting-models\">Gradient-boosting Models</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bUTo",
+      "code_hash": "61bc7c743c06ef0e2585fb4e11dc2f7b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "opzD",
+      "code_hash": "f30f3eb8706bf93798bc4ef452b5461e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='opzD-0' random-id='3058a466-7649-dfbb-1ba9-518a1601af57'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:0.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:1.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:7.17,&#92;&quot;remainder__heart_rate&#92;&quot;:91.3,&#92;&quot;remainder__bmi&#92;&quot;:26.86,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:2635.0,&#92;&quot;remainder__step_count&#92;&quot;:1398.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:49.1,&#92;&quot;remainder__water_intake&#92;&quot;:2.03},{&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:0.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:NaN,&#92;&quot;remainder__heart_rate&#92;&quot;:75.1,&#92;&quot;remainder__bmi&#92;&quot;:24.23,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:2382.0,&#92;&quot;remainder__step_count&#92;&quot;:13466.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:50.8,&#92;&quot;remainder__water_intake&#92;&quot;:1.83},{&#92;&quot;ord__sleep_quality&#92;&quot;:0.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:0.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:1.0,&#92;&quot;cat__gender_male&#92;&quot;:0.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:8.66,&#92;&quot;remainder__heart_rate&#92;&quot;:82.4,&#92;&quot;remainder__bmi&#92;&quot;:21.41,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:2314.0,&#92;&quot;remainder__step_count&#92;&quot;:9473.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:23.3,&#92;&quot;remainder__water_intake&#92;&quot;:3.09},{&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:-1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:NaN,&#92;&quot;remainder__heart_rate&#92;&quot;:74.5,&#92;&quot;remainder__bmi&#92;&quot;:22.59,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:2165.0,&#92;&quot;remainder__step_count&#92;&quot;:7052.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:21.6,&#92;&quot;remainder__water_intake&#92;&quot;:1.92},{&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:1.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:8.83,&#92;&quot;remainder__heart_rate&#92;&quot;:68.2,&#92;&quot;remainder__bmi&#92;&quot;:22.01,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:2108.0,&#92;&quot;remainder__step_count&#92;&quot;:13521.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:52.9,&#92;&quot;remainder__water_intake&#92;&quot;:2.35}]&quot;' data-total-rows='5' data-total-columns='22' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;ord__sleep_quality&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__physical_activity_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__stress_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_balanced&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_non-veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_nan&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_no&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_occasional&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_yes&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_nan&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_female&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_male&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_other&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_nan&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ztcF",
+      "code_hash": "0917d9db0b92d44c4ff7a1901780a346",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='ztcF-0' random-id='9a55fe4d-854f-8cb3-4aaa-9601c9da7d4b'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0},{&#92;&quot;health_condition&#92;&quot;:0}]&quot;' data-total-rows='5' data-total-columns='1' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;health_condition&quot;,[&quot;integer&quot;,&quot;int64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "e5ee777df9173542f4d57b34242497ea",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='SFPL-0' random-id='86b95dc5-a744-cefc-d233-4ba5a6893913'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;models&#92;&quot;:&#92;&quot;XGBoost&#92;&quot;,&#92;&quot;Balanced Accuracy&#92;&quot;:0.8792997768865506,&#92;&quot;Macro F1 &#92;&quot;:0.9095296365348512},{&#92;&quot;models&#92;&quot;:&#92;&quot;LightGBM&#92;&quot;,&#92;&quot;Balanced Accuracy&#92;&quot;:0.8727017689037317,&#92;&quot;Macro F1 &#92;&quot;:0.9090901777362934}]&quot;' data-total-rows='2' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;Balanced Accuracy&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Macro F1 &quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;models&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Name: Gradient-boost Model CV | 5-Fold\n\nFold 0:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n - Balanced Accuracy : 0.87780\n\n - Macro F1  : 0.91010\n\nCross-validating: [LightGBM]\n\n - Balanced Accuracy : 0.86979\n\n - Macro F1  : 0.90846\n\nFold 1:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n - Balanced Accuracy : 0.88120\n\n - Macro F1  : 0.91005\n\nCross-validating: [LightGBM]\n\n - Balanced Accuracy : 0.87499\n\n - Macro F1  : 0.90987\n\nFold 2:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n - Balanced Accuracy : 0.87917\n\n - Macro F1  : 0.91007\n\nCross-validating: [LightGBM]\n\n - Balanced Accuracy : 0.87321\n\n - Macro F1  : 0.91048\n\nFold 3:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n - Balanced Accuracy : 0.88236\n\n - Macro F1  : 0.91019\n\nCross-validating: [LightGBM]\n\n - Balanced Accuracy : 0.87646\n\n - Macro F1  : 0.90976\n\nFold 4:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n - Balanced Accuracy : 0.87597\n\n - Macro F1  : 0.90723\n\nCross-validating: [LightGBM]\n\n - Balanced Accuracy : 0.86905\n\n - Macro F1  : 0.90688\n\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "HKpy",
+      "code_hash": "2e48b483906740e3f5e7ef6e5e3217da",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='HKpy-0' random-id='e7c0d686-b57c-0f5e-4f27-d37980da72d9'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Index0&#92;&quot;:&#92;&quot;Balanced Accuracy&#92;&quot;,&#92;&quot;XGBoost&#92;&quot;:0.8825086951049587,&#92;&quot;LightGBM&#92;&quot;:0.8742428389976542},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;Macro F1 &#92;&quot;,&#92;&quot;XGBoost&#92;&quot;:0.9125170819642894,&#92;&quot;LightGBM&#92;&quot;:0.9102644401389636}]&quot;' data-total-rows='2' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;XGBoost&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;LightGBM&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;Index0&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Peum",
+      "code_hash": "c5a10057b48ab027b21edcc4a95b7ef9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"class-weights\">Class Weights</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "alJJ",
+      "code_hash": "2cbd7fe5324a179999d3cbe2dc824fb7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='alJJ-0' random-id='27bc7c3b-eb76-153c-46ad-0cc37b2b8ca8'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;models&#92;&quot;:&#92;&quot;LightGBM&#92;&quot;,&#92;&quot;Balanced Accuracy&#92;&quot;:0.9493052263698178,&#92;&quot;Macro F1 &#92;&quot;:0.8643252493215954},{&#92;&quot;models&#92;&quot;:&#92;&quot;XGBoost&#92;&quot;,&#92;&quot;Balanced Accuracy&#92;&quot;:0.9490052752503711,&#92;&quot;Macro F1 &#92;&quot;:0.8687671056435102}]&quot;' data-total-rows='2' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;Balanced Accuracy&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;Macro F1 &quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;models&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": "Name: Class-aware Gradient-Boost Model CV | 5-Fold\n\nFold 0:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n[0]\tvalidation_0-mlogloss:0.75560\n[1]\tvalidation_0-mlogloss:0.56279\n[2]\tvalidation_0-mlogloss:0.44099\n[3]\tvalidation_0-mlogloss:0.36025\n[4]\tvalidation_0-mlogloss:0.30530\n[5]\tvalidation_0-mlogloss:0.26739\n[6]\tvalidation_0-mlogloss:0.24096\n[7]\tvalidation_0-mlogloss:0.22227\n[8]\tvalidation_0-mlogloss:0.20918\n[9]\tvalidation_0-mlogloss:0.19979\n[10]\tvalidation_0-mlogloss:0.19310\n[11]\tvalidation_0-mlogloss:0.18837\n[12]\tvalidation_0-mlogloss:0.18502\n[13]\tvalidation_0-mlogloss:0.18262\n[14]\tvalidation_0-mlogloss:0.18080\n[15]\tvalidation_0-mlogloss:0.17948\n[16]\tvalidation_0-mlogloss:0.17857\n[17]\tvalidation_0-mlogloss:0.17769\n[18]\tvalidation_0-mlogloss:0.17702\n[19]\tvalidation_0-mlogloss:0.17668\n[20]\tvalidation_0-mlogloss:0.17623\n[21]\tvalidation_0-mlogloss:0.17580\n[22]\tvalidation_0-mlogloss:0.17552\n[23]\tvalidation_0-mlogloss:0.17535\n[24]\tvalidation_0-mlogloss:0.17518\n[25]\tvalidation_0-mlogloss:0.17487\n[26]\tvalidation_0-mlogloss:0.17477\n[27]\tvalidation_0-mlogloss:0.17468\n[28]\tvalidation_0-mlogloss:0.17443\n[29]\tvalidation_0-mlogloss:0.17436\n[30]\tvalidation_0-mlogloss:0.17417\n[31]\tvalidation_0-mlogloss:0.17410\n[32]\tvalidation_0-mlogloss:0.17409\n[33]\tvalidation_0-mlogloss:0.17397\n[34]\tvalidation_0-mlogloss:0.17399\n[35]\tvalidation_0-mlogloss:0.17399\n[36]\tvalidation_0-mlogloss:0.17404\n[37]\tvalidation_0-mlogloss:0.17408\n[38]\tvalidation_0-mlogloss:0.17398\n[39]\tvalidation_0-mlogloss:0.17405\n[40]\tvalidation_0-mlogloss:0.17402\n[41]\tvalidation_0-mlogloss:0.17405\n[42]\tvalidation_0-mlogloss:0.17399\n[43]\tvalidation_0-mlogloss:0.17395\n[44]\tvalidation_0-mlogloss:0.17392\n[45]\tvalidation_0-mlogloss:0.17387\n[46]\tvalidation_0-mlogloss:0.17395\n[47]\tvalidation_0-mlogloss:0.17395\n[48]\tvalidation_0-mlogloss:0.17391\n[49]\tvalidation_0-mlogloss:0.17390\n[50]\tvalidation_0-mlogloss:0.17396\n[51]\tvalidation_0-mlogloss:0.17396\n[52]\tvalidation_0-mlogloss:0.17404\n[53]\tvalidation_0-mlogloss:0.17407\n[54]\tvalidation_0-mlogloss:0.17412\n[55]\tvalidation_0-mlogloss:0.17405\n[56]\tvalidation_0-mlogloss:0.17413\n[57]\tvalidation_0-mlogloss:0.17411\n[58]\tvalidation_0-mlogloss:0.17416\n[59]\tvalidation_0-mlogloss:0.17423\n[60]\tvalidation_0-mlogloss:0.17431\n[61]\tvalidation_0-mlogloss:0.17435\n[62]\tvalidation_0-mlogloss:0.17448\n[63]\tvalidation_0-mlogloss:0.17455\n[64]\tvalidation_0-mlogloss:0.17470\n[65]\tvalidation_0-mlogloss:0.17478\n[66]\tvalidation_0-mlogloss:0.17480\n[67]\tvalidation_0-mlogloss:0.17476\n[68]\tvalidation_0-mlogloss:0.17475\n[69]\tvalidation_0-mlogloss:0.17485\n[70]\tvalidation_0-mlogloss:0.17494\n[71]\tvalidation_0-mlogloss:0.17499\n[72]\tvalidation_0-mlogloss:0.17516\n[73]\tvalidation_0-mlogloss:0.17522\n[74]\tvalidation_0-mlogloss:0.17531\n[75]\tvalidation_0-mlogloss:0.17530\n[76]\tvalidation_0-mlogloss:0.17531\n[77]\tvalidation_0-mlogloss:0.17543\n[78]\tvalidation_0-mlogloss:0.17548\n[79]\tvalidation_0-mlogloss:0.17555\n[80]\tvalidation_0-mlogloss:0.17565\n[81]\tvalidation_0-mlogloss:0.17579\n[82]\tvalidation_0-mlogloss:0.17591\n[83]\tvalidation_0-mlogloss:0.17606\n[84]\tvalidation_0-mlogloss:0.17618\n[85]\tvalidation_0-mlogloss:0.17625\n[86]\tvalidation_0-mlogloss:0.17630\n[87]\tvalidation_0-mlogloss:0.17630\n[88]\tvalidation_0-mlogloss:0.17643\n[89]\tvalidation_0-mlogloss:0.17654\n[90]\tvalidation_0-mlogloss:0.17671\n[91]\tvalidation_0-mlogloss:0.17683\n[92]\tvalidation_0-mlogloss:0.17691\n[93]\tvalidation_0-mlogloss:0.17697\n[94]\tvalidation_0-mlogloss:0.17716\n[95]\tvalidation_0-mlogloss:0.17724\n[96]\tvalidation_0-mlogloss:0.17730\n[97]\tvalidation_0-mlogloss:0.17743\n[98]\tvalidation_0-mlogloss:0.17752\n[99]\tvalidation_0-mlogloss:0.17752\n - Balanced Accuracy : 0.94860\n\n - Macro F1  : 0.86863\n\nCross-validating: [LightGBM]\n\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "/home/seang/Desktop/Data-Science/Student-Health/.venv/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.\n  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": " - Balanced Accuracy : 0.94912\n\n - Macro F1  : 0.86403\n\nFold 1:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n[0]\tvalidation_0-mlogloss:0.75513\n[1]\tvalidation_0-mlogloss:0.56218\n[2]\tvalidation_0-mlogloss:0.44038\n[3]\tvalidation_0-mlogloss:0.35964\n[4]\tvalidation_0-mlogloss:0.30467\n[5]\tvalidation_0-mlogloss:0.26664\n[6]\tvalidation_0-mlogloss:0.24004\n[7]\tvalidation_0-mlogloss:0.22138\n[8]\tvalidation_0-mlogloss:0.20811\n[9]\tvalidation_0-mlogloss:0.19878\n[10]\tvalidation_0-mlogloss:0.19204\n[11]\tvalidation_0-mlogloss:0.18727\n[12]\tvalidation_0-mlogloss:0.18383\n[13]\tvalidation_0-mlogloss:0.18136\n[14]\tvalidation_0-mlogloss:0.17947\n[15]\tvalidation_0-mlogloss:0.17821\n[16]\tvalidation_0-mlogloss:0.17720\n[17]\tvalidation_0-mlogloss:0.17638\n[18]\tvalidation_0-mlogloss:0.17587\n[19]\tvalidation_0-mlogloss:0.17549\n[20]\tvalidation_0-mlogloss:0.17527\n[21]\tvalidation_0-mlogloss:0.17491\n[22]\tvalidation_0-mlogloss:0.17449\n[23]\tvalidation_0-mlogloss:0.17418\n[24]\tvalidation_0-mlogloss:0.17402\n[25]\tvalidation_0-mlogloss:0.17385\n[26]\tvalidation_0-mlogloss:0.17376\n[27]\tvalidation_0-mlogloss:0.17368\n[28]\tvalidation_0-mlogloss:0.17360\n[29]\tvalidation_0-mlogloss:0.17349\n[30]\tvalidation_0-mlogloss:0.17337\n[31]\tvalidation_0-mlogloss:0.17333\n[32]\tvalidation_0-mlogloss:0.17334\n[33]\tvalidation_0-mlogloss:0.17321\n[34]\tvalidation_0-mlogloss:0.17317\n[35]\tvalidation_0-mlogloss:0.17317\n[36]\tvalidation_0-mlogloss:0.17316\n[37]\tvalidation_0-mlogloss:0.17319\n[38]\tvalidation_0-mlogloss:0.17317\n[39]\tvalidation_0-mlogloss:0.17314\n[40]\tvalidation_0-mlogloss:0.17313\n[41]\tvalidation_0-mlogloss:0.17318\n[42]\tvalidation_0-mlogloss:0.17314\n[43]\tvalidation_0-mlogloss:0.17313\n[44]\tvalidation_0-mlogloss:0.17320\n[45]\tvalidation_0-mlogloss:0.17330\n[46]\tvalidation_0-mlogloss:0.17337\n[47]\tvalidation_0-mlogloss:0.17342\n[48]\tvalidation_0-mlogloss:0.17346\n[49]\tvalidation_0-mlogloss:0.17348\n[50]\tvalidation_0-mlogloss:0.17353\n[51]\tvalidation_0-mlogloss:0.17352\n[52]\tvalidation_0-mlogloss:0.17350\n[53]\tvalidation_0-mlogloss:0.17346\n[54]\tvalidation_0-mlogloss:0.17354\n[55]\tvalidation_0-mlogloss:0.17357\n[56]\tvalidation_0-mlogloss:0.17371\n[57]\tvalidation_0-mlogloss:0.17373\n[58]\tvalidation_0-mlogloss:0.17386\n[59]\tvalidation_0-mlogloss:0.17386\n[60]\tvalidation_0-mlogloss:0.17388\n[61]\tvalidation_0-mlogloss:0.17391\n[62]\tvalidation_0-mlogloss:0.17399\n[63]\tvalidation_0-mlogloss:0.17408\n[64]\tvalidation_0-mlogloss:0.17420\n[65]\tvalidation_0-mlogloss:0.17423\n[66]\tvalidation_0-mlogloss:0.17427\n[67]\tvalidation_0-mlogloss:0.17436\n[68]\tvalidation_0-mlogloss:0.17448\n[69]\tvalidation_0-mlogloss:0.17463\n[70]\tvalidation_0-mlogloss:0.17473\n[71]\tvalidation_0-mlogloss:0.17467\n[72]\tvalidation_0-mlogloss:0.17469\n[73]\tvalidation_0-mlogloss:0.17474\n[74]\tvalidation_0-mlogloss:0.17477\n[75]\tvalidation_0-mlogloss:0.17483\n[76]\tvalidation_0-mlogloss:0.17484\n[77]\tvalidation_0-mlogloss:0.17495\n[78]\tvalidation_0-mlogloss:0.17500\n[79]\tvalidation_0-mlogloss:0.17493\n[80]\tvalidation_0-mlogloss:0.17507\n[81]\tvalidation_0-mlogloss:0.17519\n[82]\tvalidation_0-mlogloss:0.17529\n[83]\tvalidation_0-mlogloss:0.17538\n[84]\tvalidation_0-mlogloss:0.17551\n[85]\tvalidation_0-mlogloss:0.17572\n[86]\tvalidation_0-mlogloss:0.17591\n[87]\tvalidation_0-mlogloss:0.17585\n[88]\tvalidation_0-mlogloss:0.17594\n[89]\tvalidation_0-mlogloss:0.17601\n[90]\tvalidation_0-mlogloss:0.17601\n[91]\tvalidation_0-mlogloss:0.17611\n[92]\tvalidation_0-mlogloss:0.17622\n[93]\tvalidation_0-mlogloss:0.17619\n[94]\tvalidation_0-mlogloss:0.17638\n[95]\tvalidation_0-mlogloss:0.17647\n[96]\tvalidation_0-mlogloss:0.17657\n[97]\tvalidation_0-mlogloss:0.17674\n[98]\tvalidation_0-mlogloss:0.17685\n[99]\tvalidation_0-mlogloss:0.17687\n - Balanced Accuracy : 0.95009\n\n - Macro F1  : 0.86917\n\nCross-validating: [LightGBM]\n\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "/home/seang/Desktop/Data-Science/Student-Health/.venv/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.\n  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": " - Balanced Accuracy : 0.95010\n\n - Macro F1  : 0.86464\n\nFold 2:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n[0]\tvalidation_0-mlogloss:0.75488\n[1]\tvalidation_0-mlogloss:0.56160\n[2]\tvalidation_0-mlogloss:0.43943\n[3]\tvalidation_0-mlogloss:0.35839\n[4]\tvalidation_0-mlogloss:0.30314\n[5]\tvalidation_0-mlogloss:0.26492\n[6]\tvalidation_0-mlogloss:0.23821\n[7]\tvalidation_0-mlogloss:0.21945\n[8]\tvalidation_0-mlogloss:0.20624\n[9]\tvalidation_0-mlogloss:0.19665\n[10]\tvalidation_0-mlogloss:0.18983\n[11]\tvalidation_0-mlogloss:0.18491\n[12]\tvalidation_0-mlogloss:0.18136\n[13]\tvalidation_0-mlogloss:0.17883\n[14]\tvalidation_0-mlogloss:0.17683\n[15]\tvalidation_0-mlogloss:0.17545\n[16]\tvalidation_0-mlogloss:0.17445\n[17]\tvalidation_0-mlogloss:0.17378\n[18]\tvalidation_0-mlogloss:0.17318\n[19]\tvalidation_0-mlogloss:0.17266\n[20]\tvalidation_0-mlogloss:0.17221\n[21]\tvalidation_0-mlogloss:0.17203\n[22]\tvalidation_0-mlogloss:0.17172\n[23]\tvalidation_0-mlogloss:0.17152\n[24]\tvalidation_0-mlogloss:0.17147\n[25]\tvalidation_0-mlogloss:0.17125\n[26]\tvalidation_0-mlogloss:0.17112\n[27]\tvalidation_0-mlogloss:0.17103\n[28]\tvalidation_0-mlogloss:0.17097\n[29]\tvalidation_0-mlogloss:0.17099\n[30]\tvalidation_0-mlogloss:0.17094\n[31]\tvalidation_0-mlogloss:0.17094\n[32]\tvalidation_0-mlogloss:0.17090\n[33]\tvalidation_0-mlogloss:0.17082\n[34]\tvalidation_0-mlogloss:0.17088\n[35]\tvalidation_0-mlogloss:0.17087\n[36]\tvalidation_0-mlogloss:0.17095\n[37]\tvalidation_0-mlogloss:0.17092\n[38]\tvalidation_0-mlogloss:0.17100\n[39]\tvalidation_0-mlogloss:0.17105\n[40]\tvalidation_0-mlogloss:0.17105\n[41]\tvalidation_0-mlogloss:0.17109\n[42]\tvalidation_0-mlogloss:0.17118\n[43]\tvalidation_0-mlogloss:0.17122\n[44]\tvalidation_0-mlogloss:0.17130\n[45]\tvalidation_0-mlogloss:0.17141\n[46]\tvalidation_0-mlogloss:0.17148\n[47]\tvalidation_0-mlogloss:0.17149\n[48]\tvalidation_0-mlogloss:0.17146\n[49]\tvalidation_0-mlogloss:0.17152\n[50]\tvalidation_0-mlogloss:0.17163\n[51]\tvalidation_0-mlogloss:0.17155\n[52]\tvalidation_0-mlogloss:0.17154\n[53]\tvalidation_0-mlogloss:0.17156\n[54]\tvalidation_0-mlogloss:0.17154\n[55]\tvalidation_0-mlogloss:0.17156\n[56]\tvalidation_0-mlogloss:0.17171\n[57]\tvalidation_0-mlogloss:0.17183\n[58]\tvalidation_0-mlogloss:0.17190\n[59]\tvalidation_0-mlogloss:0.17197\n[60]\tvalidation_0-mlogloss:0.17209\n[61]\tvalidation_0-mlogloss:0.17220\n[62]\tvalidation_0-mlogloss:0.17223\n[63]\tvalidation_0-mlogloss:0.17216\n[64]\tvalidation_0-mlogloss:0.17224\n[65]\tvalidation_0-mlogloss:0.17220\n[66]\tvalidation_0-mlogloss:0.17230\n[67]\tvalidation_0-mlogloss:0.17233\n[68]\tvalidation_0-mlogloss:0.17240\n[69]\tvalidation_0-mlogloss:0.17246\n[70]\tvalidation_0-mlogloss:0.17261\n[71]\tvalidation_0-mlogloss:0.17269\n[72]\tvalidation_0-mlogloss:0.17289\n[73]\tvalidation_0-mlogloss:0.17292\n[74]\tvalidation_0-mlogloss:0.17294\n[75]\tvalidation_0-mlogloss:0.17303\n[76]\tvalidation_0-mlogloss:0.17307\n[77]\tvalidation_0-mlogloss:0.17299\n[78]\tvalidation_0-mlogloss:0.17306\n[79]\tvalidation_0-mlogloss:0.17311\n[80]\tvalidation_0-mlogloss:0.17317\n[81]\tvalidation_0-mlogloss:0.17331\n[82]\tvalidation_0-mlogloss:0.17334\n[83]\tvalidation_0-mlogloss:0.17338\n[84]\tvalidation_0-mlogloss:0.17347\n[85]\tvalidation_0-mlogloss:0.17352\n[86]\tvalidation_0-mlogloss:0.17362\n[87]\tvalidation_0-mlogloss:0.17376\n[88]\tvalidation_0-mlogloss:0.17384\n[89]\tvalidation_0-mlogloss:0.17392\n[90]\tvalidation_0-mlogloss:0.17403\n[91]\tvalidation_0-mlogloss:0.17416\n[92]\tvalidation_0-mlogloss:0.17420\n[93]\tvalidation_0-mlogloss:0.17433\n[94]\tvalidation_0-mlogloss:0.17441\n[95]\tvalidation_0-mlogloss:0.17451\n[96]\tvalidation_0-mlogloss:0.17461\n[97]\tvalidation_0-mlogloss:0.17465\n[98]\tvalidation_0-mlogloss:0.17477\n[99]\tvalidation_0-mlogloss:0.17483\n - Balanced Accuracy : 0.94943\n\n - Macro F1  : 0.87058\n\nCross-validating: [LightGBM]\n\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "/home/seang/Desktop/Data-Science/Student-Health/.venv/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.\n  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": " - Balanced Accuracy : 0.94980\n\n - Macro F1  : 0.86648\n\nFold 3:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n[0]\tvalidation_0-mlogloss:0.75509\n[1]\tvalidation_0-mlogloss:0.56200\n[2]\tvalidation_0-mlogloss:0.44003\n[3]\tvalidation_0-mlogloss:0.35910\n[4]\tvalidation_0-mlogloss:0.30399\n[5]\tvalidation_0-mlogloss:0.26598\n[6]\tvalidation_0-mlogloss:0.23926\n[7]\tvalidation_0-mlogloss:0.22054\n[8]\tvalidation_0-mlogloss:0.20717\n[9]\tvalidation_0-mlogloss:0.19767\n[10]\tvalidation_0-mlogloss:0.19111\n[11]\tvalidation_0-mlogloss:0.18640\n[12]\tvalidation_0-mlogloss:0.18276\n[13]\tvalidation_0-mlogloss:0.18022\n[14]\tvalidation_0-mlogloss:0.17846\n[15]\tvalidation_0-mlogloss:0.17722\n[16]\tvalidation_0-mlogloss:0.17629\n[17]\tvalidation_0-mlogloss:0.17556\n[18]\tvalidation_0-mlogloss:0.17489\n[19]\tvalidation_0-mlogloss:0.17442\n[20]\tvalidation_0-mlogloss:0.17412\n[21]\tvalidation_0-mlogloss:0.17381\n[22]\tvalidation_0-mlogloss:0.17343\n[23]\tvalidation_0-mlogloss:0.17325\n[24]\tvalidation_0-mlogloss:0.17306\n[25]\tvalidation_0-mlogloss:0.17296\n[26]\tvalidation_0-mlogloss:0.17292\n[27]\tvalidation_0-mlogloss:0.17280\n[28]\tvalidation_0-mlogloss:0.17281\n[29]\tvalidation_0-mlogloss:0.17277\n[30]\tvalidation_0-mlogloss:0.17276\n[31]\tvalidation_0-mlogloss:0.17275\n[32]\tvalidation_0-mlogloss:0.17270\n[33]\tvalidation_0-mlogloss:0.17265\n[34]\tvalidation_0-mlogloss:0.17268\n[35]\tvalidation_0-mlogloss:0.17277\n[36]\tvalidation_0-mlogloss:0.17267\n[37]\tvalidation_0-mlogloss:0.17271\n[38]\tvalidation_0-mlogloss:0.17280\n[39]\tvalidation_0-mlogloss:0.17290\n[40]\tvalidation_0-mlogloss:0.17292\n[41]\tvalidation_0-mlogloss:0.17285\n[42]\tvalidation_0-mlogloss:0.17283\n[43]\tvalidation_0-mlogloss:0.17303\n[44]\tvalidation_0-mlogloss:0.17316\n[45]\tvalidation_0-mlogloss:0.17320\n[46]\tvalidation_0-mlogloss:0.17322\n[47]\tvalidation_0-mlogloss:0.17317\n[48]\tvalidation_0-mlogloss:0.17325\n[49]\tvalidation_0-mlogloss:0.17334\n[50]\tvalidation_0-mlogloss:0.17339\n[51]\tvalidation_0-mlogloss:0.17347\n[52]\tvalidation_0-mlogloss:0.17355\n[53]\tvalidation_0-mlogloss:0.17372\n[54]\tvalidation_0-mlogloss:0.17387\n[55]\tvalidation_0-mlogloss:0.17387\n[56]\tvalidation_0-mlogloss:0.17393\n[57]\tvalidation_0-mlogloss:0.17391\n[58]\tvalidation_0-mlogloss:0.17399\n[59]\tvalidation_0-mlogloss:0.17411\n[60]\tvalidation_0-mlogloss:0.17418\n[61]\tvalidation_0-mlogloss:0.17426\n[62]\tvalidation_0-mlogloss:0.17430\n[63]\tvalidation_0-mlogloss:0.17445\n[64]\tvalidation_0-mlogloss:0.17456\n[65]\tvalidation_0-mlogloss:0.17463\n[66]\tvalidation_0-mlogloss:0.17471\n[67]\tvalidation_0-mlogloss:0.17482\n[68]\tvalidation_0-mlogloss:0.17491\n[69]\tvalidation_0-mlogloss:0.17491\n[70]\tvalidation_0-mlogloss:0.17497\n[71]\tvalidation_0-mlogloss:0.17502\n[72]\tvalidation_0-mlogloss:0.17514\n[73]\tvalidation_0-mlogloss:0.17515\n[74]\tvalidation_0-mlogloss:0.17520\n[75]\tvalidation_0-mlogloss:0.17539\n[76]\tvalidation_0-mlogloss:0.17538\n[77]\tvalidation_0-mlogloss:0.17545\n[78]\tvalidation_0-mlogloss:0.17554\n[79]\tvalidation_0-mlogloss:0.17553\n[80]\tvalidation_0-mlogloss:0.17557\n[81]\tvalidation_0-mlogloss:0.17568\n[82]\tvalidation_0-mlogloss:0.17582\n[83]\tvalidation_0-mlogloss:0.17591\n[84]\tvalidation_0-mlogloss:0.17595\n[85]\tvalidation_0-mlogloss:0.17604\n[86]\tvalidation_0-mlogloss:0.17610\n[87]\tvalidation_0-mlogloss:0.17628\n[88]\tvalidation_0-mlogloss:0.17639\n[89]\tvalidation_0-mlogloss:0.17644\n[90]\tvalidation_0-mlogloss:0.17663\n[91]\tvalidation_0-mlogloss:0.17679\n[92]\tvalidation_0-mlogloss:0.17701\n[93]\tvalidation_0-mlogloss:0.17701\n[94]\tvalidation_0-mlogloss:0.17705\n[95]\tvalidation_0-mlogloss:0.17716\n[96]\tvalidation_0-mlogloss:0.17729\n[97]\tvalidation_0-mlogloss:0.17732\n[98]\tvalidation_0-mlogloss:0.17732\n[99]\tvalidation_0-mlogloss:0.17745\n - Balanced Accuracy : 0.94869\n\n - Macro F1  : 0.86937\n\nCross-validating: [LightGBM]\n\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "/home/seang/Desktop/Data-Science/Student-Health/.venv/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.\n  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": " - Balanced Accuracy : 0.94894\n\n - Macro F1  : 0.86493\n\nFold 4:\n----------------------------------------\n\nCross-validating: [XGBoost]\n\n[0]\tvalidation_0-mlogloss:0.75596\n[1]\tvalidation_0-mlogloss:0.56360\n[2]\tvalidation_0-mlogloss:0.44210\n[3]\tvalidation_0-mlogloss:0.36155\n[4]\tvalidation_0-mlogloss:0.30674\n[5]\tvalidation_0-mlogloss:0.26898\n[6]\tvalidation_0-mlogloss:0.24260\n[7]\tvalidation_0-mlogloss:0.22403\n[8]\tvalidation_0-mlogloss:0.21096\n[9]\tvalidation_0-mlogloss:0.20157\n[10]\tvalidation_0-mlogloss:0.19499\n[11]\tvalidation_0-mlogloss:0.19029\n[12]\tvalidation_0-mlogloss:0.18696\n[13]\tvalidation_0-mlogloss:0.18452\n[14]\tvalidation_0-mlogloss:0.18281\n[15]\tvalidation_0-mlogloss:0.18159\n[16]\tvalidation_0-mlogloss:0.18066\n[17]\tvalidation_0-mlogloss:0.18001\n[18]\tvalidation_0-mlogloss:0.17929\n[19]\tvalidation_0-mlogloss:0.17875\n[20]\tvalidation_0-mlogloss:0.17833\n[21]\tvalidation_0-mlogloss:0.17809\n[22]\tvalidation_0-mlogloss:0.17806\n[23]\tvalidation_0-mlogloss:0.17788\n[24]\tvalidation_0-mlogloss:0.17761\n[25]\tvalidation_0-mlogloss:0.17755\n[26]\tvalidation_0-mlogloss:0.17746\n[27]\tvalidation_0-mlogloss:0.17732\n[28]\tvalidation_0-mlogloss:0.17732\n[29]\tvalidation_0-mlogloss:0.17713\n[30]\tvalidation_0-mlogloss:0.17725\n[31]\tvalidation_0-mlogloss:0.17728\n[32]\tvalidation_0-mlogloss:0.17726\n[33]\tvalidation_0-mlogloss:0.17721\n[34]\tvalidation_0-mlogloss:0.17722\n[35]\tvalidation_0-mlogloss:0.17725\n[36]\tvalidation_0-mlogloss:0.17724\n[37]\tvalidation_0-mlogloss:0.17729\n[38]\tvalidation_0-mlogloss:0.17737\n[39]\tvalidation_0-mlogloss:0.17727\n[40]\tvalidation_0-mlogloss:0.17727\n[41]\tvalidation_0-mlogloss:0.17733\n[42]\tvalidation_0-mlogloss:0.17734\n[43]\tvalidation_0-mlogloss:0.17732\n[44]\tvalidation_0-mlogloss:0.17734\n[45]\tvalidation_0-mlogloss:0.17744\n[46]\tvalidation_0-mlogloss:0.17743\n[47]\tvalidation_0-mlogloss:0.17749\n[48]\tvalidation_0-mlogloss:0.17758\n[49]\tvalidation_0-mlogloss:0.17761\n[50]\tvalidation_0-mlogloss:0.17760\n[51]\tvalidation_0-mlogloss:0.17766\n[52]\tvalidation_0-mlogloss:0.17768\n[53]\tvalidation_0-mlogloss:0.17770\n[54]\tvalidation_0-mlogloss:0.17775\n[55]\tvalidation_0-mlogloss:0.17778\n[56]\tvalidation_0-mlogloss:0.17792\n[57]\tvalidation_0-mlogloss:0.17801\n[58]\tvalidation_0-mlogloss:0.17806\n[59]\tvalidation_0-mlogloss:0.17818\n[60]\tvalidation_0-mlogloss:0.17822\n[61]\tvalidation_0-mlogloss:0.17824\n[62]\tvalidation_0-mlogloss:0.17836\n[63]\tvalidation_0-mlogloss:0.17848\n[64]\tvalidation_0-mlogloss:0.17863\n[65]\tvalidation_0-mlogloss:0.17865\n[66]\tvalidation_0-mlogloss:0.17873\n[67]\tvalidation_0-mlogloss:0.17879\n[68]\tvalidation_0-mlogloss:0.17893\n[69]\tvalidation_0-mlogloss:0.17905\n[70]\tvalidation_0-mlogloss:0.17908\n[71]\tvalidation_0-mlogloss:0.17912\n[72]\tvalidation_0-mlogloss:0.17922\n[73]\tvalidation_0-mlogloss:0.17937\n[74]\tvalidation_0-mlogloss:0.17948\n[75]\tvalidation_0-mlogloss:0.17954\n[76]\tvalidation_0-mlogloss:0.17970\n[77]\tvalidation_0-mlogloss:0.17985\n[78]\tvalidation_0-mlogloss:0.17992\n[79]\tvalidation_0-mlogloss:0.18002\n[80]\tvalidation_0-mlogloss:0.18009\n[81]\tvalidation_0-mlogloss:0.18024\n[82]\tvalidation_0-mlogloss:0.18036\n[83]\tvalidation_0-mlogloss:0.18042\n[84]\tvalidation_0-mlogloss:0.18042\n[85]\tvalidation_0-mlogloss:0.18057\n[86]\tvalidation_0-mlogloss:0.18063\n[87]\tvalidation_0-mlogloss:0.18060\n[88]\tvalidation_0-mlogloss:0.18072\n[89]\tvalidation_0-mlogloss:0.18081\n[90]\tvalidation_0-mlogloss:0.18087\n[91]\tvalidation_0-mlogloss:0.18090\n[92]\tvalidation_0-mlogloss:0.18105\n[93]\tvalidation_0-mlogloss:0.18113\n[94]\tvalidation_0-mlogloss:0.18129\n[95]\tvalidation_0-mlogloss:0.18137\n[96]\tvalidation_0-mlogloss:0.18144\n[97]\tvalidation_0-mlogloss:0.18148\n[98]\tvalidation_0-mlogloss:0.18158\n[99]\tvalidation_0-mlogloss:0.18165\n - Balanced Accuracy : 0.94821\n\n - Macro F1  : 0.86608\n\nCross-validating: [LightGBM]\n\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "/home/seang/Desktop/Data-Science/Student-Health/.venv/lib/python3.14/site-packages/lightgbm/sklearn.py:1106: LGBMDeprecationWarning: The argument 'eval_set' is deprecated, use 'eval_X' and 'eval_y' instead.\n  eval_set = _validate_eval_set_Xy(eval_set=eval_set, eval_X=eval_X, eval_y=eval_y)\n",
+          "mimetype": "text/plain"
+        },
+        {
+          "type": "stream",
+          "name": "stdout",
+          "text": " - Balanced Accuracy : 0.94857\n\n - Macro F1  : 0.86154\n\n",
+          "mimetype": "text/plain"
+        }
+      ]
+    },
+    {
+      "id": "BSEX",
+      "code_hash": "c56db3e7ca7ee9834237e23a9cc28388",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='BSEX-0' random-id='d459dd94-2f3a-4dcc-5fa1-c58123cc82e9'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;Index0&#92;&quot;:&#92;&quot;Balanced Accuracy&#92;&quot;,&#92;&quot;XGBoost&#92;&quot;:0.9497181884393514,&#92;&quot;LightGBM&#92;&quot;:0.9500767258831161},{&#92;&quot;Index0&#92;&quot;:&#92;&quot;Macro F1 &#92;&quot;,&#92;&quot;XGBoost&#92;&quot;:0.8679117005197908,&#92;&quot;LightGBM&#92;&quot;:0.8647042258616535}]&quot;' data-total-rows='2' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;XGBoost&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;LightGBM&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[[&quot;Index0&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "tIWA",
+      "code_hash": "f4c863be79bacf88eb81a429b678cde9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"make-predictions\">Make Predictions</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ojQa",
+      "code_hash": "c57ef10122d918b3a6e7fd497a78af38",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='ojQa-0' random-id='cc3c49c0-2147-3ee9-06c3-1ef5a1bc73e1'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;id&#92;&quot;:690088,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;at-risk&#92;&quot;},{&#92;&quot;id&#92;&quot;:690089,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;at-risk&#92;&quot;},{&#92;&quot;id&#92;&quot;:690090,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;at-risk&#92;&quot;},{&#92;&quot;id&#92;&quot;:690091,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;at-risk&#92;&quot;},{&#92;&quot;id&#92;&quot;:690092,&#92;&quot;health_condition&#92;&quot;:&#92;&quot;at-risk&#92;&quot;}]&quot;' data-total-rows='5' data-total-columns='2' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='false' data-page-size='10' data-field-types='[[&quot;id&quot;,[&quot;integer&quot;,&quot;int64&quot;]],[&quot;health_condition&quot;,[&quot;string&quot;,&quot;str&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='false' data-show-data-types='true' data-show-page-size-selector='false' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "IxQB",
+      "code_hash": "08fa81893008671e732ced34dd8cd2ea",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/html": "<marimo-ui-element object-id='IxQB-0' random-id='48a570b0-5713-ac1e-67a0-660a5336c8ab'><marimo-table data-initial-value='[]' data-label='null' data-data='&quot;[{&#92;&quot;ord__sleep_quality&#92;&quot;:0.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:2.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:5.35,&#92;&quot;remainder__heart_rate&#92;&quot;:64.9,&#92;&quot;remainder__bmi&#92;&quot;:23.48,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:2745.0,&#92;&quot;remainder__step_count&#92;&quot;:14167.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:59.5,&#92;&quot;remainder__water_intake&#92;&quot;:1.86},{&#92;&quot;ord__sleep_quality&#92;&quot;:0.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:2.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:0.0,&#92;&quot;cat__gender_other&#92;&quot;:1.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:NaN,&#92;&quot;remainder__heart_rate&#92;&quot;:83.1,&#92;&quot;remainder__bmi&#92;&quot;:22.42,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:1773.0,&#92;&quot;remainder__step_count&#92;&quot;:6801.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:24.5,&#92;&quot;remainder__water_intake&#92;&quot;:2.4},{&#92;&quot;ord__sleep_quality&#92;&quot;:0.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:0.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:1.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:6.68,&#92;&quot;remainder__heart_rate&#92;&quot;:59.7,&#92;&quot;remainder__bmi&#92;&quot;:24.14,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:3040.0,&#92;&quot;remainder__step_count&#92;&quot;:13250.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:48.5,&#92;&quot;remainder__water_intake&#92;&quot;:2.76},{&#92;&quot;ord__sleep_quality&#92;&quot;:2.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:1.0,&#92;&quot;ord__stress_level&#92;&quot;:0.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:0.0,&#92;&quot;cat__gender_other&#92;&quot;:1.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:7.13,&#92;&quot;remainder__heart_rate&#92;&quot;:78.5,&#92;&quot;remainder__bmi&#92;&quot;:26.26,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:2494.0,&#92;&quot;remainder__step_count&#92;&quot;:6331.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:56.9,&#92;&quot;remainder__water_intake&#92;&quot;:2.34},{&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:2.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:0.0,&#92;&quot;cat__gender_other&#92;&quot;:1.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:5.49,&#92;&quot;remainder__heart_rate&#92;&quot;:77.7,&#92;&quot;remainder__bmi&#92;&quot;:23.29,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:1828.0,&#92;&quot;remainder__step_count&#92;&quot;:13894.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:39.4,&#92;&quot;remainder__water_intake&#92;&quot;:2.45},{&#92;&quot;ord__sleep_quality&#92;&quot;:0.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:2.0,&#92;&quot;ord__stress_level&#92;&quot;:-1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:8.51,&#92;&quot;remainder__heart_rate&#92;&quot;:72.0,&#92;&quot;remainder__bmi&#92;&quot;:21.96,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:2449.0,&#92;&quot;remainder__step_count&#92;&quot;:7232.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:49.9,&#92;&quot;remainder__water_intake&#92;&quot;:2.56},{&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:1.0,&#92;&quot;ord__stress_level&#92;&quot;:2.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:6.21,&#92;&quot;remainder__heart_rate&#92;&quot;:65.6,&#92;&quot;remainder__bmi&#92;&quot;:25.02,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:1788.0,&#92;&quot;remainder__step_count&#92;&quot;:4884.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:48.5,&#92;&quot;remainder__water_intake&#92;&quot;:2.01},{&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:-1.0,&#92;&quot;ord__stress_level&#92;&quot;:2.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:1.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:7.17,&#92;&quot;remainder__heart_rate&#92;&quot;:65.7,&#92;&quot;remainder__bmi&#92;&quot;:NaN,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:NaN,&#92;&quot;remainder__step_count&#92;&quot;:14082.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:NaN,&#92;&quot;remainder__water_intake&#92;&quot;:1.14},{&#92;&quot;ord__sleep_quality&#92;&quot;:2.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:0.0,&#92;&quot;ord__stress_level&#92;&quot;:2.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:1.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:1.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:0.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:7.95,&#92;&quot;remainder__heart_rate&#92;&quot;:61.1,&#92;&quot;remainder__bmi&#92;&quot;:22.16,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:NaN,&#92;&quot;remainder__step_count&#92;&quot;:3228.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:0.0,&#92;&quot;remainder__water_intake&#92;&quot;:2.6},{&#92;&quot;ord__sleep_quality&#92;&quot;:1.0,&#92;&quot;ord__physical_activity_level&#92;&quot;:1.0,&#92;&quot;ord__stress_level&#92;&quot;:-1.0,&#92;&quot;cat__diet_type_balanced&#92;&quot;:0.0,&#92;&quot;cat__diet_type_non-veg&#92;&quot;:0.0,&#92;&quot;cat__diet_type_veg&#92;&quot;:1.0,&#92;&quot;cat__diet_type_nan&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_no&#92;&quot;:1.0,&#92;&quot;cat__smoking_alcohol_occasional&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_yes&#92;&quot;:0.0,&#92;&quot;cat__smoking_alcohol_nan&#92;&quot;:0.0,&#92;&quot;cat__gender_female&#92;&quot;:0.0,&#92;&quot;cat__gender_male&#92;&quot;:0.0,&#92;&quot;cat__gender_other&#92;&quot;:0.0,&#92;&quot;cat__gender_nan&#92;&quot;:1.0,&#92;&quot;remainder__sleep_duration&#92;&quot;:NaN,&#92;&quot;remainder__heart_rate&#92;&quot;:73.7,&#92;&quot;remainder__bmi&#92;&quot;:21.89,&#92;&quot;remainder__calorie_expenditure&#92;&quot;:2121.0,&#92;&quot;remainder__step_count&#92;&quot;:8961.0,&#92;&quot;remainder__exercise_duration&#92;&quot;:43.7,&#92;&quot;remainder__water_intake&#92;&quot;:3.55}]&quot;' data-total-rows='295753' data-total-columns='22' data-max-columns='50' data-banner-text='&quot;&quot;' data-pagination='true' data-page-size='10' data-field-types='[[&quot;ord__sleep_quality&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__physical_activity_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;ord__stress_level&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_balanced&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_non-veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_veg&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__diet_type_nan&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_no&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_occasional&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_yes&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__smoking_alcohol_nan&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_female&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_male&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_other&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;cat__gender_nan&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__sleep_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__heart_rate&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__bmi&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__calorie_expenditure&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__step_count&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__exercise_duration&quot;,[&quot;number&quot;,&quot;float64&quot;]],[&quot;remainder__water_intake&quot;,[&quot;number&quot;,&quot;float64&quot;]]]' data-show-filters='true' data-show-download='true' data-show-search='true' data-show-column-summaries='true' data-show-data-types='true' data-show-page-size-selector='true' data-show-column-explorer='true' data-show-chart-builder='true' data-row-headers='[]' data-hidden-columns='[]' data-has-stable-row-id='false' data-lazy='false' data-preload='false'></marimo-table></marimo-ui-element>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "xKmm",
       "code_hash": null,
       "outputs": [],
       "console": []
