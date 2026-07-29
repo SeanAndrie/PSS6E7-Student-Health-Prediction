@@ -27,7 +27,7 @@ def _(kagglehub, pd, sns):
     except Exception as e: 
         print("Failed to download competition data. Manually download the dataset from the competitions page.")
     else:
-        print(f"-- Downloaded competition data to '{path}' -- ")
+        print(f"-- Downloaded competition data to '{path}' --\n")
 
     main_dir = "playground-series-s6e7"
 
@@ -38,7 +38,7 @@ def _(kagglehub, pd, sns):
     except FileNotFoundError:
         print(f"Failed to load data. Ensure that '{main_dir}' exists in your current working directory.")
     else: 
-        print(f"-- Loaded '{main_dir}' successfully --")
+        print(f"-- '{main_dir}' found. Loaded '{main_dir}' successfully --")
 
     sns.set_theme(style="darkgrid", palette="Set2")
     return test_data, train_data
@@ -87,12 +87,19 @@ def _(train_data):
     train_cat = train_data.select_dtypes(exclude="number")
     train_num = train_data.select_dtypes(include="number")
 
-    cat_cols = train_cat.columns.tolist()
+    ord_cols = ["sleep_quality", "physical_activity_level", "stress_level"]
+
+    cat_cols = []
+    for col in train_cat.columns.tolist():
+        if col not in ord_cols:
+            cat_cols.append(col)
+
     num_cols = train_num.columns.tolist()[1:]
 
     print(f"Categorical Columns ({len(cat_cols)}): {cat_cols}")
+    print(f"Ordinal Columns: ({len(ord_cols)}): {ord_cols}")
     print(f"Numerical Columns ({len(num_cols)}): ", num_cols)
-    return (num_cols,)
+    return cat_cols, num_cols, ord_cols
 
 
 @app.cell(hide_code=True)
@@ -294,13 +301,13 @@ def _(pd, plt, train_data):
 
         total = df.shape[0]
         missing = df.isna().sum().sum()
-    
+
         axes[0].pie(x=[total, missing], labels=["Overall", "Missing"], autopct="%1.1f%%")
         axes[0].set_title("Overall vs Missing Values")
 
         missing_pct = df.drop("id", axis=1).isna().mean() * 100
         present_pct = 100 - missing_pct 
-    
+
         p = axes[1].barh(missing_pct.index, missing_pct, color="#fc8d62", label="Present") #66c2a5
         axes[1].barh(missing_pct.index, present_pct, left=missing_pct, color="#66c2a5",label="Missing") #fc8d62
         axes[1].set_title("Missing values per feature (%)")
@@ -348,7 +355,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    ## 4. Train and Test data distributions
+    ## 4. Train and test data distributions
 
     ### 4.1. Numerical features
     """)
@@ -357,7 +364,7 @@ def _(mo):
 
 @app.cell
 def _(pd, plt, sns, test_data, train_data):
-    def plot_num_feat_distributions(
+    def plot_num_feat_distribution(
         train_data:pd.DataFrame, 
         test_data:pd.DataFrame, 
         ncols:int,
@@ -385,7 +392,120 @@ def _(pd, plt, sns, test_data, train_data):
 
         fig.tight_layout()
 
-    plot_num_feat_distributions(train_data, test_data, 2)
+    plot_num_feat_distribution(train_data, test_data, 2)
+    plt.gca()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### 4.2. Categorical features
+    """)
+    return
+
+
+@app.cell
+def _(cat_cols, pd, plt, sns, test_data, train_data):
+    def plot_cat_feat_distribution(
+        train_data:pd.DataFrame,
+        test_data:pd.DataFrame,
+        target:str, 
+        cat_cols:list,
+        figsize=(10, 12)
+    ) -> None:
+    
+        if target in cat_cols:
+            cat_cols.remove(target)
+    
+        train_cat = train_data[cat_cols]
+        test_cat = test_data[cat_cols]
+
+        fig, axes = plt.subplots(nrows=len(cat_cols), ncols=2, figsize=figsize)
+
+        for i, col in enumerate(cat_cols):
+            sns.countplot(train_data, x=col, hue=col, stat="proportion", ax=axes[i, 0])
+            sns.countplot(train_data, x=col, hue=col, stat="proportion", ax=axes[i, 1])
+        
+            axes[i, 0].set_title("Train")
+            axes[i, 1].set_title("Test")
+        
+            axes[i, 0].get_legend().set_visible(False)
+            axes[i, 1].get_legend().set_visible(False)
+
+        fig.tight_layout()
+
+    plot_cat_feat_distribution(train_data, test_data, "health_condition", cat_cols)
+    plt.gca()
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ### 4.3. Ordinal features
+    """)
+    return
+
+
+@app.cell
+def _(ord_cols, pd, plt, test_data, train_data):
+    import math
+
+    def create_cnt_map(df:pd.DataFrame, ord_mapping:dict[str, list[str]]):
+        cnt_map = {}
+    
+        for col in list(ord_mapping.keys()):
+            cnt_map[col] = dict.fromkeys(ord_mapping[col], 0)
+            cnt_map[col]["nan"] = 0
+        
+            for cat in cnt_map[col]:
+                if cat == "nan":
+                    cnt_map[col][cat] = df[col].isna().sum()
+                else:
+                    cnt_map[col][cat] = df[df[col] == cat].shape[0]
+                cnt_map[col][cat] *= 1.0
+                cnt_map[col][cat] /= df.shape[0]
+            
+        return cnt_map
+    
+    def plot_ordinal_feature_distribution(
+        train_data:pd.DataFrame, 
+        test_data:pd.DataFrame, 
+        ord_mapping:dict[str, list[str]], 
+        figsize=(10, 12)
+    ) -> None:
+    
+        train_cnts = create_cnt_map(train_data, ord_mapping)
+        test_cnts = create_cnt_map(test_data, ord_mapping)
+    
+        fig, axes = plt.subplots(nrows=len(ord_cols), ncols=2, figsize=figsize)
+        fig.tight_layout()
+
+        axes[0, 0].set_title("Train")
+        axes[0, 1].set_title("Test")
+
+        for i, col in enumerate(list(ord_mapping.keys())):
+            axes[i, 0].bar(x=list(train_cnts[col].keys()), height=list(train_cnts[col].values()))
+            axes[i, 1].bar(x=list(test_cnts[col].keys()), height=list(test_cnts[col].values()))
+
+            axes[i, 0].set_xlabel(f"{col}")
+            axes[i, 1].set_xlabel(f"{col}")
+        
+            axes[i, 0].set_ylabel("Count")
+            axes[i, 1].set_ylabel("Count")
+
+        fig.tight_layout()
+
+        return train_cnts, test_cnts
+
+    ord_mapping = dict.fromkeys(ord_cols, [])
+
+    ord_mapping["sleep_quality"] = ["poor", "average", "good"]
+    ord_mapping["physical_activity_level"] = ["sedentary", "moderate", "active"]
+    ord_mapping["stress_level"] = ["low", "medium", "high"]
+
+    plot_ordinal_feature_distribution(train_data, test_data, ord_mapping)
     plt.gca()
     return
 
@@ -394,52 +514,6 @@ def _(pd, plt, sns, test_data, train_data):
 def _(mo):
     mo.md(r"""
     **Observations**: No visible distribution drift between train and test data.
-    """)
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ### 4.2. Categorical and Ordinal features
-
-    **TODO**: Account for ordinal mapping and visualize proportion instead of raw counts.
-    """)
-    return
-
-
-@app.cell
-def _(pd, plt, sns, test_data, train_data):
-    def plot_cat_feat_distributions(
-        train_data:pd.DataFrame,
-        test_data:pd.DataFrame,
-        target:str,
-        # ordinal_map: dict[str, list[str]] = None, 
-        figsize=(12, 25)
-    ) -> None:
-        train_cat = train_data.select_dtypes(exclude="number").drop(target, axis=1)
-        test_cat = test_data.select_dtypes(exclude="number")
-        nfeats = train_cat.columns.tolist()
-        fig, axes = plt.subplots(nrows=len(nfeats), ncols=2, figsize=figsize)
-    
-        for i, feat in enumerate(nfeats):
-            sns.countplot(train_data, x=feat, hue=feat, ax=axes[i, 0])
-            sns.countplot(test_data, x=feat, hue=feat, ax=axes[i, 1])
-
-            axes[i, 0].set_title("Train")
-            axes[i, 1].set_title("Test")
-        
-        fig.tight_layout()
-
-    plot_cat_feat_distributions(train_data, test_data, "health_condition")
-    plt.gca()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
- 
     """)
     return
 

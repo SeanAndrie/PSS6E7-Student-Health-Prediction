@@ -1,0 +1,265 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.23.14",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "3c638e7b61dd90cd8f455525d5a9f72b",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "7640324e198d1f11d7713adce17f9d92",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"download-the-dataset-only-if-you-dont-have-it\">Download the dataset only if you don't have it</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "6b4e309fe0d8e972aaa7d3d047a61dae",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "73c4cc4110577be56d5117cb24bbe5f7",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "2e60153bd93f5d9b01f6fe4e9911f4c7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"basic-data-display-for-viewing\">Basic data display for viewing</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "90173e6a4407c0223145a3e7abb5cbe4",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "56dbad05f90d4e2f7adbdd2ff0ff4b05",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "e502298e337f602d23276daa0c003791",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "a8d59f3c71607bac275b76586bca3df3",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "ea06d78a68323346ecd8f750c8f2b923",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"drop-the-id-column-which-lacks-a-predictive-property-as-it-may-influence-models-prediction\">Drop the 'id' column which lacks a predictive property as it may influence model's prediction</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "86ad22f9138c6abafaef2f4716e9d04b",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "808c33e35efc9d2cf60fb6d6424f9437",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Drop the target column so that it doesn't leak the result into the prediction.</span>\n<ul>\n<li>X is the train_data without the health_condition column</li>\n<li>y is only the health_condition column of the train_data</li>\n<li>X_test is the test_data which already doesn't contain the health_condition column</li>\n</ul></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "f1b6f38353146f29dda5b9e1dc6ba42e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "iLit",
+      "code_hash": "5a48dc9801f3482d4451d042e221870a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">80/20 split for testing and verification data</span>\n<ul>\n<li>X_train is the feature training data</li>\n<li>X_val is validation data</li>\n<li>y_train is the resultant column</li>\n<li>y_val is the result validation data</li>\n</ul></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ZHCJ",
+      "code_hash": "a39f76b69509951300e6a7b419af1811",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ROlb",
+      "code_hash": "f2e1447c33b6c47ebc99525a00b574d7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">As Sean's EDA showed, there are 3 classes of data:</span>\n<ul>\n<li>Numerical</li>\n<li>Categorical</li>\n<li>Ordinal</li>\n</ul>\n<span class=\"paragraph\">We create lists for each type of data as the preprocessor would have to process each class of data differently</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "qnkX",
+      "code_hash": "6eff8c3aa34e24a6c6693d52b3165fd9",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "TqIu",
+      "code_hash": "bd07257c6bcd9aee97e38ad400c066b0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">We create the preprocessor pipeline that will handle missing value imputation, encoding, and scaling of data</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Vxnm",
+      "code_hash": "438a231c33be64d9152a3813610d8b19",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "DnEU",
+      "code_hash": "b445b23909c407a79a0f2aa2d6f11dc7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Using the preprocessor on the data</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ulZA",
+      "code_hash": "163edcb31edf7f76b1574adbc7a04ffa",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ecfG",
+      "code_hash": "5b3fad0b5cf74b4f5fac9a3071af093d",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Pvdt",
+      "code_hash": "768a433bf4d7aa9952a102c5455c165f",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ZBYS",
+      "code_hash": "f1b945f13a98e165a41e5d83b5994a30",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">These next cells are just to view the preprocessed data</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "aLJB",
+      "code_hash": "2668ac62210b185b069165e8f8571d87",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "nHfw",
+      "code_hash": "df8e4b87039dd401546cf16b6d4095ac",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "xXTn",
+      "code_hash": "96dde4789104be00eaac3ff317c37cff",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "AjVT",
+      "code_hash": "b7145bc102979b1f6fe290e5fa2f06e6",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "pHFh",
+      "code_hash": "d6fd75195bf37b6b7476723093d66226",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">Encode the y_train data which contains only the health_condition from the train_data</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "NCOB",
+      "code_hash": "83deb1b200ac0683b0f8eef28778899e",
+      "outputs": [],
+      "console": []
+    }
+  ]
+}

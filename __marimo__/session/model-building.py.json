@@ -1,0 +1,126 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.23.14",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "1d0db38904205bec4d6f6f6a1f6cec3e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "d31cb0bb20c6b176485fe1df75b1b31a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"import-dependencies\">Import Dependencies</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "58f31f64ac80e07c77035c34f3e5c33a",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "37213500c6be20187b0002437aeee71c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"load-data\">Load Data</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "5e886ff55fce5d3231952e5c975dcec4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "application/json": "[[690088, 15], [295753, 14]]"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "c4953da9ce9108a72145c0a5de6aa083",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vJSz",
+      "code_hash": "43d715eb4404d5d3dbe560493c9afb04",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/plain": ""
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "mMkD",
+      "code_hash": "cfb07885d4560ce3512f99146b1713c0",
+      "outputs": [
+        {
+          "type": "error",
+          "ename": "exception",
+          "evalue": "name 'numerical_cols' is not defined",
+          "traceback": null
+        }
+      ],
+      "console": [
+        {
+          "type": "stream",
+          "name": "stderr",
+          "text": "<span class=\"codehilite\"><div class=\"highlight\"><pre><span></span><span class=\"gt\">Traceback (most recent call last):</span>\n  File <span class=\"nb\">&quot;/tmp/marimo_4140/__marimo__cell_mMkD_.py&quot;</span>, line <span class=\"m\">7</span>, in <span class=\"n\">&lt;module&gt;</span>\n<span class=\"w\">    </span><span class=\"p\">]),</span> <span class=\"n\">numerical_cols</span><span class=\"p\">),</span>\n<span class=\"w\">        </span><span class=\"pm\">^^^^^^^^^^^^^^</span>\n<span class=\"gr\">NameError</span>: <span class=\"n\">name &#39;numerical_cols&#39; is not defined</span>\n</pre></div>\n</span>",
+          "mimetype": "application/vnd.marimo+traceback"
+        }
+      ]
+    },
+    {
+      "id": "eiSX",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    }
+  ]
+}
