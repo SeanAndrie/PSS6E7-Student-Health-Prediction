@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.23.14"
-app = marimo.App(width="medium")
+app = marimo.App(width="full")
 
 
 @app.cell(hide_code=True)
@@ -44,15 +44,12 @@ def _():
 
     return (
         ColumnTransformer,
-        DecisionTreeClassifier,
         LGBMClassifier,
         LabelEncoder,
-        LogisticRegression,
         OneHotEncoder,
         OrdinalEncoder,
         Pipeline,
         RobustScaler,
-        SGDClassifier,
         SimpleImputer,
         StratifiedKFold,
         XGBClassifier,
@@ -147,6 +144,7 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
 
             self._transformer = None
             self._label_encoder = None
+
             self._split_info = {
                 "test_size": 0.0,
                 "stratify": False,
@@ -165,16 +163,13 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
             return self._data
 
         def get_metadata(self) -> dict:
-            if self._transformer is None:
-                raise ValueError(
-                    "Transformer has not been fitted yet. Call apply_transform() first."
-                )
             return {
                 "drop_id": self._drop_id,
                 "drop_nan": self._drop_nan,
                 "drop_duplicates": self._drop_duplicates,
                 "split_info": self._split_info,
                 "transformer": self._transformer.transformers_,
+                "label_encoder": self._label_encoder
             }
 
         def split_data(
@@ -184,10 +179,7 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
             random_state: int = 42,
         ) -> None:
             if self._target is None:
-                print(
-                    "Preprocessor: Cannot split dataset without target column.",
-                    file=sys.stderr,
-                )
+                print("Preprocessor: Cannot split dataset without target column.", file=sys.stderr)
                 return
 
             (
@@ -207,6 +199,23 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
             self._split_info["stratify"] = stratify
             self._split_info["random_state"] = random_state
 
+        def get_classes(self):
+            if self._target is None:
+                print("Preprocessor: No target specified.", file=sys.stderr)
+                return None
+
+            classes = None
+            if self._label_encoder is None:
+                print(
+                    "Preprocessor: target has not been encoded yet. Call encode target using `encode_target` method to return encoded labels from fitted label encoder.",
+                    file=sys.stderr
+                )
+                classes = self._target.unique().to_numpy()
+            else:
+                classes = self._label_encoder.classes_
+
+            return classes
+
         def encode_target(
             self, inplace: bool = True, as_series: bool = True
         ) -> dict:
@@ -220,7 +229,7 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
             _y = self._y if inplace else self._y.copy()
 
             self._label_encoder = LabelEncoder()
-            # FIT ONLY ON TRAIN, TRANSFORM VALIDATION TO PREVENT LEAKAGE
+
             _y["train"] = self._label_encoder.fit_transform(_y["train"])
             _y["valid"] = self._label_encoder.transform(_y["valid"])
 
@@ -241,7 +250,6 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
             try:
                 feature_names = transformer.get_feature_names_out()
             except Exception:
-                # Fallback if get_feature_names_out fails
                 feature_names = [f"feat_{i}" for i in range(data_array.shape[1])]
 
             return pd.DataFrame(data_array, columns=feature_names)
@@ -250,7 +258,7 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
             self,
             transformer: ColumnTransformer,
             inplace: bool = True,
-            fitted_transformer: ColumnTransformer = None,
+            # fitted_transformer: ColumnTransformer = None,
         ):
             """Fits and transforms training/validation data OR transforms test data using a pre-fitted transformer.
 
@@ -263,18 +271,17 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
             fitted_transformer : ColumnTransformer, optional
                 Pre-fitted transformer to transform unseen test data.
             """
-            if fitted_transformer is not None:
-                # TRANSFORM UNSEEN TEST DATA WITH PRE-FITTED TRANSFORMER
-                self._transformer = fitted_transformer
-                transformed_arr = self._transformer.transform(self._data)
-                df_transformed = self._convert_to_df(
-                    transformed_arr, self._transformer
-                )
+            # if fitted_transformer is not None:
+            #     self._transformer = fitted_transformer
+            #     transformed_arr = self._transformer.transform(self._data)
+            #     df_transformed = self._convert_to_df(
+            #         transformed_arr, self._transformer
+            #     )
 
-                if inplace:
-                    self._data = df_transformed
-                    return None
-                return df_transformed
+            #     if inplace:
+            #         self._data = df_transformed
+            #         return None
+            #     return df_transformed
 
             if transformer is None:
                 print("Preprocessor: transformer is missing.", file=sys.stderr)
@@ -285,7 +292,6 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
             if self._target_name is not None and self._X["train"] is not None:
                 _X = self._X if inplace else self._X.copy()
 
-                # FIT ON TRAIN, TRANSFORM VALID
                 arr_train = self._transformer.fit_transform(_X["train"])
                 arr_valid = self._transformer.transform(_X["valid"])
 
@@ -294,8 +300,7 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
 
                 return None if inplace else _X
             else:
-                # Unsplit data case
-                arr_data = self._transformer.fit_transform(self._data)
+                arr_data = self._transformer.transform(self._data)
                 df_data = self._convert_to_df(arr_data, self._transformer)
 
                 if inplace:
@@ -317,58 +322,13 @@ def _(clone, np, pd, permutation_importance, sys):
             name: str = None,
             pi_kwargs: dict = None,
             pred_probs: bool = False,
+            adjust_priors: bool = False,
             verbose: bool = True,
             sample_weight_fn=None,
             use_eval_set: bool = False,
             fit_params: dict = None,
             eval_weight_keys: dict = None,
         ):
-            """
-            A class for performing cross-validation on a set of models with various metric functions.
-
-            Attributes:
-                _models (list): A list of (name, model) tuples.
-                _metric_fns (list): A list of (name, metric_fn) tuples.
-                _cv_method (object): A cross-validation splitter from scikit-learn.
-                _name (str): A label for this cross-validator, used in logging.
-                _pi_kwargs (dict, optional): Keyword arguments for permutation importance.
-                _pred_probs (bool): Whether to predict probabilities instead of class labels.
-                _sample_weight_fn (callable, optional): Given y (train or eval fold), returns
-                    per-row sample weights, e.g. functools.partial(compute_sample_weight, "balanced").
-                    WARNING: do not also set class_weight="balanced" (or similar) on the model
-                    itself — applying both is double-weighting and has been measured to cost
-                    0.04–0.06 balanced accuracy versus picking one mechanism.
-                _use_eval_set (bool): If True, passes eval_set=[(x_test, y_test)] to each model's
-                    fit() call for early stopping. Only used during CV folds — never during
-                    refit_predict(), since using the final held-out set as an eval_set would
-                    leak it into training decisions. Not all models support this — e.g.
-                    LogisticRegression has no eval_set concept and will raise a TypeError if
-                    included in a CrossValidator configured with use_eval_set=True.
-                _fit_params (dict, optional): Extra static kwargs merged into every fit() call,
-                    e.g. {"verbose": False}.
-                _eval_weight_keys (dict): Manual override mapping a model's class name to the
-                    fit() kwarg its library uses for per-row eval-set sample weights, since
-                    this isn't standardized across libraries — e.g. XGBoost uses
-                    "sample_weight_eval_set", LightGBM uses "eval_sample_weight". Only needed
-                    for libraries not already handled by _eval_weight_key()'s defaults.
-                _perm_imp (dict, optional): Permutation importances per model, set after fit().
-                _oof_preds (dict, optional): Out-of-fold predictions per model, set after fit().
-                _oof_metrics (dict, optional): Out-of-fold metric scores per model, set after fit().
-                _data (tuple, optional): (X, y) actually used across folds, set after fit().
-                _oof_metrics_df (pd.DataFrame, optional): Mean out-of-fold scores per model.
-                _refit_models (list, optional): (name, model) pairs refit on the full
-                    training set, set after refit_predict().
-
-            Methods:
-                get_data(): Returns (oof_preds, oof_metrics, fold_data) after fitting.
-                get_metadata(): Returns configuration metadata for this cross-validator.
-                get_oof_metrics_df(): Returns the mean out-of-fold metrics as a DataFrame.
-                get_models(): Returns models as fitted at the end of the last CV fold.
-                fit(X, y): Runs cross-validation and stores results.
-                predict(X): Predicts using each model's last-fold fitted state.
-                refit_predict(X_train, y_train, X_valid): Refits each model on the full
-                    training set, then predicts on a held-out validation set.
-            """
             self._name = name or self.__class__.__name__
             self._verbose = verbose
 
@@ -377,6 +337,7 @@ def _(clone, np, pd, permutation_importance, sys):
             self._cv_method = cv_method
             self._pi_kwargs = pi_kwargs
             self._pred_probs = pred_probs
+            self._adjust_priors = adjust_priors
             self._sample_weight_fn = sample_weight_fn
             self._use_eval_set = use_eval_set
             self._fit_params = fit_params or {}
@@ -389,24 +350,59 @@ def _(clone, np, pd, permutation_importance, sys):
             self._oof_metrics_df = None
             self._refit_models = None
 
+        def _compute_priors(self, y_train) -> np.ndarray:
+            """Calculates class prior probabilities pi_k from training labels."""
+            counts = pd.Series(y_train).value_counts(normalize=True).sort_index()
+            return counts.values
+
+        def _predict_model(self, model, X, y_train=None):
+            """Generates predictions.
+
+            If adjust_priors=True, evaluates probabilities P(y=k|x), divides by
+            priors pi_k, and returns argmax_k(P(y=k|x) / pi_k).
+            """
+            if self._adjust_priors or self._pred_probs:
+                probs = model.predict_proba(X)
+
+                if self._adjust_priors:
+                    if y_train is None:
+                        raise ValueError(
+                            "y_train is required to compute priors for adjust_priors=True."
+                        )
+                    priors = self._compute_priors(y_train)
+                
+                    # Divide posterior by prior (epsilon prevents zero division)
+                    adjusted_probs = probs / (priors + 1e-12)
+
+                    if self._pred_probs:
+                        # Return normalized adjusted probabilities
+                        return adjusted_probs / np.sum(
+                            adjusted_probs, axis=1, keepdims=True
+                        )
+                    # Return prior-adjusted 1D class predictions
+                    return np.argmax(adjusted_probs, axis=1)
+
+                return probs
+
+            # Standard argmax prediction
+            return model.predict(X)
+
         def _index(self, data, idx: np.ndarray):
-            """Index into a DataFrame/Series or ndarray the correct way for each."""
             if isinstance(data, (pd.DataFrame, pd.Series)):
                 return data.iloc[idx]
             return data[idx]
 
         def _eval_weight_key(self, model) -> str:
-            """XGBoost and LightGBM name their eval_set sample-weight argument
-            differently in their sklearn-compatible fit() methods. Detect by class
-            name; fall back to a manual override via eval_weight_keys if given."""
             cls_name = type(model).__name__
             if cls_name in self._eval_weight_keys:
                 return self._eval_weight_keys[cls_name]
             if cls_name.startswith("XGB"):
                 return "sample_weight_eval_set"
-            return "eval_sample_weight"  # LightGBM's name; also a reasonable default elsewhere
+            return "eval_sample_weight"
 
-        def _build_fit_kwargs(self, model, x_test=None, y_train=None, y_test=None) -> dict:
+        def _build_fit_kwargs(
+            self, model, x_test=None, y_train=None, y_test=None
+        ) -> dict:
             kwargs = dict(self._fit_params)
 
             if self._sample_weight_fn is not None:
@@ -415,60 +411,65 @@ def _(clone, np, pd, permutation_importance, sys):
             if self._use_eval_set and x_test is not None and y_test is not None:
                 kwargs["eval_set"] = [(x_test, y_test)]
                 if self._sample_weight_fn is not None:
-                    kwargs[self._eval_weight_key(model)] = [self._sample_weight_fn(y_test)]
+                    kwargs[self._eval_weight_key(model)] = [
+                        self._sample_weight_fn(y_test)
+                    ]
 
             return kwargs
 
         def _calculate_metrics(self, y_test, y_pred) -> dict:
-            # Dictionary to store the score for each metric
             results = {}
-
-            # Loop through each metric
             for metric_name, metric_fn in self._metric_fns:
                 try:
                     score = metric_fn(y_test, y_pred)
                 except ValueError as e:
-                    print(f"{self._name}: failed to compute '{metric_name}' — {e}\n", file=sys.stderr)
+                    print(
+                        f"{self._name}: failed to compute '{metric_name}' — {e}\n",
+                        file=sys.stderr,
+                    )
                     continue
 
-                # Store score as value and metric as key
                 results[metric_name] = score
-
                 if self._verbose:
-                    # Display metric score
-                    print(f' - {metric_name} : {score:.5f}\n')
-
+                    print(f"{metric_name} : {score:.5f}\n")
             return results
 
         def _cross_validate(self, X, y) -> tuple:
-            # Dictionaries to store out-of-fold predictions and out-of-fold metric scores
             oof_preds, oof_metrics = {}, {}
-
-            # Lists to aggregate test features and labels used in each fold
             x_data, y_data = [], []
-
-            # Dictionary to store permutation feature importance for each fold
             perm_imp = {}
 
             if self._verbose:
-                print(f'Name: {self._name} | {self._cv_method.n_splits}-Fold\n')
+                print(f"Name: {self._name} | {self._cv_method.n_splits}-Fold\n")
 
-            for idx, (train_idx, test_idx) in enumerate(self._cv_method.split(X, y)):
+            for idx, (train_idx, test_idx) in enumerate(
+                self._cv_method.split(X, y)
+            ):
                 if self._verbose:
-                    print(f'Fold {idx}:')
-                    print('-'*40+'\n')
+                    print(f"Fold {idx}:")
+                    print("-" * 40 + "\n")
 
                 x_train, x_test = self._index(X, train_idx), self._index(X, test_idx)
                 y_train, y_test = self._index(y, train_idx), self._index(y, test_idx)
 
-                x_data.extend(x_test.to_numpy() if isinstance(x_test, pd.DataFrame) else x_test)
-                y_data.extend(y_test.to_numpy() if isinstance(y_test, pd.Series) else y_test)
+                x_data.extend(
+                    x_test.to_numpy()
+                    if isinstance(x_test, pd.DataFrame)
+                    else x_test
+                )
+                y_data.extend(
+                    y_test.to_numpy()
+                    if isinstance(y_test, pd.Series)
+                    else y_test
+                )
 
                 for model_name, model in self._models:
                     if self._verbose:
-                        print(f'Cross-validating: [{model_name}]\n')
+                        print(f"Cross-validating: [{model_name}]\n")
 
-                    fit_kwargs = self._build_fit_kwargs(model, x_test=x_test, y_train=y_train, y_test=y_test)
+                    fit_kwargs = self._build_fit_kwargs(
+                        model, x_test=x_test, y_train=y_train, y_test=y_test
+                    )
                     model.fit(x_train, y_train, **fit_kwargs)
 
                     if model_name not in oof_preds:
@@ -476,24 +477,31 @@ def _(clone, np, pd, permutation_importance, sys):
                         oof_metrics[model_name] = {}
                         perm_imp[model_name] = []
 
-                    y_pred = model.predict_proba(x_test) if self._pred_probs else model.predict(x_test)
+                    # Predict using fold-specific y_train for prior calculations
+                    y_pred = self._predict_model(model, x_test, y_train=y_train)
 
-                    # Save model predictions
                     oof_preds[model_name].append(y_pred)
 
-                    # Calculate metrics
-                    for metric_name, score in self._calculate_metrics(y_test, y_pred).items():
-                        oof_metrics[model_name].setdefault(metric_name, []).append(score)
+                    for metric_name, score in self._calculate_metrics(
+                        y_test, y_pred
+                    ).items():
+                        oof_metrics[model_name].setdefault(
+                            metric_name, []
+                        ).append(score)
 
-                    # Calculate permutation importances
                     if self._pi_kwargs is not None:
                         if self._verbose:
-                            print(' -- Calculating Permutation Importances...\n')
+                            print(" -- Calculating Permutation Importances...\n")
                         try:
-                            perm_result = permutation_importance(model, x_test, y_test, **self._pi_kwargs)
+                            perm_result = permutation_importance(
+                                model, x_test, y_test, **self._pi_kwargs
+                            )
                             perm_imp[model_name].append(perm_result.importances)
                         except Exception as e:
-                            print(f"{self._name}: permutation importance failed for '{model_name}' — {e}\n", file=sys.stderr)
+                            print(
+                                f"{self._name}: permutation importance failed for '{model_name}' — {e}\n",
+                                file=sys.stderr,
+                            )
 
             if self._pi_kwargs is not None:
                 self._perm_imp = perm_imp
@@ -501,14 +509,12 @@ def _(clone, np, pd, permutation_importance, sys):
             return oof_preds, oof_metrics, (x_data, y_data)
 
         def _build_oof_metrics_df(self, metric_dict: dict) -> pd.DataFrame:
-            records = {'models': []}
-
+            records = {"models": []}
             for model_name, metrics in metric_dict.items():
-                records['models'].append(model_name)
+                records["models"].append(model_name)
                 for metric_name, scores in metrics.items():
                     records.setdefault(metric_name, []).append(np.mean(scores))
-
-            return pd.DataFrame(records).set_index('models')
+            return pd.DataFrame(records).set_index("models")
 
         def get_data(self) -> tuple:
             return (self._oof_preds, self._oof_metrics, self._data)
@@ -518,6 +524,7 @@ def _(clone, np, pd, permutation_importance, sys):
                 "name": self._name,
                 "n_splits": getattr(self._cv_method, "n_splits", None),
                 "pred_probs": self._pred_probs,
+                "adjust_priors": self._adjust_priors,
                 "pi_kwargs": self._pi_kwargs,
                 "sample_weighted": self._sample_weight_fn is not None,
                 "use_eval_set": self._use_eval_set,
@@ -534,38 +541,15 @@ def _(clone, np, pd, permutation_importance, sys):
             return self._metric_fns
 
         def get_models(self) -> list:
-            """Return the (name, model) pairs as fitted at the end of the last CV fold.
-            Note: these reflect only the final fold's training data, not the full
-            training set — use refit_predict() if you need models trained on everything.
-            """
             return self._models
 
         def fit(self, X, y) -> None:
-            self._oof_preds, self._oof_metrics, self._data = self._cross_validate(X, y)
+            self._oof_preds, self._oof_metrics, self._data = self._cross_validate(
+                X, y
+            )
             self._oof_metrics_df = self._build_oof_metrics_df(self._oof_metrics)
 
-        def predict(self, X) -> dict:
-            """Predict using each model's current fitted state (last fold's fit).
-            Convenience only — see the fold-state caveat in get_models()."""
-            if self._oof_preds is None:
-                print(f"{self._name}: call fit() before predict().", file=sys.stderr)
-                return {}
-
-            preds = {}
-            for model_name, model in self._models:
-                preds[model_name] = model.predict_proba(X) if self._pred_probs else model.predict(X)
-            return preds
-
         def refit_predict(self, X_train, y_train, X_valid) -> dict:
-            """Refit fresh copies of each model on the full training set, then predict
-            on a held-out validation set. This is the correct method for a final,
-            untouched-until-now validation check.
-
-            Note: intentionally does NOT use an eval_set/early stopping here, even if
-            use_eval_set=True was set for CV — X_valid must stay unseen by training
-            decisions, or it stops being a trustworthy final check. sample_weight_fn
-            (if set) is still applied to X_train.
-            """
             preds = {}
             self._refit_models = []
 
@@ -578,8 +562,8 @@ def _(clone, np, pd, permutation_importance, sys):
                 fresh_model.fit(X_train, y_train, **fit_kwargs)
                 self._refit_models.append((model_name, fresh_model))
 
-                preds[model_name] = (
-                    fresh_model.predict_proba(X_valid) if self._pred_probs else fresh_model.predict(X_valid)
+                preds[model_name] = self._predict_model(
+                    fresh_model, X_valid, y_train=y_train
                 )
 
             return preds
@@ -676,7 +660,7 @@ def _(
                     )
                 )
             ]), ord_cols),
-        
+
             # Categorical Pipeline 
             ('cat', Pipeline([
                 ('imputer', SimpleImputer(strategy="most_frequent")),
@@ -692,7 +676,7 @@ def _(
     lr_pp.encode_target(inplace=True, as_series=True)
 
     X_lr, y_lr = lr_pp.get_data()
-    return X_lr, y_lr
+    return X_lr, lr_pp, y_lr
 
 
 @app.cell
@@ -708,35 +692,33 @@ def _(y_lr):
 
 
 @app.cell
-def _(
-    CrossValidator,
-    LogisticRegression,
-    SGDClassifier,
-    StratifiedKFold,
-    X_lr,
-    metric_fns,
-    y_lr,
-):
-    lr_models = [
-        ("Logistic Regression", LogisticRegression(random_state=42)),
-        ("SGD Classifier", SGDClassifier(random_state=42))
-    ]
-
-    lr_cv = CrossValidator(
-        models=lr_models,
-        metric_fns=metric_fns,
-        cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
-        name = "Linear Model CV"
-    )
-
-    lr_cv.fit(X_lr["train"], y_lr["train"])
-    lr_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
-    return (lr_cv,)
+def _(lr_pp):
+    lr_pp.get_classes()
+    return
 
 
 @app.cell
-def _(X_lr, aggregate_predictions, lr_cv, y_lr):
-    aggregate_predictions(lr_cv, X_lr, y_lr)
+def _():
+    # lr_models = [
+    #     ("Logistic Regression", LogisticRegression(random_state=42)),
+    #     ("SGD Classifier", SGDClassifier(random_state=42))
+    # ]
+
+    # lr_cv = CrossValidator(
+    #     models=lr_models,
+    #     metric_fns=metric_fns,
+    #     cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+    #     name = "Linear Model CV"
+    # )
+
+    # lr_cv.fit(X_lr["train"], y_lr["train"])
+    # lr_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
+    return
+
+
+@app.cell
+def _():
+    # aggregate_predictions(lr_cv, X_lr, y_lr)
     return
 
 
@@ -768,7 +750,7 @@ def _(
             ('num', Pipeline([
                 ('imputer', SimpleImputer(strategy="median", add_indicator=True)),
             ]), num_cols),
-        
+
             # Ordinal Pipeline
             ('ord', Pipeline([
                 ('imputer', SimpleImputer(strategy='most_frequent')),
@@ -779,7 +761,7 @@ def _(
                     )
                 )
             ]), ord_cols),
-        
+
             # Categorical Pipeline 
             ('cat', Pipeline([
                 ('imputer', SimpleImputer(strategy='most_frequent')),
@@ -811,33 +793,26 @@ def _(y_tree):
 
 
 @app.cell
-def _(
-    CrossValidator,
-    DecisionTreeClassifier,
-    StratifiedKFold,
-    X_tree,
-    metric_fns,
-    y_tree,
-):
-    tree_models = [
-        ("Decision Tree", DecisionTreeClassifier(random_state=42)),
-    ]
+def _():
+    # tree_models = [
+    #     ("Decision Tree", DecisionTreeClassifier(random_state=42)),
+    # ]
 
-    tree_cv = CrossValidator(
-        models=tree_models,
-        metric_fns=metric_fns,
-        cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
-        name = "Tree-based Model CV"
-    )
+    # tree_cv = CrossValidator(
+    #     models=tree_models,
+    #     metric_fns=metric_fns,
+    #     cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+    #     name = "Tree-based Model CV"
+    # )
 
-    tree_cv.fit(X_tree["train"], y_tree["train"])
-    tree_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
-    return (tree_cv,)
+    # tree_cv.fit(X_tree["train"], y_tree["train"])
+    # tree_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
+    return
 
 
 @app.cell
-def _(X_tree, aggregate_predictions, tree_cv, y_tree):
-    aggregate_predictions(tree_cv, X_tree, y_tree)
+def _():
+    # aggregate_predictions(tree_cv, X_tree, y_tree)
     return
 
 
@@ -872,7 +847,7 @@ def _(
                     )
                 )
             ]), ord_cols),
-        
+
             # Categorical Pipeline 
             ('cat', Pipeline([
                 ('encoder', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
@@ -886,7 +861,7 @@ def _(
     gb_pp.encode_target(inplace=True, as_series=True)
 
     X_gb, y_gb = gb_pp.get_data()
-    return X_gb, gb_trans, y_gb
+    return X_gb, gb_pp, gb_trans, y_gb
 
 
 @app.cell
@@ -908,7 +883,9 @@ def _(
     StratifiedKFold,
     XGBClassifier,
     X_gb,
+    compute_sample_weight,
     metric_fns,
+    partial,
     y_gb,
 ):
     gb_models = [
@@ -917,22 +894,25 @@ def _(
         # ("CatBoost", CatBoostClassifier(verbose=False, random_state=42))
     ]
 
-    gb_cv_1 = CrossValidator(
+    gb_base = CrossValidator(
         models=gb_models,
         metric_fns=metric_fns,
+        sample_weight_fn=partial(compute_sample_weight, "balanced"),
         cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
-        name="Gradient-boost Model CV",
+        name="Class-weighted CV",
     )
 
-    gb_cv_1.fit(X_gb["train"], y_gb["train"])
-    gb_cv_1.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
-    return gb_cv_1, gb_models
+    gb_base.fit(X_gb["train"], y_gb["train"])
+    gb_base.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
+    return (gb_models,)
 
 
-@app.cell
-def _(X_gb, aggregate_predictions, gb_cv_1, y_gb):
-    aggregate_predictions(gb_cv_1, X_gb, y_gb)
-    return
+app._unparsable_cell(
+    r"""
+     aggregate_predictions(gb_base, X_gb, y_gb)
+    """,
+    name="_"
+)
 
 
 @app.cell(hide_code=True)
@@ -954,18 +934,19 @@ def _(
     partial,
     y_gb,
 ):
-    gb_cv_2 = CrossValidator(
+    gb_adjust = CrossValidator(
         models=gb_models,
         metric_fns=metric_fns,
         cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
         sample_weight_fn=partial(compute_sample_weight, "balanced"),
-        use_eval_set=True,
+        # use_eval_set=True,
+        # adjust_priors=True,
         name="Class-aware Gradient-Boost Model CV"
     )
 
-    gb_cv_2.fit(X_gb["train"], y_gb["train"])
-    gb_cv_2.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
-    return (gb_cv_2,)
+    gb_adjust.fit(X_gb["train"], y_gb["train"])
+    gb_adjust.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
+    return
 
 
 @app.cell
@@ -986,6 +967,12 @@ def _(mo):
 def _(main_dir, pd):
     sample_sub = pd.read_csv(f"{main_dir}/sample_submission.csv")
     sample_sub.head()
+    return (sample_sub,)
+
+
+@app.cell
+def _(X_gb):
+    X_gb["train"].head()
     return
 
 
@@ -993,7 +980,36 @@ def _(main_dir, pd):
 def _(Preprocessor, gb_trans, test_data):
     test_pp = Preprocessor(test_data)
     test_pp.apply_transform(gb_trans, inplace=True)
-    test_pp.get_data()
+    test_data_preproc = test_pp.get_data()
+    test_data_preproc.head()
+    return (test_data_preproc,)
+
+
+@app.cell
+def _(X_gb, gb_cv_2, test_data_preproc, y_gb):
+    preds = gb_cv_2.refit_predict(X_gb["train"], y_gb["train"], test_data_preproc)
+    preds
+    return (preds,)
+
+
+@app.cell
+def _(gb_pp):
+    gb_pp.get_classes()
+    return
+
+
+@app.cell
+def _(gb_pp, preds, sample_sub):
+    submission = sample_sub.copy()
+    submission["health_condition"] = preds["LightGBM"]
+    submission["health_condition"] = submission["health_condition"].map(lambda idx: gb_pp.get_classes()[idx])
+
+    id_col = sample_sub["id"]
+    submission.drop("id", axis=1, inplace=True)
+    submission.index = id_col
+
+    submission.head()
+    # submission.to_csv("submission.csv")
     return
 
 
