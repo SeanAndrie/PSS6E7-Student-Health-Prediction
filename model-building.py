@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.23.14"
-app = marimo.App(width="full")
+app = marimo.App(width="medium")
 
 
 @app.cell(hide_code=True)
@@ -40,7 +40,7 @@ def _():
     from lightgbm import LGBMClassifier
     from catboost import CatBoostClassifier
 
-    from sklearn.metrics import accuracy_score, balanced_accuracy_score, f1_score, confusion_matrix, ConfusionMatrixDisplay
+    from sklearn.metrics import accuracy_score, balanced_accuracy_score, f1_score, roc_auc_score 
 
     return (
         ColumnTransformer,
@@ -62,6 +62,8 @@ def _():
         partial,
         pd,
         permutation_importance,
+        plt,
+        roc_auc_score,
         sys,
         train_test_split,
     )
@@ -77,19 +79,25 @@ def _(mo):
 
 @app.cell
 def _(pd):
+    CONFIG = {
+        "FE" : False 
+    }
+
     main_dir = "playground-series-s6e7"
 
     train_data = pd.read_csv(f"{main_dir}/train.csv")
     test_data = pd.read_csv(f"{main_dir}/test.csv")
 
     train_data.shape, test_data.shape
-    return main_dir, test_data, train_data
+    return CONFIG, main_dir, test_data, train_data
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     # Preprocess Data
+
+    ## Preprocessor
     """)
     return
 
@@ -311,6 +319,14 @@ def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
     return (Preprocessor,)
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Cross-validation
+    """)
+    return
+
+
 @app.cell
 def _(clone, np, pd, permutation_importance, sys):
     class CrossValidator:
@@ -350,10 +366,9 @@ def _(clone, np, pd, permutation_importance, sys):
             self._oof_metrics_df = None
             self._refit_models = None
 
-        def _compute_priors(self, y_train) -> np.ndarray:
-            """Calculates class prior probabilities pi_k from training labels."""
-            counts = pd.Series(y_train).value_counts(normalize=True).sort_index()
-            return counts.values
+        def _compute_priors(self, model, y_train) -> np.ndarray:
+            counts = pd.Series(y_train).value_counts(normalize=True)
+            return np.array([counts.get(cls, 1e-12) for cls in model.classes_])
 
         def _predict_model(self, model, X, y_train=None):
             """Generates predictions.
@@ -369,17 +384,13 @@ def _(clone, np, pd, permutation_importance, sys):
                         raise ValueError(
                             "y_train is required to compute priors for adjust_priors=True."
                         )
-                    priors = self._compute_priors(y_train)
-                
-                    # Divide posterior by prior (epsilon prevents zero division)
+                    priors = self._compute_priors(model, y_train)
                     adjusted_probs = probs / (priors + 1e-12)
 
                     if self._pred_probs:
-                        # Return normalized adjusted probabilities
                         return adjusted_probs / np.sum(
                             adjusted_probs, axis=1, keepdims=True
                         )
-                    # Return prior-adjusted 1D class predictions
                     return np.argmax(adjusted_probs, axis=1)
 
                 return probs
@@ -431,7 +442,7 @@ def _(clone, np, pd, permutation_importance, sys):
 
                 results[metric_name] = score
                 if self._verbose:
-                    print(f"{metric_name} : {score:.5f}\n")
+                    print(f" - {metric_name} : {score:.5f}\n")
             return results
 
         def _cross_validate(self, X, y) -> tuple:
@@ -516,33 +527,6 @@ def _(clone, np, pd, permutation_importance, sys):
                     records.setdefault(metric_name, []).append(np.mean(scores))
             return pd.DataFrame(records).set_index("models")
 
-        def get_data(self) -> tuple:
-            return (self._oof_preds, self._oof_metrics, self._data)
-
-        def get_metadata(self) -> dict:
-            return {
-                "name": self._name,
-                "n_splits": getattr(self._cv_method, "n_splits", None),
-                "pred_probs": self._pred_probs,
-                "adjust_priors": self._adjust_priors,
-                "pi_kwargs": self._pi_kwargs,
-                "sample_weighted": self._sample_weight_fn is not None,
-                "use_eval_set": self._use_eval_set,
-                "fit_params": self._fit_params,
-                "eval_weight_keys": self._eval_weight_keys,
-                "models": [name for name, _ in self._models],
-                "metrics": [name for name, _ in self._metric_fns],
-            }
-
-        def get_oof_metrics_df(self) -> pd.DataFrame:
-            return self._oof_metrics_df
-
-        def get_metric_fns(self) -> list:
-            return self._metric_fns
-
-        def get_models(self) -> list:
-            return self._models
-
         def fit(self, X, y) -> None:
             self._oof_preds, self._oof_metrics, self._data = self._cross_validate(
                 X, y
@@ -568,50 +552,134 @@ def _(clone, np, pd, permutation_importance, sys):
 
             return preds
 
+        def get_data(self) -> tuple:
+            return (self._oof_preds, self._oof_metrics, self._data)
+
+        def get_metadata(self) -> dict:
+            return {
+                "name": self._name,
+                "n_splits": getattr(self._cv_method, "n_splits", None),
+                "pred_probs": self._pred_probs,
+                "adjust_priors": self._adjust_priors,
+                "pi_kwargs": self._pi_kwargs,
+                "sample_weighted": self._sample_weight_fn is not None,
+                "use_eval_set": self._use_eval_set,
+                "fit_params": self._fit_params,
+                "eval_weight_keys": self._eval_weight_keys,
+                "models": [name for name, _ in self._models],
+                "metrics": [name for name, _ in self._metric_fns],
+            }
+
+        def get_oof_metrics_df(self) -> pd.DataFrame:
+            return self._oof_metrics_df
+
+        def get_metric_fns(self) -> list:
+            return self._metric_fns
+
+        def get_perm_importances(self) -> dict:
+            return self._perm_imp
+
+        def get_models(self) -> list:
+            return self._models
+
     return (CrossValidator,)
 
 
 @app.cell
-def _(CrossValidator, pd):
-    def aggregate_predictions(cv:CrossValidator, X:dict, y:dict) -> pd.DataFrame:
+def _(CrossValidator, np, pd, plt):
+    def top_k_permutation_scores(perm_dict, features, k = 5, ncols = 2):
+        model_pi_df = pd.DataFrame(index = features)
+        for model, importances in perm_dict.items():
+            model_pi_df[f'{model}'] = np.mean(np.concatenate(importances, axis = 1), axis = 1)    
+
+        nrows = -(-len(model_pi_df.columns) // ncols)
+        fig, axes = plt.subplots(nrows, ncols, figsize = (18, 8*nrows))
+        for idx, model in enumerate(model_pi_df.columns.tolist()):
+            row, col = idx // ncols, idx % ncols
+            ax = axes[row, col] if nrows > 1 else axes[col]
+            model_pi_df[model].sort_values()[-k:].plot(kind = 'barh', ax = ax, title = f'{model} | Top {k} PI Scores')
+
+        if len(perm_dict.keys()) % ncols != 0:
+            for j in range(len(perm_dict.keys()) % ncols, ncols):
+                axes[-1, j].axis('off')
+
+        fig.tight_layout()
+
+        return model_pi_df
+
+    def aggregate_predictions(cv:CrossValidator, X:dict, y:dict):
         results = {}
         preds = cv.refit_predict(X["train"], y["train"], X["valid"])
         metric_fns = cv.get_metric_fns()
         for model, pred in preds.items():
-            results[model] = {}
+            results [model] = {}
             for item in metric_fns:
                 name, fn = item
                 results[model][name] = fn(y["valid"], pred)
-        return pd.DataFrame(results)
+        return pd.DataFrame(results), preds
 
-    return (aggregate_predictions,)
+    return aggregate_predictions, top_k_permutation_scores
 
 
 @app.cell
-def _(balanced_accuracy_score, f1_score, np, partial, train_data):
+def _(pd, test_data, train_data):
+    def create_interaction_features(df:pd.DataFrame) -> pd.DataFrame:
+        df = df.copy()
+        # df["stress_sleep"] = df["stress_level"].astype(str) + "_" + df["sleep_quality"].astype(str)
+        # df["diet_activity"] = df["diet_type"].astype(str) + "_" + df["physical_activity_level"].astype(str)
+        # df["stress_activity"] = df["stress_level"].astype(str) + "_" + df["physical_activity_level"].astype(str)
+        df["sleep_below_6"] = (df["sleep_duration"]  < 5.995).astype(int)
+        df["sleep_below_7"] = (df["sleep_duration"]  < 6.995).astype(int)
+        return df
+
+    train_eng = create_interaction_features(train_data)
+    test_eng = create_interaction_features(test_data)
+    return test_eng, train_eng
+
+
+@app.cell
+def _(train_eng):
+    train_eng.head()
+    return
+
+
+@app.cell
+def _(test_eng):
+    test_eng.head()
+    return
+
+
+@app.cell
+def _(
+    CONFIG,
+    balanced_accuracy_score,
+    f1_score,
+    np,
+    partial,
+    test_eng,
+    train_data,
+    train_eng,
+):
+    train = train_eng if CONFIG["FE"] else train_data
+    test = test_eng if CONFIG["FE"] else test_eng 
+
     ord_map = {
         'sleep_quality': ["poor", "average", "good"],
         "physical_activity_level": ["sedentary", "moderate", "active"],
-        "stress_level": ["low", "medium", "high"]
+        "stress_level": ["high", "medium", "low"]
     }
 
     ord_categories = list(ord_map.values())
 
     ord_cols = list(ord_map.keys())
-    num_cols = train_data.select_dtypes(include=[np.number]).columns.tolist()[1:]
+    num_cols = train.select_dtypes(include=[np.number]).columns.tolist()[1:]
 
     # Categorical 
     cat_cols = []
-    for _col in train_data.select_dtypes(exclude=[np.number]).columns.tolist():
+    for _col in train.select_dtypes(exclude=[np.number]).columns.tolist():
         if (_col not in ord_cols) and _col != "health_condition":
             cat_cols.append(_col)
-
-    feat_map = {
-        "num":num_cols,
-        "ord":ord_cols,
-        "cat":cat_cols,
-    }
-
+        
     metric_fns = [
         ("Balanced Accuracy", balanced_accuracy_score),
         ("Macro F1 ", partial(f1_score, average="macro")), 
@@ -622,7 +690,7 @@ def _(balanced_accuracy_score, f1_score, np, partial, train_data):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Linear Models
+    ## Linear Models
     """)
     return
 
@@ -725,7 +793,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Tree-based Models
+    ## Tree-based Models
     """)
     return
 
@@ -819,7 +887,7 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Gradient-boosting Models
+    ## Gradient-boosting Models
     """)
     return
 
@@ -889,9 +957,9 @@ def _(
     y_gb,
 ):
     gb_models = [
-        ("XGBoost", XGBClassifier(verbosity=0, random_state=42)),
-        ("LightGBM", LGBMClassifier(verbose=0, random_state=42)),
-        # ("CatBoost", CatBoostClassifier(verbose=False, random_state=42))
+        ("XGBoost", XGBClassifier(verbosity=0, device="cuda", random_state=42)),
+        ("LightGBM", LGBMClassifier(verbose=0, device="gpu", random_state=42)),
+        # ("CatBoost", CatBoostClassifier(verbose=False, task_type="GPU", random_state=42))
     ]
 
     gb_base = CrossValidator(
@@ -899,28 +967,28 @@ def _(
         metric_fns=metric_fns,
         sample_weight_fn=partial(compute_sample_weight, "balanced"),
         cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+        pi_kwargs = {'scoring':'balanced_accuracy', 'random_state': 42, 'n_jobs': 4, 'n_repeats': 3},
         name="Class-weighted CV",
     )
 
     gb_base.fit(X_gb["train"], y_gb["train"])
     gb_base.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
-    return (gb_models,)
+    return gb_base, gb_models
 
 
-app._unparsable_cell(
-    r"""
-     aggregate_predictions(gb_base, X_gb, y_gb)
-    """,
-    name="_"
-)
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    ## Class Weights
-    """)
+@app.cell
+def _(X_gb, gb_base, plt, top_k_permutation_scores):
+    gb_base_pi = top_k_permutation_scores(gb_base.get_perm_importances(), X_gb["train"].columns.tolist(), k=10, ncols=2)
+    gb_base_pi.head()
+    plt.gca()
     return
+
+
+@app.cell
+def _(X_gb, aggregate_predictions, gb_base, y_gb):
+    base_results, base_preds = aggregate_predictions(gb_base, X_gb, y_gb)
+    base_results
+    return (base_results,)
 
 
 @app.cell
@@ -928,37 +996,54 @@ def _(
     CrossValidator,
     StratifiedKFold,
     X_gb,
+    aggregate_predictions,
     compute_sample_weight,
     gb_models,
-    metric_fns,
     partial,
+    roc_auc_score,
     y_gb,
 ):
-    gb_adjust = CrossValidator(
+    gb_blend = CrossValidator(
         models=gb_models,
-        metric_fns=metric_fns,
-        cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+        metric_fns=[("ROC-AUC", partial(roc_auc_score, average="macro", multi_class="ovr"))],
         sample_weight_fn=partial(compute_sample_weight, "balanced"),
-        # use_eval_set=True,
-        # adjust_priors=True,
-        name="Class-aware Gradient-Boost Model CV"
+        cv_method=StratifiedKFold(n_splits=7, shuffle=True, random_state=42),
+        pred_probs=True,
+        name="Class-weighted CV",
     )
 
-    gb_adjust.fit(X_gb["train"], y_gb["train"])
-    gb_adjust.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
-    return
+    blend_results, blend_preds = aggregate_predictions(gb_blend, X_gb, y_gb)
+    blend_results
+    return blend_preds, blend_results, gb_blend
 
 
 @app.cell
-def _(X_gb, aggregate_predictions, gb_cv_2, y_gb):
-    aggregate_predictions(gb_cv_2, X_gb, y_gb)
-    return
+def _(
+    balanced_accuracy_score,
+    base_results,
+    blend_preds,
+    blend_results,
+    np,
+    y_gb,
+):
+    def blend_predictions(model_probs:dict, weights:np.array) -> np.array:
+        probas = np.array([value for value in model_probs.values()])
+        blended_proba = np.average(probas, axis=0, weights=weights)
+        return np.argmax(blended_proba, axis=1)
+
+    weights = np.array([blend_results[model]["ROC-AUC"] for model in blend_results]) ** 20
+    weights /= weights.sum()
+
+    blended_pred = blend_predictions(blend_preds, weights)
+    base_results["Blended"] = balanced_accuracy_score(y_gb["valid"], blended_pred)
+    base_results
+    return blend_predictions, weights
 
 
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Make Predictions
+    # Submission
     """)
     return
 
@@ -971,12 +1056,6 @@ def _(main_dir, pd):
 
 
 @app.cell
-def _(X_gb):
-    X_gb["train"].head()
-    return
-
-
-@app.cell
 def _(Preprocessor, gb_trans, test_data):
     test_pp = Preprocessor(test_data)
     test_pp.apply_transform(gb_trans, inplace=True)
@@ -986,22 +1065,17 @@ def _(Preprocessor, gb_trans, test_data):
 
 
 @app.cell
-def _(X_gb, gb_cv_2, test_data_preproc, y_gb):
-    preds = gb_cv_2.refit_predict(X_gb["train"], y_gb["train"], test_data_preproc)
-    preds
-    return (preds,)
+def _(X_gb, blend_predictions, gb_blend, test_data_preproc, weights, y_gb):
+    preds = gb_blend.refit_predict(X_gb["train"], y_gb["train"], test_data_preproc)
+    final_preds = blend_predictions(preds, weights)
+    final_preds
+    return (final_preds,)
 
 
 @app.cell
-def _(gb_pp):
-    gb_pp.get_classes()
-    return
-
-
-@app.cell
-def _(gb_pp, preds, sample_sub):
+def _(final_preds, gb_pp, sample_sub):
     submission = sample_sub.copy()
-    submission["health_condition"] = preds["LightGBM"]
+    submission["health_condition"] = final_preds
     submission["health_condition"] = submission["health_condition"].map(lambda idx: gb_pp.get_classes()[idx])
 
     id_col = sample_sub["id"]
@@ -1009,7 +1083,7 @@ def _(gb_pp, preds, sample_sub):
     submission.index = id_col
 
     submission.head()
-    # submission.to_csv("submission.csv")
+    submission.to_csv("submission.csv")
     return
 
 

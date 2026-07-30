@@ -414,10 +414,10 @@ def _(cat_cols, pd, plt, sns, test_data, train_data):
         cat_cols:list,
         figsize=(10, 12)
     ) -> None:
-    
+
         if target in cat_cols:
             cat_cols.remove(target)
-    
+
         train_cat = train_data[cat_cols]
         test_cat = test_data[cat_cols]
 
@@ -426,10 +426,10 @@ def _(cat_cols, pd, plt, sns, test_data, train_data):
         for i, col in enumerate(cat_cols):
             sns.countplot(train_data, x=col, hue=col, stat="proportion", ax=axes[i, 0])
             sns.countplot(train_data, x=col, hue=col, stat="proportion", ax=axes[i, 1])
-        
+
             axes[i, 0].set_title("Train")
             axes[i, 1].set_title("Test")
-        
+
             axes[i, 0].get_legend().set_visible(False)
             axes[i, 1].get_legend().set_visible(False)
 
@@ -454,11 +454,11 @@ def _(ord_cols, pd, plt, test_data, train_data):
 
     def create_cnt_map(df:pd.DataFrame, ord_mapping:dict[str, list[str]]):
         cnt_map = {}
-    
+
         for col in list(ord_mapping.keys()):
             cnt_map[col] = dict.fromkeys(ord_mapping[col], 0)
             cnt_map[col]["nan"] = 0
-        
+
             for cat in cnt_map[col]:
                 if cat == "nan":
                     cnt_map[col][cat] = df[col].isna().sum()
@@ -466,19 +466,19 @@ def _(ord_cols, pd, plt, test_data, train_data):
                     cnt_map[col][cat] = df[df[col] == cat].shape[0]
                 cnt_map[col][cat] *= 1.0
                 cnt_map[col][cat] /= df.shape[0]
-            
+
         return cnt_map
-    
+
     def plot_ordinal_feature_distribution(
         train_data:pd.DataFrame, 
         test_data:pd.DataFrame, 
         ord_mapping:dict[str, list[str]], 
         figsize=(10, 12)
     ) -> None:
-    
+
         train_cnts = create_cnt_map(train_data, ord_mapping)
         test_cnts = create_cnt_map(test_data, ord_mapping)
-    
+
         fig, axes = plt.subplots(nrows=len(ord_cols), ncols=2, figsize=figsize)
         fig.tight_layout()
 
@@ -491,7 +491,7 @@ def _(ord_cols, pd, plt, test_data, train_data):
 
             axes[i, 0].set_xlabel(f"{col}")
             axes[i, 1].set_xlabel(f"{col}")
-        
+
             axes[i, 0].set_ylabel("Count")
             axes[i, 1].set_ylabel("Count")
 
