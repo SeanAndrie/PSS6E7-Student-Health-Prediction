@@ -44,12 +44,15 @@ def _():
 
     return (
         ColumnTransformer,
+        DecisionTreeClassifier,
         LGBMClassifier,
         LabelEncoder,
+        LogisticRegression,
         OneHotEncoder,
         OrdinalEncoder,
         Pipeline,
         RobustScaler,
+        SGDClassifier,
         SimpleImputer,
         StratifiedKFold,
         XGBClassifier,
@@ -80,7 +83,9 @@ def _(mo):
 @app.cell
 def _(pd):
     CONFIG = {
-        "FE" : False 
+        "FE" : True, 
+        "ADJUST_PRIORS": False,
+        "RANDOM_STATE": 42
     }
 
     main_dir = "playground-series-s6e7"
@@ -102,7 +107,7 @@ def _(mo):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(ColumnTransformer, LabelEncoder, np, pd, sys, train_test_split):
     class Preprocessor:
         def __init__(
@@ -412,7 +417,7 @@ def _(clone, np, pd, permutation_importance, sys):
             return "eval_sample_weight"
 
         def _build_fit_kwargs(
-            self, model, x_test=None, y_train=None, y_test=None
+            self, model_name, model, x_test=None, y_train=None, y_test=None
         ) -> dict:
             kwargs = dict(self._fit_params)
 
@@ -421,6 +426,8 @@ def _(clone, np, pd, permutation_importance, sys):
 
             if self._use_eval_set and x_test is not None and y_test is not None:
                 kwargs["eval_set"] = [(x_test, y_test)]
+                if model_name == "XGBoost":
+                    kwargs["verbose"] = False
                 if self._sample_weight_fn is not None:
                     kwargs[self._eval_weight_key(model)] = [
                         self._sample_weight_fn(y_test)
@@ -479,7 +486,7 @@ def _(clone, np, pd, permutation_importance, sys):
                         print(f"Cross-validating: [{model_name}]\n")
 
                     fit_kwargs = self._build_fit_kwargs(
-                        model, x_test=x_test, y_train=y_train, y_test=y_test
+                        model_name, model, x_test=x_test, y_train=y_train, y_test=y_test
                     )
                     model.fit(x_train, y_train, **fit_kwargs)
 
@@ -623,30 +630,17 @@ def _(CrossValidator, np, pd, plt):
 
 @app.cell
 def _(pd, test_data, train_data):
-    def create_interaction_features(df:pd.DataFrame) -> pd.DataFrame:
-        df = df.copy()
-        # df["stress_sleep"] = df["stress_level"].astype(str) + "_" + df["sleep_quality"].astype(str)
-        # df["diet_activity"] = df["diet_type"].astype(str) + "_" + df["physical_activity_level"].astype(str)
-        # df["stress_activity"] = df["stress_level"].astype(str) + "_" + df["physical_activity_level"].astype(str)
+    def engineer_features(df:pd.DataFrame) -> pd.DataFrame:
         df["sleep_below_6"] = (df["sleep_duration"]  < 5.995).astype(int)
         df["sleep_below_7"] = (df["sleep_duration"]  < 6.995).astype(int)
         return df
 
-    train_eng = create_interaction_features(train_data)
-    test_eng = create_interaction_features(test_data)
+    train_eng = engineer_features(train_data)
+    train_eng["any_missing"] = train_eng.drop(columns=["id", "health_condition"]).isna().any(axis=1)
+
+    test_eng = engineer_features(test_data)
+    test_eng["any_missing"] = test_eng.isna().any(axis=1)
     return test_eng, train_eng
-
-
-@app.cell
-def _(train_eng):
-    train_eng.head()
-    return
-
-
-@app.cell
-def _(test_eng):
-    test_eng.head()
-    return
 
 
 @app.cell
@@ -656,12 +650,13 @@ def _(
     f1_score,
     np,
     partial,
+    test_data,
     test_eng,
     train_data,
     train_eng,
 ):
     train = train_eng if CONFIG["FE"] else train_data
-    test = test_eng if CONFIG["FE"] else test_eng 
+    test = test_eng if CONFIG["FE"] else test_data 
 
     ord_map = {
         'sleep_quality': ["poor", "average", "good"],
@@ -679,12 +674,12 @@ def _(
     for _col in train.select_dtypes(exclude=[np.number]).columns.tolist():
         if (_col not in ord_cols) and _col != "health_condition":
             cat_cols.append(_col)
-        
+
     metric_fns = [
         ("Balanced Accuracy", balanced_accuracy_score),
         ("Macro F1 ", partial(f1_score, average="macro")), 
     ]
-    return cat_cols, metric_fns, num_cols, ord_categories, ord_cols
+    return cat_cols, metric_fns, num_cols, ord_categories, ord_cols, train
 
 
 @app.cell(hide_code=True)
@@ -695,7 +690,7 @@ def _(mo):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(
     ColumnTransformer,
     OneHotEncoder,
@@ -744,49 +739,33 @@ def _(
     lr_pp.encode_target(inplace=True, as_series=True)
 
     X_lr, y_lr = lr_pp.get_data()
-    return X_lr, lr_pp, y_lr
+    return X_lr, y_lr
 
 
-@app.cell
-def _(X_lr):
-    X_lr["train"].head()
-    return
+@app.cell(hide_code=True)
+def _(
+    CrossValidator,
+    LogisticRegression,
+    SGDClassifier,
+    StratifiedKFold,
+    X_lr,
+    metric_fns,
+    y_lr,
+):
+    lr_models = [
+        ("Logistic Regression", LogisticRegression(random_state=42)),
+        ("SGD Classifier", SGDClassifier(random_state=42))
+    ]
 
+    lr_cv = CrossValidator(
+        models=lr_models,
+        metric_fns=metric_fns,
+        cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+        name = "Linear Model CV"
+    )
 
-@app.cell
-def _(y_lr):
-    y_lr["train"].head()
-    return
-
-
-@app.cell
-def _(lr_pp):
-    lr_pp.get_classes()
-    return
-
-
-@app.cell
-def _():
-    # lr_models = [
-    #     ("Logistic Regression", LogisticRegression(random_state=42)),
-    #     ("SGD Classifier", SGDClassifier(random_state=42))
-    # ]
-
-    # lr_cv = CrossValidator(
-    #     models=lr_models,
-    #     metric_fns=metric_fns,
-    #     cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
-    #     name = "Linear Model CV"
-    # )
-
-    # lr_cv.fit(X_lr["train"], y_lr["train"])
-    # lr_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
-    return
-
-
-@app.cell
-def _():
-    # aggregate_predictions(lr_cv, X_lr, y_lr)
+    lr_cv.fit(X_lr["train"], y_lr["train"])
+    lr_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
     return
 
 
@@ -798,7 +777,7 @@ def _(mo):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(
     ColumnTransformer,
     OneHotEncoder,
@@ -848,39 +827,28 @@ def _(
     return X_tree, y_tree
 
 
-@app.cell
-def _(X_tree):
-    X_tree["train"].head()
-    return
+@app.cell(hide_code=True)
+def _(
+    CrossValidator,
+    DecisionTreeClassifier,
+    StratifiedKFold,
+    X_tree,
+    metric_fns,
+    y_tree,
+):
+    tree_models = [
+        ("Decision Tree", DecisionTreeClassifier(random_state=42)),
+    ]
 
+    tree_cv = CrossValidator(
+        models=tree_models,
+        metric_fns=metric_fns,
+        cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
+        name = "Tree-based Model CV"
+    )
 
-@app.cell
-def _(y_tree):
-    y_tree["valid"].head()
-    return
-
-
-@app.cell
-def _():
-    # tree_models = [
-    #     ("Decision Tree", DecisionTreeClassifier(random_state=42)),
-    # ]
-
-    # tree_cv = CrossValidator(
-    #     models=tree_models,
-    #     metric_fns=metric_fns,
-    #     cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
-    #     name = "Tree-based Model CV"
-    # )
-
-    # tree_cv.fit(X_tree["train"], y_tree["train"])
-    # tree_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
-    return
-
-
-@app.cell
-def _():
-    # aggregate_predictions(tree_cv, X_tree, y_tree)
+    tree_cv.fit(X_tree["train"], y_tree["train"])
+    tree_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
     return
 
 
@@ -902,7 +870,7 @@ def _(
     cat_cols,
     ord_categories,
     ord_cols,
-    train_data,
+    train,
 ):
     gb_trans = ColumnTransformer(
         transformers=[
@@ -923,7 +891,7 @@ def _(
         ],
         remainder="passthrough"
     ) 
-    gb_pp = Preprocessor(train_data, "health_condition")
+    gb_pp = Preprocessor(train, "health_condition")
     gb_pp.split_data()
     gb_pp.apply_transform(gb_trans, inplace=True)
     gb_pp.encode_target(inplace=True, as_series=True)
@@ -946,6 +914,7 @@ def _(y_gb):
 
 @app.cell
 def _(
+    CONFIG,
     CrossValidator,
     LGBMClassifier,
     StratifiedKFold,
@@ -956,37 +925,41 @@ def _(
     partial,
     y_gb,
 ):
-    gb_models = [
-        ("XGBoost", XGBClassifier(verbosity=0, device="cuda", random_state=42)),
-        ("LightGBM", LGBMClassifier(verbose=0, device="gpu", random_state=42)),
-        # ("CatBoost", CatBoostClassifier(verbose=False, task_type="GPU", random_state=42))
+    gb_base = [
+        ("XGBoost", XGBClassifier(verbosity=0, num_class=3, device="cuda", random_state=CONFIG["RANDOM_STATE"])),
+        ("LightGBM", LGBMClassifier(verbose=0, num_class=3, device="gpu", random_state=CONFIG["RANDOM_STATE"])),
+        # ("CatBoost", CatBoostClassifier(verbose=False, task_type="GPU", random_state=CONFIG["RANDOM_STATE"]))
     ]
 
-    gb_base = CrossValidator(
-        models=gb_models,
+    gb_base_cv = CrossValidator(
+        models=gb_base,
         metric_fns=metric_fns,
-        sample_weight_fn=partial(compute_sample_weight, "balanced"),
-        cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=42),
-        pi_kwargs = {'scoring':'balanced_accuracy', 'random_state': 42, 'n_jobs': 4, 'n_repeats': 3},
-        name="Class-weighted CV",
+        sample_weight_fn=None if CONFIG["ADJUST_PRIORS"] else partial(compute_sample_weight, "balanced"),
+        cv_method=StratifiedKFold(n_splits=7, shuffle=True, random_state=CONFIG["RANDOM_STATE"]),
+        # pi_kwargs = {'scoring':'balanced_accuracy', 'random_state': CONFIG["RANDOM_STATE"], 'n_jobs': 4, 'n_repeats': 3},
+        adjust_priors=CONFIG["ADJUST_PRIORS"],
+        use_eval_set=True,
+        name="Baseline CV",
     )
 
-    gb_base.fit(X_gb["train"], y_gb["train"])
-    gb_base.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
-    return gb_base, gb_models
+    gb_base_cv.fit(X_gb["train"], y_gb["train"])
+    gb_base_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
+    return gb_base, gb_base_cv
 
 
 @app.cell
-def _(X_gb, gb_base, plt, top_k_permutation_scores):
-    gb_base_pi = top_k_permutation_scores(gb_base.get_perm_importances(), X_gb["train"].columns.tolist(), k=10, ncols=2)
-    gb_base_pi.head()
-    plt.gca()
+def _(X_gb, gb_base_cv, plt, top_k_permutation_scores):
+    perm_imp = gb_base_cv.get_perm_importances()
+    if perm_imp is not None:
+        gb_base_pi = top_k_permutation_scores(perm_imp, X_gb["train"].columns.tolist(), k=22, ncols=2)
+        gb_base_pi.head()
+        plt.gca()
     return
 
 
 @app.cell
-def _(X_gb, aggregate_predictions, gb_base, y_gb):
-    base_results, base_preds = aggregate_predictions(gb_base, X_gb, y_gb)
+def _(X_gb, aggregate_predictions, gb_base_cv, y_gb):
+    base_results, base_preds = aggregate_predictions(gb_base_cv, X_gb, y_gb)
     base_results
     return (base_results,)
 
@@ -997,47 +970,214 @@ def _(
     StratifiedKFold,
     X_gb,
     aggregate_predictions,
+    balanced_accuracy_score,
+    base_results,
     compute_sample_weight,
-    gb_models,
+    f1_score,
+    gb_base,
+    np,
     partial,
     roc_auc_score,
     y_gb,
 ):
-    gb_blend = CrossValidator(
-        models=gb_models,
-        metric_fns=[("ROC-AUC", partial(roc_auc_score, average="macro", multi_class="ovr"))],
-        sample_weight_fn=partial(compute_sample_weight, "balanced"),
-        cv_method=StratifiedKFold(n_splits=7, shuffle=True, random_state=42),
-        pred_probs=True,
-        name="Class-weighted CV",
+    def blend_predictions(results_df, preds, power) -> np.array:
+        weights = np.array([results_df[model]["ROC-AUC"] for model in results_df]) ** power
+        weights /= weights.sum()
+
+        probas = np.array([value for value in preds.values()])
+        blended_proba = np.average(probas, axis=0, weights=weights)
+        return np.argmax(blended_proba, axis=1)
+
+    gb_blend_base = CrossValidator(
+            models=gb_base,
+            metric_fns=[("ROC-AUC", partial(roc_auc_score, average="macro", multi_class="ovr"))],
+            sample_weight_fn=partial(compute_sample_weight, "balanced"),
+            cv_method=StratifiedKFold(n_splits=7, shuffle=True, random_state=42),
+            pred_probs=True,
+            name="Class-weighted CV",
     )
 
-    blend_results, blend_preds = aggregate_predictions(gb_blend, X_gb, y_gb)
-    blend_results
-    return blend_preds, blend_results, gb_blend
+    blend_base_results, blend_base_preds_dict = aggregate_predictions(gb_blend_base, X_gb, y_gb)
+    blend_base_preds = blend_predictions(blend_base_results, blend_base_preds_dict, 250)
+
+    base_results["Blended"]= [
+        balanced_accuracy_score(y_gb["valid"], blend_base_preds),
+        f1_score(y_gb["valid"], blend_base_preds, average="macro")
+    ]
+
+    base_results
+    return (blend_predictions,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # Hyperparameter Tuning
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(
+    CONFIG,
+    StratifiedKFold,
+    XGBClassifier,
+    balanced_accuracy_score,
+    compute_sample_weight,
+    np,
+):
+    import optuna
+
+    def xgb_objective(trial: optuna.Trial, X, y) -> float:
+        params = dict(
+            objective=trial.suggest_categorical("objective", ["multi:softprob"]),
+            num_class=trial.suggest_categorical("num_class", [3]),
+            tree_method=trial.suggest_categorical("tree_method", ["hist"]),
+            enable_categorical=trial.suggest_categorical("enable_categorical", [True]),
+            device=trial.suggest_categorical("device", ["cuda"]),
+            max_depth=trial.suggest_int("max_depth", 4, 10),
+            learning_rate=trial.suggest_float("learning_rate", 0.01, 0.1, log=True),
+            max_bin=trial.suggest_categorical("max_bin", [256, 512, 768, 1024]),
+            reg_lambda=trial.suggest_float("reg_lambda", 1e-2, 20.0, log=True),
+            reg_alpha=trial.suggest_float("reg_alpha", 1e-3, 5.0, log=True),
+            gamma=trial.suggest_float("gamma", 0.0, 5.0),
+            min_child_weight=trial.suggest_float("min_child_weight", 0.1, 10.0, log=True),
+            subsample=trial.suggest_float("subsample", 0.6, 1.0),
+            colsample_bytree=trial.suggest_float("colsample_bytree", 0.4, 1.0),
+            colsample_bylevel=trial.suggest_float("colsample_bylevel", 0.4, 1.0),
+            random_state=trial.suggest_categorical("random_state", [CONFIG["RANDOM_STATE"]])
+        )
+
+        skf = StratifiedKFold(n_splits=7, shuffle=True, random_state=CONFIG["RANDOM_STATE"])
+        scores = []
+
+        for fold_idx, (train_idx, val_idx) in enumerate(skf.split(X, y)):
+            X_train, X_val = X.iloc[train_idx], X.iloc[val_idx]
+            y_train, y_val = y.iloc[train_idx], y.iloc[val_idx]
+
+            model = XGBClassifier(**params)
+            model.fit(
+                X_train, y_train,
+                sample_weight=compute_sample_weight("balanced", y_train), verbose=False,
+            )
+            scores.append(balanced_accuracy_score(y_val, model.predict(X_val)))
+
+        return np.mean(scores)
+
+    return optuna, xgb_objective
+
+
+@app.cell(hide_code=True)
+def _(X_gb, optuna, xgb_objective, y_gb):
+    xgb_study = optuna.create_study(direction="maximize", study_name="xgb_tuning", pruner=optuna.pruners.MedianPruner)
+    xgb_study.optimize(lambda trial: xgb_objective(trial, X_gb["train"], y_gb["train"]), n_trials=50, n_jobs=4)
+    print(f"Best XGB params: {xgb_study.best_params}")
+    print(f"Best XGB score: {xgb_study.best_value}")
+    return
+
+
+@app.cell
+def _():
+    xgb_params = {
+      "n_estimators": 800,
+      "objective": "multi:softprob",
+      "num_class": 3,
+      "tree_method": "hist",
+      "enable_categorical": True,
+      "device": "cuda",
+      # "early_stopping_rounds": 30,
+      "max_depth": 7,
+      "learning_rate": 0.07369438563037589,
+      "max_bin": 512,
+      "reg_lambda": 1.5721298770583345,
+      "reg_alpha": 0.1391475052202292,
+      "gamma": 4.154972386918197,
+      "min_child_weight": 0.2057499152960608,
+      "subsample": 0.8718998581956058,
+      "colsample_bytree": 0.9962542898358943,
+      "colsample_bylevel": 0.984260352659543,
+      "random_state": 42,
+    }
+    return (xgb_params,)
 
 
 @app.cell
 def _(
-    balanced_accuracy_score,
-    base_results,
-    blend_preds,
-    blend_results,
-    np,
+    CONFIG,
+    CrossValidator,
+    LGBMClassifier,
+    StratifiedKFold,
+    XGBClassifier,
+    X_gb,
+    compute_sample_weight,
+    metric_fns,
+    partial,
+    xgb_params,
     y_gb,
 ):
-    def blend_predictions(model_probs:dict, weights:np.array) -> np.array:
-        probas = np.array([value for value in model_probs.values()])
-        blended_proba = np.average(probas, axis=0, weights=weights)
-        return np.argmax(blended_proba, axis=1)
+    gb_tuned = [
+        ("XGBoost", XGBClassifier(**xgb_params)),
+        ("LightGBM", LGBMClassifier(verbose=0, num_class=3, device="gpu", random_state=CONFIG["RANDOM_STATE"])),
+    ]
 
-    weights = np.array([blend_results[model]["ROC-AUC"] for model in blend_results]) ** 20
-    weights /= weights.sum()
+    gb_tuned_cv = CrossValidator(
+        models=gb_tuned,
+        metric_fns=metric_fns,
+        sample_weight_fn=None if CONFIG["ADJUST_PRIORS"] else partial(compute_sample_weight, "balanced"),
+        cv_method=StratifiedKFold(n_splits=7, shuffle=True, random_state=CONFIG["RANDOM_STATE"]),
+        # pi_kwargs = {'scoring':'balanced_accuracy', 'random_state': CONFIG["RANDOM_STATE"], 'n_jobs': 4, 'n_repeats': 3},
+        adjust_priors=CONFIG["ADJUST_PRIORS"],
+        use_eval_set=True,
+        name="Tuned CV",
+    )
 
-    blended_pred = blend_predictions(blend_preds, weights)
-    base_results["Blended"] = balanced_accuracy_score(y_gb["valid"], blended_pred)
-    base_results
-    return blend_predictions, weights
+    gb_tuned_cv.fit(X_gb["train"], y_gb["train"])
+    gb_tuned_cv.get_oof_metrics_df().sort_values(by="Balanced Accuracy", ascending=False)
+    return gb_tuned, gb_tuned_cv
+
+
+@app.cell
+def _(X_gb, aggregate_predictions, gb_tuned_cv, y_gb):
+    tuned_results, tuned_preds = aggregate_predictions(gb_tuned_cv, X_gb, y_gb)
+    tuned_results
+    return (tuned_results,)
+
+
+@app.cell
+def _(
+    CrossValidator,
+    StratifiedKFold,
+    X_gb,
+    aggregate_predictions,
+    balanced_accuracy_score,
+    blend_predictions,
+    compute_sample_weight,
+    f1_score,
+    gb_tuned,
+    partial,
+    roc_auc_score,
+    tuned_results,
+    y_gb,
+):
+    gb_blend_tuned = CrossValidator(
+            models=gb_tuned,
+            metric_fns=[("ROC-AUC", partial(roc_auc_score, average="macro", multi_class="ovr"))],
+            sample_weight_fn=partial(compute_sample_weight, "balanced"),
+            cv_method=StratifiedKFold(n_splits=7, shuffle=True, random_state=42),
+            pred_probs=True,
+            name="Class-weighted CV",
+    )
+
+    blend_tuned_results, blend_tuned_preds_dict = aggregate_predictions(gb_blend_tuned, X_gb, y_gb)
+    blend_tuned_preds = blend_predictions(blend_tuned_results, blend_tuned_preds_dict, 1000)
+
+    tuned_results["Blend"] = [
+        balanced_accuracy_score(y_gb["valid"], blend_tuned_preds),
+        f1_score(y_gb["valid"], blend_tuned_preds, average="macro")
+    ]
+
+    tuned_results
+    return
 
 
 @app.cell(hide_code=True)
@@ -1065,17 +1205,18 @@ def _(Preprocessor, gb_trans, test_data):
 
 
 @app.cell
-def _(X_gb, blend_predictions, gb_blend, test_data_preproc, weights, y_gb):
-    preds = gb_blend.refit_predict(X_gb["train"], y_gb["train"], test_data_preproc)
-    final_preds = blend_predictions(preds, weights)
-    final_preds
-    return (final_preds,)
+def _(X_gb, gb_tuned_cv, test_data_preproc, y_gb):
+    preds = gb_tuned_cv.refit_predict(X_gb["train"], y_gb["train"], test_data_preproc)
+    # final_preds = blend_predictions(preds, weights)
+    # final_preds
+    preds
+    return (preds,)
 
 
 @app.cell
-def _(final_preds, gb_pp, sample_sub):
+def _(gb_pp, preds, sample_sub):
     submission = sample_sub.copy()
-    submission["health_condition"] = final_preds
+    submission["health_condition"] = preds["XGBoost"]
     submission["health_condition"] = submission["health_condition"].map(lambda idx: gb_pp.get_classes()[idx])
 
     id_col = sample_sub["id"]
