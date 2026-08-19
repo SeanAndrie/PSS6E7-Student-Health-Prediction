@@ -93,10 +93,10 @@ By the end of this workshop, participants will be able to:
    **Option A: Marimo Notebook (Interactive Python)**
    ```bash
    # To edit the notebook interactively:
-   marimo edit student-health-risk-walkthrough.py
+   uv run --with marimo marimo edit student-health-risk-walkthrough.py
 
    # To run the notebook as a web app:
-   marimo run student-health-risk-walkthrough.py
+   uv run --with marimo marimo run student-health-risk-walkthrough.py
    ```
 
    **Option B: Jupyter Notebook**
