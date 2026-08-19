@@ -1,0 +1,859 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.24.0",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "setup",
+      "code_hash": "7e088db23d53e3f178319e3fb8fb8894",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Hbol",
+      "code_hash": "69efa6a5f3e6e8f6385f54a90bcdffb7",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"ps-s6e7-predicting-student-health-risk-a-guided-walkthrough\">PS-S6E7 | Predicting Student Health Risk: A Guided Walkthrough</h1>\n<span class=\"paragraph\">This write-up covers a simple approach to the Kaggle Playground Series competition \"Predicting Student Health Risk\" (Season 6, Episode 7).</span>\n<h2 id=\"about-the-dataset\">About the dataset</h2>\n<span class=\"paragraph\">This dataset is a comprehensive student health dataset containing 50,000 records, created to capture the wide-ranging lifestyle, physiological, and psychological characteristics of college students. It is modeled on trends observed in large-scale student health studies conducted in China, ensuring realistic variation in daily habits and health-related attributes. The dataset integrates information collected from surveys, wearable devices, and institutional health records, encompassing lifestyle behaviors, psychological indicators, and time-series data.</span>\n<span class=\"paragraph\">Each record corresponds to a time-stamped observation, capturing how student habits and conditions change over time. The dataset integrates multiple dimensions of health, including physical activity, sleep behavior, mental well-being, Chronic Fatigue, and academic influences, providing a comprehensive view of factors affecting student health.</span>\n<h2 id=\"feature-information\">Feature information</h2>\n<ol>\n<li><strong>Categorical</strong><ul>\n<li><code>health_condition</code> - Target variable. Overall health classification of the student: Fit/At-Risk/Unhealthy</li>\n<li><code>diet_type</code> - The student's general eating pattern/category (e.g., balanced, high-carb, protein, junk food, vegetarian, etc.).</li>\n<li><code>smoking_alcohol</code> - Indicates whether the student smokes and/or consumes alcohol (e.g., None, Smoking only, Alcohol only, Both).</li>\n<li><code>gender</code> - The student's gender (e.g., Male, Female, Other).</li>\n</ul>\n</li>\n<li><strong>Ordinal</strong><ul>\n<li><code>sleep_quality</code> - A ranked rating of how restful/effective the student's sleep is (e.g., Poor -&gt; Fair -&gt; Good -&gt; Excellent).</li>\n<li><code>physical_activity_level</code> - A ranked category of how physically active the student is overall (e.g., Sedentary -&gt; Light -&gt; Moderate-&gt; Active -&gt; Very Active).</li>\n<li><code>stress_level</code> - A ranked measure of the student's perceived stress (e.g., Low -&gt; Moderate -&gt; High -&gt; Severe).</li>\n</ul>\n</li>\n<li><strong>Numerical</strong><ul>\n<li><code>sleep_duration</code> - Total hours of sleep per night.</li>\n<li><code>heart_rate</code> - Resting or average heart rate in beats per minute (bpm).</li>\n<li><code>bmi</code> - Body Mass Index.</li>\n<li><code>calorie_expenditure</code> - Estimated total calories burned per day.</li>\n<li><code>step_count</code> - Number of steps take per day.</li>\n<li><code>exercise_duration</code> - Total minutes spent in dedicated exercise/workout sessions per day.</li>\n<li><code>water_intake</code> - Daily water consumption.</li>\n</ul>\n</li>\n</ol></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "f6878fc1f3a6df4fc2cb027ad85a1d6b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"learning-objectives\">Learning Objectives</h2>\n<span class=\"paragraph\">By the end of this notebook, you will be able to:</span>\n<ol>\n<li><strong>Choose appropriate evaluation metrics</strong> for imbalanced classification problems</li>\n<li><strong>Implement balanced accuracy</strong> from scratch to understand how it differs from plain accuracy</li>\n<li><strong>Apply stratified K-Fold cross-validation</strong> to get reliable performance estimates with imbalanced classes</li>\n<li><strong>Use class weighting</strong> to handle severe class imbalance during model training</li>\n<li><strong>Compare model families</strong> under controlled conditions to identify the best performer</li>\n<li><strong>Engineer features</strong> to expose signal hidden in the raw representation</li>\n<li><strong>Interpret model predictions</strong> using SHAP values to understand feature importance</li>\n<li><strong>Build a complete ML pipeline</strong> from EDA through submission</li>\n</ol></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "268115e2706cac649d2cd4720aa51021",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"utilities\">Utilities</h2>\n<h3 id=\"preprocessor\"><code>Preprocessor</code></h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "5d8d93a91500562c27eb46de9eced449",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "d71e59b41591f5562e47da6226501d2b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"crossvalidator\"><code>CrossValidator</code></h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "b614faf343d1f1cffa1d6676f5d9edc6",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "37213500c6be20187b0002437aeee71c",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"load-data\">Load Data</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "885b6471ef4e80c39af56d0497e3ad12",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "417c14751c3561d750b395977c461f8c",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "f8cb37793cc55a0f96aebcda5bf4e802",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"1-exploratory-data-analysis\">1. Exploratory Data Analysis</h1>\n<span class=\"paragraph\">EDA allows practitioners to spot structural flaws like severe class imbalances and systematic missingness patterns early, directly dictating whether standard metrics are appropriate or if specialized evaluation strategies like Balanced Accuracy are required. Furthermore, analyzing feature distributions across target classes uncovers linear and non-linear separability, which justifies model choice (e.g., Logistic Regression vs. LightGBM) and guides essential preprocessing decisions such as scaling, imputation, and post-processing adjustments.</span>\n<h2 id=\"first-glances-at-the-data\">First glances at the data</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "56dbad05f90d4e2f7adbdd2ff0ff4b05",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "461728699d34a5e1c7420d2af9d03d6b",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "e502298e337f602d23276daa0c003791",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "83d66eedcb6d5f6fd9fdcb58b1d0097a",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "iLit",
+      "code_hash": "90173e6a4407c0223145a3e7abb5cbe4",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ZHCJ",
+      "code_hash": "4d24a9b2d0819b24ef22b41dd60eb3c6",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ROlb",
+      "code_hash": "72cd339bd1739b32e1a67c4b89277e93",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"target-analysis\">Target Analysis</h2>\n<span class=\"paragraph\">Start with the target. <code>health_condition</code> classifies each student into one of three buckets: <code>fit</code>, <code>at-risk</code>, or <code>unhealthy</code>. Let's look at how these three classes are distributed in the training data.</span>\n<h3 id=\"target-distribution\">Target Distribution</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "qnkX",
+      "code_hash": "f223722a3be34550186970d162a68cf6",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "TqIu",
+      "code_hash": "4dc13b4a0f1e2ec8a07d957b97a77e74",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Observations</strong>: That's a severe class imbalance. Nearly nine out of ten students fall into <code>at-risk</code>. This single fact should shape almost everything you do next, and it's why the competition's metric matters so much.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Vxnm",
+      "code_hash": "a0c606316f5b803bd91b10c6a9c0fd08",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"problem-framing-plain-accuracy-vs-balanced-accuracy\">\u2b50 <strong>Problem Framing</strong>: Plain accuracy vs. Balanced Accuracy</h2>\n<span class=\"paragraph\">The competition score submissions with <strong>Balanced Accuracy</strong>. Balanced accuracy averages the <em>recall</em> of each class instead of counting overall correct predictions. For <marimo-tex class=\"arithmatex\">||(K||)</marimo-tex> classes, balanced accuracy is equivalent to the <em>Macro-Averaged Recall</em> across all classes:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\text{Balanced Accuracy} = \\frac{1}{K}\\sum_{k=1}^{K}{\\text{Recall}_k}\n||]</marimo-tex><span class=\"paragraph\"><em>Recall</em> measures the ability of a model to find all actual positive instances, which is calculated as:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\text{Recall} = \\frac{TP}{TP + FN}\n||]</marimo-tex><span class=\"paragraph\">where,</span>\n<marimo-tex class=\"arithmatex\">||[\nTP\\rightarrow\\text{True Positives}\n||]</marimo-tex><marimo-tex class=\"arithmatex\">||[\nFN\\rightarrow\\text{False Negatives}\n||]</marimo-tex><span class=\"paragraph\">Imagine a model that just predicts <code>at-risk</code> for every single student, no matter what. Plain accuracy would reward that model with a score of 85.9%, since it happens to guess right most of the time. But its recall on <code>fit</code> is 0%, and its recall on <code>unhealthy</code> is 0%. Balanced accuracy averages those three recall values: (0 + 100 + 0)/3, which comes out to roughly 33.3%. That's barely better than random guessing across three classes. This tells you the metric will punish any model that leans on the majority class as a shortcut.</span>\n<span class=\"paragraph\"><strong>Exercise 1</strong>: Reimplement <code>balanced_accuracy</code> based on the description given above.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "DnEU",
+      "code_hash": "9510521a05a0b1b362c9928c091b4575",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ulZA",
+      "code_hash": "d938983b1ab473765b908bb934b9ff7e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ecfG",
+      "code_hash": "f8cb7ccae40e87033f2cf704203f8322",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Pvdt",
+      "code_hash": "0ea2639cfceee9b1291888bdbe65e64f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Observations</strong>:</span>\n<span class=\"paragraph\"><strong>Strong, clearly ordered relationships</strong></span>\n<ul>\n<li><code>sleep_duration</code>: Very clean separation. The boxes barely overlap.</li>\n<li><code>step_count</code>: Fit stands well apart from unhealthy/at-risk, which overlap heavily with each other.</li>\n<li><code>exercise_duration</code>: Similar pattern to <code>step_count</code>. Fit is clearly higher and tighter, while unhealthy and at-risk overlap substantially.</li>\n<li><code>bmi</code>: Monotonic and ordered. Though the boxes overlap quite a bit more than <code>sleep_duration</code>, it is still directionally informative.</li>\n</ul>\n<span class=\"paragraph\"><strong>Weak or negligible relationships</strong></span>\n<ul>\n<li><code>heart_rate</code>: The three boxes are nearly identical.</li>\n<li><code>calorie_expenditure</code>: Medians and IQRs are very close across all three classes with heavy overlap.</li>\n<li><code>water_intake</code>: Essentially identical distributions across all three groups.</li>\n</ul>\n<span class=\"paragraph\"><strong>Fit</strong> is the most distinct class, especially on <code>step_count</code> and <code>exercise_duration</code>. It's clearly separated from the two. <strong>Unhealthy</strong> vs <strong>At-Risk</strong> is the harder distinction since for several features (<code>step_count</code>, <code>calorie_expenditure</code>, <code>heart_rate</code>) their boxes overlap almost completely. This suggests that the model may struggle most to distinguish these two classes from each other.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ZBYS",
+      "code_hash": "f3fcc1bd33515196ed95d986d3d1ff50",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"target-correlation\">Target Correlation</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "aLJB",
+      "code_hash": "75f2e7dc24575627399362151b17c621",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "nHfw",
+      "code_hash": "aea6e74e15d2ad366f1a722ec43292e2",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Observations</strong>: Confirms some previous observations from viewing the feature distributions from the target.</span>\n<ul>\n<li><code>sleep_duration</code> and <code>bmi</code> show strong linear signals. This is consistent with the clean, monotonic separation in the box plots.</li>\n<li><code>heart_rate</code> and <code>water_intake</code> are essentially uncorrelated, matching the fully-overlapping boxplots.</li>\n<li><code>step_count</code> and <code>exercise_duration</code> show up as a weak-ish signal here, which <em>understates</em> their real value given what the boxplots showed (strong for separating \"fit\", weak for the other two classes).</li>\n</ul></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "xXTn",
+      "code_hash": "b41087a95faa9e1274bca0279e0b2837",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"missing-data\">Missing Data</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "AjVT",
+      "code_hash": "9ebd06502c2e236741aff9cec6fdd73b",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "pHFh",
+      "code_hash": "b7c4352c2777a8e40f26161769c587ff",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "NCOB",
+      "code_hash": "70793e563fe9e42c00a3f7353eee74b7",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "aqbW",
+      "code_hash": "b296d98a171a3baa59e2bf9c32ec92fb",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Observations</strong>:</span>\n<ul>\n<li>Nearly half of the dataset consists of missing values with about <strong>39.4%</strong> missing and <strong>60.6%</strong> overall.</li>\n<li>Missingness is low in absolute terms, but scattered across nearly every feature.</li>\n<li>There's a clear split between subjective/self-reported fields and objective/logged fields.</li>\n</ul>\n<span class=\"paragraph\">Looking at which features have high missing rates:</span>\n<ul>\n<li><code>stress_level</code>, <code>sleep_duration</code>, <code>sleep_quality</code>, <code>water_intake</code>, <code>calorie_expenditure</code>.</li>\n</ul>\n<span class=\"paragraph\">versus the lowest:</span>\n<ul>\n<li><code>diet_type</code>, <code>exercise_duration</code>, <code>bmi</code>, <code>step_count</code>, <code>heart_rate</code>.</li>\n</ul>\n<span class=\"paragraph\">The high-missing group tends to be things people self-report or that require wearable/consistent tracking, while the low-missing group looks more like fields that are either directly measured or mandatory intake questions.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TRpd",
+      "code_hash": "07bb63ce13bf4040b8bf2ecf474061d0",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"feature-distributions\">Feature Distributions</h2>\n<h3 id=\"numerical-features\">Numerical Features</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TXez",
+      "code_hash": "6360ca71d324d5449e1bbe8104855222",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "dNNg",
+      "code_hash": "74fff7330cb0cb5aea4d476b5f31d467",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"categorical-features\">Categorical Features</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "yCnT",
+      "code_hash": "6f1310deb6eb13d139415cb664b55a22",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "wlCL",
+      "code_hash": "5235f8b3210e80c9e39f19deeecba1e6",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"ordinal-features\">Ordinal Features</h3></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "kqZH",
+      "code_hash": "c7e3d76c54a9c4a01b0edf354e8462be",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "wAgl",
+      "code_hash": "f5730792f495dba22b85b23fbcbd29fc",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Observations</strong>: No visible distribution drift between train and test data.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "rEll",
+      "code_hash": "3f341044fbe4f7087ef025f222575044",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"2-cross-validation\">2. Cross-validation</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "dGlV",
+      "code_hash": "95dfbf387c57442d5a77515f3108d0e6",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"train_test_split-pit-falls\"><code>train_test_split</code> pit falls</h2>\n<span class=\"paragraph\">Using a single train-test split (such as an 80/20 split) is inadequate for validating machine learning models due to several key vulnerabilities. Let's see what these vulnerabilities are.</span>\n<span class=\"paragraph\">The cell below trains a <code>DecisionTreeClassifier</code> on different seed configurations of <code>train_test_split</code>.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SdmI",
+      "code_hash": "efefd600fd3f38eda27db5fabc5ee972",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "lgWD",
+      "code_hash": "dae2b63b58765b31c939fd333406b785",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">You may notice that the <strong>variance</strong> between validation scores across different random split seeds is quite high. High variance means that a model is extremely sensitive to the specific training samples it receives.</span>\n<ol>\n<li><strong>It signifies overfitting</strong></li>\n</ol>\n<span class=\"paragraph\">Instead of learning general underlying relationships (e.g., \"<em>students with lower sleep duration tend to have higher health risks</em>\"), a high-variance model memorizes the random noise, outliers, and peculiarities of its specific training set.</span>\n<ol start=\"2\">\n<li><strong>Evaluation Instability</strong></li>\n</ol>\n<ul>\n<li>If you run a single <code>train_test_split</code> with <code>random_state=42</code>, your model might score 88%</li>\n<li>If you change the seed to <code>random_state=123</code>, the score might plummet to 74%</li>\n</ul>\n<span class=\"paragraph\">Because performance fluctuates wildly depending on which samples ended up in the validation split, you cannot trust whether a high score reflects a genuinely good model just a \"lucky\" random split.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "yOPj",
+      "code_hash": "86f35ad3424cbc77a5b371daf3a28861",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "fwwy",
+      "code_hash": "737a855a5315171ff7c5fedee0a8bb85",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "LJZf",
+      "code_hash": "6266527577afe1c5156bde17ad299e27",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"k-fold-cross-validation-regular-vs-stratified\">\u2b50 <strong>K-Fold Cross-validation</strong>: Regular vs Stratified</h2>\n<span class=\"paragraph\">K-fold CV is a statistical validation technique used to evaluate how well a machine learning model generalizes to unseen data.</span>\n<span class=\"paragraph\">Instead of relying on a single train/validation split, the training dataset is randomly partitioned into <marimo-tex class=\"arithmatex\">||(K||)</marimo-tex> equal-sized subsets called <strong>folds</strong>.</span>\n<span class=\"paragraph\"><div class=\"language-text codehilite\"><pre><span></span><code>Entire Dataset (100%)\n\n \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n \u2502  Fold 1  \u2502  Fold 2  \u2502  Fold 3  \u2502  Fold 4  \u2502  Fold 5  \u2502\n \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\n\nIteration 1: [ Validate ] [   Train  ] [   Train  ] [   Train  ] [   Train  ]\nIteration 2: [   Train  ] [ Validate ] [   Train  ] [   Train  ] [   Train  ]\nIteration 3: [   Train  ] [   Train  ] [ Validate ] [   Train  ] [   Train  ]\n\n...\n</code></pre></div>\n<strong>Exercise 2</strong>: View the target distribution of each fold for <code>K-Fold</code> and <code>StratifiedKFold</code> with the following parameters:</span>\n<ul>\n<li><code>n_splits</code> : 5</li>\n<li><code>shuffle</code> : True</li>\n<li><code>random_state</code> : A random seed either from the config or your own (Make sure to use on both CV methods for consistency of results)</li>\n</ul>\n<details>\n    <summary><b>Hint</b></summary>\n    <code>KFold</code>:<a>https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.KFold.html</a>\n    <br>\n    <code>StratifiedKFold</code>:<a>https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.StratifiedKFold.html</a>\n</details></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "urSm",
+      "code_hash": "44ad8d2c227c3525fb437a1b49baf9b8",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "jxvo",
+      "code_hash": "ee4198aba29da2b966a2f55c62fafa69",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "mWxS",
+      "code_hash": "9f1abbda1e631ca0676c4d4608ecefc7",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "CcZR",
+      "code_hash": "7dc962444ee92bf18326bd48b2d2d600",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">For <strong>regular K-Fold</strong>, class proportions fluctuate slightly across folds. K-Fold partitions the data into <marimo-tex class=\"arithmatex\">||(K||)</marimo-tex> equal-sized chunks using a random permutation only \u2014 it never looks at the target. Each fold is therefore a <em>simple random sample</em> of the full dataset, so by ordinary sampling variation the shares of <code>fit</code> / <code>at-risk</code> / <code>unhealthy</code> drift a little around their population rates (here roughly 5.8% / 85.9% / 8.4%). Notice the cross-fold variance is not zero, e.g. <code>at-risk</code> ranges from 85.73% to 85.95%. This is expected: it is the same reason a coin flipped ten times rarely lands exactly 5-5.</span>\n<span class=\"paragraph\">For <strong>StratifiedKFold</strong>, the proportions are essentially identical across every fold (variance = 0.0000%). That is the whole point: it splits the data <em>within</em> each class first, then distributes each class's rows across the folds proportionally. Every fold therefore reproduces the overall target distribution as closely as the row counts allow, e.g. exactly 8.36% <code>unhealthy</code> in all five folds.</span>\n<span class=\"paragraph\"><strong>Why this matters</strong>: validation folds that mirror the population distribution yield more stable, representative estimates of model performance. With an imbalanced target, a lucky or unlucky regular K-Fold split could leave a fold with too few <code>fit</code> or <code>unhealthy</code> samples to evaluate fairly \u2014 and each fold's score would inherit that random wobble. Stratified K-Fold removes this source of variance, so any performance differences you observe between models are more likely to be real rather than artifacts of the split.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "YWSi",
+      "code_hash": "bba13ac57f31fe31c346cb32b1e42e96",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"3-modelling\">3. Modelling</h1>\n<span class=\"paragraph\">We now have everything we need to start training models: a way to measure performance that matches the competition metric (<code>balanced_accuracy</code>, Exercise 1) and a validation strategy that respects the class imbalance (<code>StratifiedKFold</code>, Exercise 2).</span>\n<span class=\"paragraph\">Before building anything clever, we establish a <strong>baseline</strong> \u2014 the simplest possible predictions \u2014 to set a floor that every real model must beat.</span>\n<span class=\"paragraph\"><strong>Exercise 3</strong>: Score two baselines under <code>StratifiedKFold</code> with the <code>balanced_accuracy</code> you implemented in Exercise 1:</span>\n<ol>\n<li><strong>Majority-class baseline</strong> \u2014 a model that always predicts the most common class (<code>at-risk</code>). Based on the Problem Framing discussion, what balanced accuracy do you expect it to get?</li>\n<li><strong>Vanilla <code>LogisticRegression</code></strong> \u2014 no tuning, no class weighting.</li>\n</ol>\n<span class=\"paragraph\">Use the same <code>StratifiedKFold(n_splits=5, shuffle=True, random_state=CONFIG[\"SEED\"])</code> from Exercise 2 and the notebook's <code>CrossValidator</code>.</span>\n<details>\n    <summary><b>Hint</b></summary>\n    <code>DummyClassifier(strategy=\"most_frequent\")</code>is the go-to majority baseline.\n</details></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "zlud",
+      "code_hash": "35199f55a6035050e638064bcf82bf77",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "tZnO",
+      "code_hash": "b3b07c13b00481c67b6c2fb00aea65db",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "xvXZ",
+      "code_hash": "fe434ebde02fa8f52991a61a65de8adf",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">The <strong>majority-class baseline</strong> scores around 33.3% balanced accuracy \u2014 exactly the 1/3 you would expect when the model only ever gets <code>at-risk</code> right. Its plain accuracy would be ~86%, which is precisely why the competition metric punishes it. The <strong>vanilla <code>LogisticRegression</code></strong> should clear that floor comfortably, even without any class weighting or tuning.</span>\n<span class=\"paragraph\">Everything from here on is measured against these two numbers: any serious model must beat the <code>LogisticRegression</code> baseline.</span>\n<span class=\"paragraph\">Although we now have a reliable cross-validation strategy, we still have to address the class imbalance of our target. This is important because models naturally develop a bias towards the majority class when trained on imbalance datasets.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "CLip",
+      "code_hash": "458cfefa789ce835e4d217d8b5d6260d",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"class-weights\">Class Weights</h2>\n<span class=\"paragraph\">How do we ensure that our model treats each class the same during training despite the imbalance? We give each class a penalty weight that matches the reverse of its sample count i.e., <strong>inverse-frequency class weights</strong>:</span>\n<marimo-tex class=\"arithmatex\">||[\nW_k = \\frac{N}{K \\times N_k}\n||]</marimo-tex><span class=\"paragraph\">where,</span>\n<marimo-tex class=\"arithmatex\">||[\nN \\rightarrow \\text{Total number of samples}\n||]</marimo-tex><marimo-tex class=\"arithmatex\">||[\nK \\rightarrow \\text{Total number of classes}\n||]</marimo-tex><marimo-tex class=\"arithmatex\">||[\nN_k \\rightarrow \\text{Samples in class } k\n||]</marimo-tex><span class=\"paragraph\">The cell below shows how you would calculate for class weights using <code>NumPy</code> and how they are applied onto model predictions.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "YECM",
+      "code_hash": "d53a0efd41abb426a1ab020adad2f642",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "cEAS",
+      "code_hash": "8d6f7f276b5037d64c77c4318db14cfb",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Exercise 4</strong>: Run a new cross-validation similar to that of exercise 3, except now enable the use of sample weights via the <code>sample_weight_fn</code> parameter of the <code>CrossValidator</code> class.</span>\n<details>\n    <summary><b>Hint</b></summary>\n    <code>functools.partial</code>:<a>https://www.learnpython.org/en/Partial_functions</a>\n    <br>\n    <code>compute_sample_weight</code>:<a>https://scikit-learn.org/stable/modules/generated/sklearn.utils.class_weight.compute_sample_weight.html</a>\n</details></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "iXej",
+      "code_hash": "3d65cee8954f525921847e19b3ca5483",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "EJmg",
+      "code_hash": "a52095db8efe08ef3ebf50b10d3ac616",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "UmEG",
+      "code_hash": "067b604ba1a92a0c02026b4c2c4d6ae7",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "vEBW",
+      "code_hash": "07520abd52df7f112f1589bfd12094d4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">The <strong>sample weights</strong> visibly changed the story. Compare the two baseline runs side by side:</span>\n<table>\n<thead>\n<tr>\n<th>Model</th>\n<th style=\"text-align: right;\">Balanced accuracy (unweighted)</th>\n<th style=\"text-align: right;\">Balanced accuracy (weighted)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>Majority Class</code></td>\n<td style=\"text-align: right;\">33.3%</td>\n<td style=\"text-align: right;\">33.3%</td>\n</tr>\n<tr>\n<td><code>LogisticRegression</code></td>\n<td style=\"text-align: right;\">80.97%</td>\n<td style=\"text-align: right;\">87.33%</td>\n</tr>\n<tr>\n<td><code>Constrained Decision Tree</code></td>\n<td style=\"text-align: right;\">84.75%</td>\n<td style=\"text-align: right;\">90.07%</td>\n</tr>\n</tbody>\n</table>\n<span class=\"paragraph\">The weights alter <em>what the model optimizes</em>, and the effect is dramatic:</span>\n<ol>\n<li><strong><code>LogisticRegression</code></strong> improves by <strong>~6.4 points</strong>. Unweighted, it \"wasted\" capacity trying to be perfect on the ~86% majority class; forcing it to care about every class equally translates directly into balanced accuracy.</li>\n<li><strong><code>Constrained Decision Tree</code></strong> improves by <strong>~5.3 points</strong>, reaching <strong>90.07%</strong> \u2014 the best score so far.</li>\n</ol>\n<span class=\"paragraph\">This is the trade-off from the Problem Framing discussion made concrete: weighted training <strong>trades plain accuracy for balanced accuracy</strong> \u2014 precisely what the competition metric rewards. Every serious model from here on is trained with sample weights.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "kLmu",
+      "code_hash": "7bdff0016c1f003f951145472d892348",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Exercise 5</strong>: The <code>Constrained Decision Tree</code> above used <code>max_depth=8, min_samples_leaf=500</code> \u2014 but how would we know that is a good choice, and why constrain the tree at all?</span>\n<span class=\"paragraph\">A tree's <strong>capacity</strong> controls how complex a decision boundary it can learn. Too little capacity <em>underfits</em> (high bias); too much capacity memorizes the training set and fails to generalize (high variance) \u2014 the exact pitfall from the <code>train_test_split</code> section.</span>\n<span class=\"paragraph\">Sweep the capacity and watch what happens to <strong>training vs. validation</strong> balanced accuracy:</span>\n<ol>\n<li>Vary <code>max_depth</code> while holding <code>min_samples_leaf=500</code>.</li>\n<li>Vary <code>min_samples_leaf</code> while holding <code>max_depth=8</code>.</li>\n</ol>\n<span class=\"paragraph\">Complete the <code>_evaluate</code> inner function by using the <code>balanced_accuracy</code> function that you made.</span>\n<span class=\"paragraph\">Use the same transformed data (<code>X_b</code>, <code>y_b</code>) and the same sample weights as <code>base_cv_2</code>.</span>\n<details>\n    <summary><b>Hint</b></summary>\n    The two curves expose the bias-variance trade-off: the <b>training</b> curve keeps climbing with capacity, while the <b>validation</b> curve peaks and then falls. The best capacity is where validation peaks \u2014 not where training looks best.\n</details></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "IpqN",
+      "code_hash": "c8a1e52c359b32567207e7aef575c7e1",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "dxZZ",
+      "code_hash": "32f9de7698aa4a5d3f3368edd1f5d16e",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"the-importance-of-experimentation\">The importance of experimentation</h3>\n<span class=\"paragraph\">Step back and look at how the Modelling section progressed. Every step changed <strong>exactly one thing</strong> while keeping the measurement strategy fixed \u2014 the same <code>StratifiedKFold</code>, the same <code>balanced_accuracy</code>, and (from Exercise 4 on) the same sample weights:</span>\n<table>\n<thead>\n<tr>\n<th>Stage</th>\n<th>The one thing changed</th>\n<th style=\"text-align: right;\">Best balanced accuracy</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1. Baselines (Exercise 3)</td>\n<td>\u2014</td>\n<td style=\"text-align: right;\">84.75% (<code>Constrained Tree</code>)</td>\n</tr>\n<tr>\n<td>2. Sample weights (Exercise 4)</td>\n<td>loss weighting</td>\n<td style=\"text-align: right;\">90.07% (<code>Constrained Tree</code>)</td>\n</tr>\n<tr>\n<td>3. Capacity sweep (Exercise 5)</td>\n<td>model capacity</td>\n<td style=\"text-align: right;\"><em>why</em> the tree is constrained</td>\n</tr>\n<tr>\n<td>4. Model comparison (next)</td>\n<td>model family</td>\n<td style=\"text-align: right;\">?</td>\n</tr>\n</tbody>\n</table>\n<span class=\"paragraph\">Because the folds and the metric never changed, each improvement is <strong>attributable to the single change</strong> \u2014 not to the luck of a different split.</span>\n<span class=\"paragraph\">Experimentation also means embracing <strong>negative results</strong>. Not every change pays off (feature engineering is next, and it will not move the needle), but a <em>controlled</em> negative result still teaches you something: it rules out a hypothesis and stops you from chasing a dead end. The discipline is always the same \u2014 change one variable, hold everything else fixed, and measure with the same metric and folds.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "dlnW",
+      "code_hash": "59cf7de599857e12256acf764d44a2c9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"model-comparison\">Model Comparison</h2>\n<span class=\"paragraph\">We have a strong baseline (~90% balanced accuracy). The next step is <strong>model comparison</strong>: train several <em>different</em> model families under <strong>identical conditions</strong> and let the validation strategy decide which one is best.</span>\n<h3 id=\"what-it-is\">What it is</h3>\n<span class=\"paragraph\">The <code>CrossValidator</code> is built exactly for this. A single <code>_trans</code> preprocessing pipeline, a single <code>StratifiedKFold</code>, a single metric list, and a single <code>sample_weight_fn</code> are shared across every candidate model \u2014 the only thing that varies is the <strong>model itself</strong>. Because all candidates see the same folds, the same preprocessing, and the same metric, the out-of-fold scores and confusion matrices are directly comparable.</span>\n<h3 id=\"why-we-do-it\">Why we do it</h3>\n<span class=\"paragraph\">No single algorithm wins on every dataset (the \"no free lunch\" theorem). Gradient boosted trees work very differently from a linear model:</span>\n<ul>\n<li><strong><code>LogisticRegression</code></strong> learns a single linear decision boundary \u2014 it cannot capture nonlinear interactions on its own.</li>\n<li><strong><code>XGBoost</code></strong>, <strong><code>LightGBM</code></strong>, and <strong><code>HistGradientBoost</code></strong> build an additive ensemble of shallow trees, so they model nonlinear interactions and missing values natively, and they are regularized \u2014 meaning they can use far more capacity than a single tree without the overfitting we just saw in Exercise 5.</li>\n<li><strong><code>LightGBM</code></strong> grows trees <em>leaf-wise</em> (XGBoost grows level-wise) and uses histogram-based binning, which is typically faster and often marginally more accurate on larger data.</li>\n</ul>\n<span class=\"paragraph\">The gap between the constrained tree (~90%) and the boosted models quantifies how much of the signal in the data is <em>nonlinear</em> \u2014 a ceiling the linear model could never reach, no matter how much you tuned it.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TTti",
+      "code_hash": "1ae69ac183870c0d1d5cb2ff6e55951f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><strong>Exercise 6</strong>: Now that we understand preprocessing, stratified K-Fold, and sample weights, let's put it all together. Set up a full cross-validation pipeline with the three gradient boosting models (<code>HistGradientBoostingClassifier</code>, <code>XGBClassifier</code>, <code>LGBMClassifier</code>) and run it on the training data.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "RKFZ",
+      "code_hash": "31941ecedf7c5ad6548378b8a22d692c",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "IaQp",
+      "code_hash": "373435b5bde67243f55b6337d75645cf",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "IWgg",
+      "code_hash": "661625efa84a7d36f4eb681016483a15",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "fCoF",
+      "code_hash": "3aac90e15f73e03384c680472efd9eaa",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\">All three boosted models clear the <code>Constrained Decision Tree</code> (90.07%) by a wide margin, landing at <strong>~95% balanced accuracy</strong>:</span>\n<table>\n<thead>\n<tr>\n<th>Model</th>\n<th style=\"text-align: right;\">Balanced accuracy</th>\n<th style=\"text-align: right;\">Macro F1</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>LightGBM</code></td>\n<td style=\"text-align: right;\">94.98%</td>\n<td style=\"text-align: right;\">86.41%</td>\n</tr>\n<tr>\n<td><code>XGBoost</code></td>\n<td style=\"text-align: right;\">94.96%</td>\n<td style=\"text-align: right;\">86.82%</td>\n</tr>\n<tr>\n<td><code>HistGradientBoost</code></td>\n<td style=\"text-align: right;\">94.94%</td>\n<td style=\"text-align: right;\">86.33%</td>\n</tr>\n</tbody>\n</table>\n<span class=\"paragraph\">The three are essentially tied on balanced accuracy \u2014 <code>LightGBM</code> a hair ahead \u2014 with <code>XGBoost</code> slightly stronger on macro F1. The ~5-point jump over the best weighted baseline is the value of a regularized nonlinear ensemble over a single tree.</span>\n<span class=\"paragraph\">The permutation-importance plot below tells us <em>which</em> features drive these predictions.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "LkGn",
+      "code_hash": "056fa601c04a5d25191cc703b1b120fe",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"permutation-importance\">Permutation Importance</h2>\n<span class=\"paragraph\"><strong>Permutation importance</strong> measures how much a model's performance drops when a\nsingle feature's values are randomly shuffled. If shuffling a feature causes a\nlarge drop in accuracy, that feature is important. If performance barely changes,\nthe model doesn't rely on it.</span>\n<h3 id=\"how-it-works\">How it works</h3>\n<ol>\n<li>Train a model and measure its baseline score on a validation set.</li>\n<li>For each feature, randomly shuffle its values (breaking the relationship\n   between the feature and the target).</li>\n<li>Re-score the model. The difference from the baseline is the feature's\n   importance.</li>\n</ol>\n<marimo-tex class=\"arithmatex\">||[\n\\text{Importance}_j = \\text{Score}_{\\text{baseline}} - \\text{Score}_{\\text{shuffled}_j}\n||]</marimo-tex><h3 id=\"why-use-it\">Why use it</h3>\n<ul>\n<li><strong>Model-agnostic</strong>: works with any model, not just tree-based.</li>\n<li><strong>Intuitive</strong>: directly answers <em>\"how much do I lose without this feature?\"</em></li>\n<li><strong>Accounts for interactions</strong>: a feature involved in interactions will show\n  high importance even if its individual effect is weak.</li>\n</ul>\n<h3 id=\"limitations\">Limitations</h3>\n<ul>\n<li><strong>Correlated features</strong>: if two features are highly correlated, shuffling one\n  can be partially compensated by the other, splitting importance between them.</li>\n<li><strong>Computationally expensive</strong>: requires re-scoring the model once per feature.</li>\n</ul></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "zVRe",
+      "code_hash": "fd06a38e41eecba2f1c81c3d5595afa8",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "woaO",
+      "code_hash": "76e34f787c7731604eca8192ff3f4f92",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "HnMC",
+      "code_hash": "1aff11de9b320e51e49fa111fa9709fb",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"interpreting-models-with-shap\">Interpreting Models with SHAP</h2>\n<span class=\"paragraph\"><strong>SHAP</strong> (SHapley Additive exPlanations) is a game-theoretic approach to explaining\npredictions. It asks: <em>\"If I remove each feature one at a time, how much\ndoes the prediction change?\"</em></span>\n<h3 id=\"how-it-works\">How it works</h3>\n<span class=\"paragraph\">For each prediction, SHAP computes a value <marimo-tex class=\"arithmatex\">||(\\phi_j||)</marimo-tex> for every feature <marimo-tex class=\"arithmatex\">||(j||)</marimo-tex>:</span>\n<marimo-tex class=\"arithmatex\">||[\n\\phi_j = \\text{prediction with feature } j - \\text{prediction without feature } j\n||]</marimo-tex><span class=\"paragraph\">Features that push the prediction higher get positive SHAP values; features that\npush it lower get negative values. The sum of all feature contributions equals the\ndifference from the model's average prediction.</span>\n<h3 id=\"reading-the-beeswarm-plot\">Reading the beeswarm plot</h3>\n<span class=\"paragraph\">Each dot represents a single prediction:</span>\n<ul>\n<li><strong>X-axis</strong> = SHAP value (how much that feature contributed)</li>\n<li><strong>Color</strong> = feature value (high = dark, low = light)</li>\n<li><strong>Y-axis</strong> = features ranked by importance</li>\n</ul>\n<span class=\"paragraph\">Features at the top have the largest impact. The spread of dots shows how the\nfeature's effect varies across predictions.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "wadT",
+      "code_hash": "af70a41aef11a4695e6ec6893548c05f",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "VCRE",
+      "code_hash": "0394ec835274c39734265625c848aa1b",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "hgqU",
+      "code_hash": "18b0afe752ebe6b354eae920807b427c",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "PSUk",
+      "code_hash": "1c66d3420ccbb2213218321fd3ed983b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"feature-engineering\">Feature Engineering</h2>\n<span class=\"paragraph\"><strong>Feature engineering</strong> is the act of <em>deriving new features from existing ones</em> to expose signal that the raw representation hides. Models are limited by the representation you give them \u2014 a well-chosen derived feature can do the work of many splits.</span>\n<span class=\"paragraph\">We add two derived features:</span>\n<table>\n<thead>\n<tr>\n<th>Feature</th>\n<th>Formula</th>\n<th>Rationale</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>steps_per_minute</code></td>\n<td><code>step_count / exercise_duration</code></td>\n<td><strong>Exercise intensity</strong> \u2014 normalizes total steps by how long the activity lasted.</td>\n</tr>\n<tr>\n<td><code>calories_per_step</code></td>\n<td><code>calorie_expenditure / step_count</code></td>\n<td><strong>Metabolic efficiency</strong> \u2014 normalizes energy burn by activity volume.</td>\n</tr>\n</tbody>\n</table></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "mfOT",
+      "code_hash": "1cbf0d656616ef818d7e8f2ea5bfa6da",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "vGiW",
+      "code_hash": "e364a9f8de56e947d4696ab21d7fe1f8",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><span class=\"paragraph\"><code>cv_2</code> is a <strong>controlled experiment</strong>: it reuses the exact same models, <code>StratifiedKFold</code>, metric list, and sample-weight function as <code>cv_1</code> \u2014 the <em>only</em> difference is that the training data now includes the engineered features (<code>train_fe</code>). Any change in <code>cv_2</code> relative to <code>cv_1</code> is attributable to feature engineering, and nothing else.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "SYQT",
+      "code_hash": "9875e0d21b712179d69570ffaae0abd4",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "bMrW",
+      "code_hash": "a1b9f78ae3f100d00354697b28a4a05c",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "PSQn",
+      "code_hash": "7db64d6fd4d6d3502532b6dda03c86d4",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "OfTS",
+      "code_hash": "26abf75c90ca15cf3e157b10ed4f733d",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "lQxp",
+      "code_hash": "db39037f6d2b1f36d6f1844dff75df50",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Plbk",
+      "code_hash": "00978cc1447a69627c6363da4eed60ec",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "rSYo",
+      "code_hash": "54f3354476434d0e01e7e996c00869d0",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "HuZB",
+      "code_hash": "72dba0c93b28b71c85f7516e71e03798",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"feature-engineering-the-controlled-verdict\">Feature engineering: the (controlled) verdict</h3>\n<span class=\"paragraph\">Compare <code>cv_1</code> (raw features) and <code>cv_2</code> (engineered):</span>\n<table>\n<thead>\n<tr>\n<th>Model</th>\n<th style=\"text-align: right;\">Balanced accuracy (raw)</th>\n<th style=\"text-align: right;\">Balanced accuracy (engineered)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>LightGBM</code></td>\n<td style=\"text-align: right;\">94.98%</td>\n<td style=\"text-align: right;\">95.00%</td>\n</tr>\n<tr>\n<td><code>XGBoost</code></td>\n<td style=\"text-align: right;\">94.96%</td>\n<td style=\"text-align: right;\">94.95%</td>\n</tr>\n<tr>\n<td><code>HistGradientBoost</code></td>\n<td style=\"text-align: right;\">94.94%</td>\n<td style=\"text-align: right;\">94.95%</td>\n</tr>\n</tbody>\n</table>\n<span class=\"paragraph\">The engineered features buy essentially nothing \u2014 <strong>+0.03 points</strong>, well within fold-to-fold noise. This is a <strong>negative result</strong>, and a valuable one:</span>\n<ul>\n<li>It is only interpretable <em>because</em> the experiment was controlled: identical folds, models, metric, and weights, with the data as the sole variable.</li>\n<li>The boosted models were already extracting the same signal from <code>sleep_duration</code>, <code>step_count</code>, and <code>exercise_duration</code> directly; the ratios add no information on top.</li>\n<li>It saved us from keeping two extra columns that complicate the pipeline for zero benefit.</li>\n</ul>\n<span class=\"paragraph\">This closes the experimentation loop: one change, measured fairly, verdict recorded \u2014 whether the outcome is positive or negative.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "WfYj",
+      "code_hash": "b9824f94f98bc4ef62369a8a93332887",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"4-creating-a-submission\">4. Creating a submission</h1></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Ynfw",
+      "code_hash": "dc25f47882647ad6a09d032c4441b294",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "LqFA",
+      "code_hash": "1422b00a262c746319ef3b54e5366556",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "uDnK",
+      "code_hash": "192f9600f011ef063b38ff3432136e48",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "aWBL",
+      "code_hash": "6d82cfd0c016219557b389fa5fec5fbc",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"5-where-to-go-from-here\">5. Where to Go from Here</h1>\n<span class=\"paragraph\">This notebook covered the core workflow: EDA, validation, baselines, model\ncomparison, feature engineering, and submission. Two important topics we did not\ncover in depth:</span>\n<h3 id=\"hyperparameter-tuning\">Hyperparameter Tuning</h3>\n<span class=\"paragraph\">The models we trained used default or lightly constrained settings. In practice,\ntuning hyperparameters (e.g., <code>learning_rate</code>, <code>n_estimators</code>, <code>max_depth</code> for\ngradient boosting) can yield meaningful improvements. Two common approaches:</span>\n<ul>\n<li><strong>Grid Search</strong>: exhaustively tries every combination of a predefined parameter\n  grid. Reliable but slow.</li>\n<li><strong>Random Search</strong>: samples random combinations from a distribution. Often finds\n  good settings faster than grid search when you have many parameters.</li>\n</ul>\n<span class=\"paragraph\">Scikit-learn's <code>GridSearchCV</code> and <code>RandomizedSearchCV</code> integrate directly with\ncross-validation, so you get a validated score for every parameter combination.</span>\n<span class=\"paragraph\"><code>optuna</code> is also common framework that is used for hyperparameter optimization by ML practitioners. Something worth looking into.</span>\n<h3 id=\"ensembling\">Ensembling</h3>\n<span class=\"paragraph\">Instead of picking a single best model, <strong>ensembling</strong> combines predictions from\nmultiple models to reduce variance and improve robustness. Common strategies:</span>\n<ul>\n<li><strong>Averaging</strong>: average the predicted probabilities of several models before\n  taking <code>argmax</code>.</li>\n<li><strong>Majority voting</strong>: each model casts a hard vote; the class with the most votes\n  wins.</li>\n<li><strong>Stacking</strong>: train a meta-learner on the out-of-fold predictions of base models.</li>\n</ul>\n<span class=\"paragraph\">Ensembling is one of the most reliable ways to squeeze out extra performance in\nKaggle competitions. Libraries like <code>VotingClassifier</code> and <code>StackingClassifier</code>\nin scikit-learn make this straightforward.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "MIsd",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    }
+  ]
+}
