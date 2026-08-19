@@ -10,8 +10,6 @@ The dataset contains 50,000 records of college students' lifestyle, physiologica
 
 ## Workshop Topics
 
-Refer to the contents of the walkthrough `.py` file for detailed coverage of:
-
 ### 1. Exploratory Data Analysis (EDA)
 - Target distribution analysis and class imbalance identification
 - Numerical feature distributions by target class
@@ -71,7 +69,6 @@ By the end of this workshop, participants will be able to:
 - `scikit-learn` - ML utilities and models
 - `xgboost`, `lightgbm` - Gradient boosting frameworks
 - `shap` - Model interpretability
-- `marimo` - Interactive notebook environment
 - `jupyter` - Jupyter notebook support (optional)
 
 ## Running the Walkthrough
@@ -99,15 +96,13 @@ By the end of this workshop, participants will be able to:
    uv run --with marimo marimo run student-health-risk-walkthrough.py
    ```
 
-   **Option B: Jupyter Notebook**
+   **Option B: Jupyter Notebook (Recommended)**
    ```bash
    # Navigate to the notebooks directory:
    cd __marimo__
 
    # Launch Jupyter and open the notebook:
    jupyter notebook student-health-risk-walkthrough.ipynb
-   # or
-   jupyter notebook full-writeup.ipynb
    ```
 
    **Option C: Google Colab (Cloud-based)**
@@ -121,7 +116,7 @@ By the end of this workshop, participants will be able to:
 
 ## Workshop Format
 
-This walkthrough is designed as a marimo notebook for interactive learning. The workshop includes:
+This walkthrough is designed as a Jupyter notebook for interactive learning. The workshop includes:
 
 - **Exercises**: Hands-on implementation tasks
 - **Visualizations**: Charts and plots for data understanding
