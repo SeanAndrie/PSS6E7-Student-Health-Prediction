@@ -11,7 +11,7 @@ with app.setup:
         subprocess.check_call([sys.executable, "-m", "pip", "install", *_pkgs])
     except Exception:
         subprocess.check_call(["uv", "pip", "install", *_pkgs])
-    
+
     import marimo as mo
     import os
     import shap
@@ -45,7 +45,6 @@ with app.setup:
     CONFIG = {
         "SEED": 42,
     }
-
 
 
 @app.cell(hide_code=True)
@@ -620,7 +619,7 @@ def _(train_data):
     ord_map = {
         'sleep_quality': ["poor", "average", "good"],
         "physical_activity_level": ["sedentary", "moderate", "active"],
-        "stress_level": ["high", "medium", "low"]
+        "stress_level": ["low", "medium", "high"]
     }
 
     ord_categories = list(ord_map.values())
@@ -741,6 +740,8 @@ def _():
     \text{Recall} = \frac{TP}{TP + FN}
     $$
 
+    i.e., of everything that was actually positive, how much did you catch?
+
     where,
 
     $$
@@ -750,7 +751,29 @@ def _():
     $$
     FN\rightarrow\text{False Negatives}
     $$
+    """)
+    return
 
+
+@app.cell(hide_code=True)
+def _():
+    mo.image(src="assets/precision-v-recall.png", width=800).center()
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
+    $$
+    \text{F1 Score} = 2 \times \frac{\text{Recall}\times\text{Precision}}{\text{Recall} + \text{Precision}} = \frac{2\text{TP}}{\text{2TP + FN + FP}}
+    $$
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _():
+    mo.md(r"""
     Imagine a model that just predicts `at-risk` for every single student, no matter what. Plain accuracy would reward that model with a score of 85.9%, since it happens to guess right most of the time. But its recall on `fit` is 0%, and its recall on `unhealthy` is 0%. Balanced accuracy averages those three recall values: (0 + 100 + 0)/3, which comes out to roughly 33.3%. That's barely better than random guessing across three classes. This tells you the metric will punish any model that leans on the majority class as a shortcut.
 
     **Exercise 1**: Reimplement `balanced_accuracy` based on the description given above.
@@ -799,7 +822,7 @@ def _(accuracy, flip_minority, train_data):
 
         # Add your code here ...
 
-        return recall / len(classes)
+        return 0.0
 
     y_true = pd.Series(train_data["health_condition"].astype("category").cat.codes, name="health_condition")
 
@@ -913,7 +936,7 @@ def _(ord_map, train_data):
 
         fig.suptitle("Target Correlation", y=1.07, size=18)
         return plt.gca()
-    
+
     _copy = encode_ordinal_data(train_data.drop("id", axis=1), ord_map)
 
     plot_target_correlation(_copy, "health_condition", {"unhealthy": 0, "at-risk": 1, "fit": 2})
@@ -1076,7 +1099,7 @@ def _(cat_cols, test_data, train_data):
         for i, col in enumerate(cat_cols):
             c0 = sns.countplot(train_data, x=col, hue=col, stat=stat, ax=axes[i, 0])
             c1 = sns.countplot(test_data, x=col, hue=col, stat=stat, ax=axes[i, 1])
-        
+
             for container in c0.containers:
                 axes[i, 0].bar_label(container, fmt="%.3f")
             for container in c1.containers:
@@ -1144,7 +1167,7 @@ def _(ord_cols, test_data, train_data):
         for i, col in enumerate(list(ord_mapping.keys())):
             set2 = plt.cm.Set2.colors
             colors = [set2[j] if cat != "nan" else "#bdc3c7" for j, cat in enumerate(train_cnts[col].keys())]
-    
+
             b0 = axes[i, 0].bar(x=list(train_cnts[col].keys()), height=list(train_cnts[col].values()), color=colors)
             b1 = axes[i, 1].bar(x=list(test_cnts[col].keys()), height=list(test_cnts[col].values()), color=colors)
             axes[i, 0].bar_label(b0, labels=[f"{v:.3f}" for v in train_cnts[col].values()])
@@ -1192,7 +1215,7 @@ def _():
     mo.md(r"""
     ## `train_test_split` pit falls
 
-    Using a single train-test split (such as an 80/20 split) is inadequate for validating machine learning models due to several key vulnerabilities. Let's see what these vulnerabilities are.
+    Using a single train-test split (such as an 80/20 split) is inadequate for validating machine learning models, even when scores appear stable across random seeds. Let's see why.
 
     The cell below trains a `DecisionTreeClassifier` on different seed configurations of `train_test_split`.
     """)
@@ -1272,17 +1295,25 @@ def _(balanced_accuracy, cat_cols, ord_categories, ord_cols, train_data):
 @app.cell(hide_code=True)
 def _():
     mo.md(r"""
-    You may notice that the **variance** between validation scores across different random split seeds is quite high. High variance means that a model is extremely sensitive to the specific training samples it receives.
+    You may notice that the scores are actually quite **stable** across different seeds — the variance is small. With 50,000 rows, random splits tend to produce similar class distributions by the law of large numbers. But stable scores do **not** mean a single split is trustworthy. Here are the real pitfalls:
 
-    1. **It signifies overfitting**
+    1. **No guarantee of representative class distribution**
 
-    Instead of learning general underlying relationships (e.g., "*students with lower sleep duration tend to have higher health risks*"), a high-variance model memorizes the random noise, outliers, and peculiarities of its specific training set.
+    Without stratification, random splits can produce validation sets where minority classes (`fit` at ~5.8%, `unhealthy` at ~8.4%) are under- or over-represented. With smaller datasets, this effect is even more pronounced. Even with large datasets, you have no control over whether the split reflects the true population proportions — you are relying on chance.
 
-    2. **Evaluation Instability**
-    - If you run a single `train_test_split` with `random_state=42`, your model might score 88%
-    - If you change the seed to `random_state=123`, the score might plummet to 74%
+    2. **No statistical confidence interval**
 
-    Because performance fluctuates wildly depending on which samples ended up in the validation split, you cannot trust whether a high score reflects a genuinely good model just a "lucky" random split.
+    A single split gives you one score with no measure of uncertainty. You cannot say whether a balanced accuracy of 85% is genuinely different from 83% — the difference could easily be noise. Cross-validation provides K independent estimates, letting you compute a mean and standard deviation that quantify how reliable the score actually is.
+
+    3. **A single score conflates luck with quality**
+
+    If your validation set happens to contain easier or harder examples than the population, the score will be biased in that direction. With K-fold CV, each sample is used for validation exactly once, so lucky and unlucky folds average out.
+
+    4. **Irreproducible model selection**
+
+    If you use a single split to pick between two similar models, the choice depends on which specific samples landed in validation. A different seed could reverse the decision. Cross-validation reduces this risk because every model is evaluated on the same folds.
+
+    In short: even when scores look stable, a single split lacks the statistical rigor needed to trust your evaluation.
     """)
     return
 
@@ -1507,15 +1538,8 @@ def view_confusion_matrices(
     return plt.gca()
 
 
-@app.cell
-def _(
-    balanced_accuracy,
-    cat_cols,
-    num_cols,
-    ord_categories,
-    ord_cols,
-    train_data,
-):
+app._unparsable_cell(
+    r"""
     _trans = ColumnTransformer(
         transformers=[
             # Numerical Pipeline
@@ -1561,7 +1585,7 @@ def _(
         models=base_models,
         metric_fns=[("balanced_accuracy", balanced_accuracy)],
         verbose=True,
-        cv_method=StratifiedKFold(n_splits=5, shuffle=True, random_state=CONFIG["SEED"]) # Add CV method here ...
+        cv_method= # Add CV method here ...
     )
 
     base_cv_1.fit(X_b["train"], y_b["train"])
@@ -1569,7 +1593,9 @@ def _(
     view_confusion_matrices(
         base_cv_1, X_b, y_b, 3, labels=base_pp.get_classes(), figsize=(15, 15)
     )
-    return X_b, y_b
+    """,
+    name="_"
+)
 
 
 @app.cell(hide_code=True)
@@ -1746,9 +1772,9 @@ def _(X_b, y_b):
         fixed_min_samples_leaf: int = 500,
         seed: int = 42,
     ) -> tuple[dict, dict]:
-    
+
         weights = compute_sample_weight("balanced", y["train"])
-    
+
         def _evaluate(clf) -> dict[str, float]:
             # Add your code here ...
             clf.fit(X["train"], y["train"], sample_weight= ...)
@@ -2030,44 +2056,49 @@ def _():
 
     Features at the top have the largest impact. The spread of dots shows how the
     feature's effect varies across predictions.
+
+    /// warning
+    Do be aware that SHAP plots can take some time to render, run the cells at your own risk.
     """)
+    return
+
+
+@app.function
+def per_class_shap_beeswarm(
+    model, 
+    X, y, 
+    classes, 
+    title=None,
+    figsize=(15, 20)
+):
+    explainer = shap.TreeExplainer(model)
+    shap_exp = explainer(X["valid"])
+
+    fig, axes = plt.subplots(nrows=len(classes), ncols=1, figsize=figsize)
+    for i, cls in enumerate(classes):
+        shap.plots.beeswarm(shap_exp[:, :, i], ax=axes[i], show=False, plot_size=None)
+        axes[i].set_title(cls)
+
+    fig.suptitle(title, y=1.01)
+    fig.tight_layout()
+    return plt.gca()
+
+
+@app.cell
+def _(X_1, cv_1, pp_1, y_1):
+    per_class_shap_beeswarm(cv_1.get_models()[0][1], X_1, y_1, pp_1.get_classes(), title="HistGradientBoost Shap Values Per Class")
     return
 
 
 @app.cell
 def _(X_1, cv_1, pp_1, y_1):
-    def per_class_shap_beeswarm(
-        model, 
-        X, y, 
-        classes, 
-        title=None,
-        figsize=(15, 20)
-    ):
-        explainer = shap.TreeExplainer(model)
-        shap_exp = explainer(X["valid"])
-
-        fig, axes = plt.subplots(nrows=len(classes), ncols=1, figsize=figsize)
-        for i, cls in enumerate(classes):
-            shap.plots.beeswarm(shap_exp[:, :, i], ax=axes[i], show=False, plot_size=None)
-            axes[i].set_title(cls)
-
-        fig.suptitle(title, y=1.01)
-        fig.tight_layout()
-        return plt.gca()
-
-    per_class_shap_beeswarm(cv_1.get_models()[0][1], X_1, y_1, pp_1.get_classes(), title="LightGBM Shap Values Per Class")
-    return (per_class_shap_beeswarm,)
-
-
-@app.cell
-def _(X_1, cv_1, per_class_shap_beeswarm, pp_1, y_1):
     per_class_shap_beeswarm(cv_1.get_models()[1][1], X_1, y_1, pp_1.get_classes(), title="XGBoost Shap Values Per Class")
     return
 
 
 @app.cell
-def _(X_1, cv_1, per_class_shap_beeswarm, pp_1, y_1):
-    per_class_shap_beeswarm(cv_1.get_models()[2][1], X_1, y_1, pp_1.get_classes(), title="HistGradientBoost Shap Values Per Class")
+def _(X_1, cv_1, pp_1, y_1):
+    per_class_shap_beeswarm(cv_1.get_models()[2][1], X_1, y_1, pp_1.get_classes(), title="LightGBM Shap Values Per Class")
     return
 
 
@@ -2173,20 +2204,20 @@ def _(X_2, cv_2):
 
 
 @app.cell
-def _(X_2, cv_2, per_class_shap_beeswarm, pp_2, y_2):
-    per_class_shap_beeswarm(cv_2.get_models()[0][1], X_2, y_2, classes=pp_2.get_classes(), title="LightGBM Shap Values Per Class")
+def _(X_2, cv_2, pp_2, y_2):
+    per_class_shap_beeswarm(cv_2.get_models()[0][1], X_2, y_2, classes=pp_2.get_classes(), title="HistGradientBoost Shap Values Per Class")
     return
 
 
 @app.cell
-def _(X_2, cv_2, per_class_shap_beeswarm, pp_2, y_2):
+def _(X_2, cv_2, pp_2, y_2):
     per_class_shap_beeswarm(cv_2.get_models()[1][1], X_2, y_2, classes=pp_2.get_classes(), title="XGBoost Shap Value Per Class")
     return
 
 
 @app.cell
-def _(X_2, cv_2, per_class_shap_beeswarm, pp_2, y_2):
-    per_class_shap_beeswarm(cv_2.get_models()[2][1], X_2, y_2, classes=pp_2.get_classes(), title="HistGradientBoost Shap Values Per Class")
+def _(X_2, cv_2, pp_2, y_2):
+    per_class_shap_beeswarm(cv_2.get_models()[2][1], X_2, y_2, classes=pp_2.get_classes(), title="LightGBM Shap Values Per Class")
     return
 
 
@@ -2260,13 +2291,12 @@ def _(
     pp_full.encode_target()
     X, y = pp_full.get_split()
 
-    best_model = models_1[1][1]
+    best_model = clone(models_1[2][1]) # LightGBM
     best_model.fit(X, y, sample_weight=compute_sample_weight("balanced", y))
 
     X_test = pp_full.transform(test_fe)
     preds = best_model.predict(X_test)
     labels = pp_full._label_encoder.inverse_transform(preds)
-
     return labels, preds
 
 
@@ -2279,15 +2309,15 @@ def _(labels, preds, sample_sub):
         sub.drop("id", axis=1, inplace=True)
         sub.index = id_col
         return sub
-    
+
     sub = create_submission(sample_sub, "health_condition", labels, preds)
     sub.head()
-    return (sub,)
+    return
 
 
 @app.cell
-def _(sub):
-    sub.to_csv()
+def _():
+    # sub.to_csv()
     return
 
 
@@ -2331,11 +2361,6 @@ def _():
     Kaggle competitions. Libraries like `VotingClassifier` and `StackingClassifier`
     in scikit-learn make this straightforward.
     """)
-    return
-
-
-@app.cell
-def _():
     return
 
 
